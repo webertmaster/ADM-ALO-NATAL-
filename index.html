@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alô Natal - Painel do Administrador</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { background-color: #f0f4f8; color: #333; display: flex; min-height: 100vh; }
+        
+        /* Layout Lateral (Menu) */
+        .sidebar { width: 260px; background-color: #002b49; color: white; padding: 20px; display: flex; flex-direction: column; gap: 20px; }
+        .sidebar h2 { color: #ffc107; font-size: 22px; text-align: center; margin-bottom: 10px; }
+        .admin-badge { background: rgba(255,255,255,0.1); padding: 15px; border-radius: 10px; text-align: center; }
+        .admin-badge p { font-size: 12px; color: #aaa; text-transform: uppercase; }
+        .admin-badge h3 { font-size: 18px; margin-top: 5px; color: #fff; }
+        
+        /* Conteúdo Principal */
+        .main-content { flex: 1; padding: 30px; overflow-y: auto; }
+        .main-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; border-bottom: 2px solid #d0d7de; padding-bottom: 15px; }
+        .main-header h1 { color: #005b96; font-size: 28px; }
+        
+        /* Cards de Resumo */
+        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin-bottom: 30px; }
+        .stat-card { background: white; padding: 20px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); border-top: 4px solid #005b96; }
+        .stat-card p { font-size: 14px; color: #666; }
+        .stat-card h2 { font-size: 30px; color: #333; margin-top: 5px; }
+
+        /* Seções de Ação */
+        .action-box { background: white; padding: 25px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); margin-bottom: 30px; }
+        .section-title { font-size: 18px; color: #002b49; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center; }
+        
+        /* Formulário Simples de Cadastro */
+        .form-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 15px; margin-bottom: 15px; }
+        .form-group { display: flex; flex-direction: column; gap: 5px; }
+        .form-group label { font-size: 13px; font-weight: bold; color: #555; }
+        .form-group input, .form-group select { padding: 10px; border: 1px solid #ccc; border-radius: 6px; font-size: 14px; }
+        
+        /* Botões */
+        .btn { padding: 10px 15px; border: none; border-radius: 6px; font-weight: bold; cursor: pointer; font-size: 14px; transition: background 0.2s; }
+        .btn-success { background-color: #2e7d32; color: white; }
+        .btn-success:hover { background-color: #1b5e20; }
+        .btn-action { padding: 5px 10px; font-size: 12px; margin-right: 5px; border-radius: 4px; }
+        .btn-credit { background-color: #ff9100; color: white; }
+        .btn-block { background-color: #c62828; color: white; }
+        .btn-remove { background-color: #333; color: white; }
+
+        /* Tabela de Profissionais */
+        .data-table { width: 100%; border-collapse: collapse; background: white; border-radius: 8px; overflow: hidden; }
+        .data-table th, .data-table td { padding: 15px; text-align: left; border-bottom: 1px solid #eee; }
+        .data-table th { background-color: #005b96; color: white; font-size: 14px; text-transform: uppercase; }
+        .data-table tr:hover { background-color: #f9fbfd; }
+        .badge-status { padding: 4px 8px; border-radius: 12px; font-size: 12px; font-weight: bold; }
+        .status-ativo { background-color: #e8f5e9; color: #2e7d32; }
+    </style>
+</head>
+<body>
+
+    <div class="sidebar">
+        <h2>☀️ Alô Natal</h2>
+        <div class="admin-badge">
+            <p>Seu Saldo Admin</p>
+            <h3>♾️ Créditos</h3>
+        </div>
+        <div style="margin-top: 20px; font-size: 14px; color: #8da2b4;">
+            <p style="padding: 10px 0; border-bottom: 1px solid #003f6b; cursor: pointer; color: #ffc107;">📊 Dashboard</p>
+            <p style="padding: 10px 0; border-bottom: 1px solid #003f6b; cursor: pointer;">👷‍♂️ Profissionais</p>
+            <p style="padding: 10px 0; border-bottom: 1px solid #003f6b; cursor: pointer;">📈 Configurar Preços</p>
+        </div>
+    </div>
+
+    <div class="main-content">
+        <div class="main-header">
+            <h1>Painel de Controle Geral</h1>
+            <span style="font-size: 14px; color: #666;">Modo Administrador Ativo</span>
+        </div>
+
+        <div class="stats-grid">
+            <div class="stat-card">
+                <p>Profissionais Ativos</p>
+                <h2>24</h2>
+            </div>
+            <div class="stat-card" style="border-top-color: #ff9100;">
+                <p>Créditos em Circulação</p>
+                <h2>380 🪙</h2>
+            </div>
+            <div class="stat-col" style="display:none;"></div>
+        </div>
+
+        <div class="action-box">
+            <div class="section-title">
+                <span>➕ Cadastrar Novo Profissional (Clube Fechado)</span>
+            </div>
+            <form onsubmit="event.preventDefault(); alert('Profissional cadastrado no banco de dados com sucesso!');">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Nome do Profissional</label>
+                        <input type="text" placeholder="Ex: Seu Jorge" required>
+                    </div>
+                    <div class="form-group">
+                        <label>WhatsApp / Celular</label>
+                        <input type="text" placeholder="(84) 99999-9999" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Categoria</label>
+                        <select required>
+                            <option value="Eletricista">Eletricista (R$ 15/crédito)</option>
+                            <option value="Diarista">Diarista (R$ 12/crédito)</option>
+                            <option value="Gesseiro">Gesseiro (R$ 18/crédito)</option>
+                            <option value="Pedreiro">Pedreiro (R$ 18/crédito)</option>
+                        </select>
+                    </div>
+                    <div class="form-group" style="justify-content: flex-end;">
+                        <button type="submit" class="btn btn-success" style="height: 41px;">Salvar Cadastro</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <div class="action-box">
+            <div class="section-title">
+                <span>👥 Gerenciar Carteira e Acesso dos Parceiros</span>
+            </div>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Nome</th>
+                        <th>Categoria</th>
+                        <th>Saldo Atual</th>
+                        <th>Status</th>
+                        <th>Ações Administrativas</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><b>Seu Jorge</b></td>
+                        <td>Eletricista Residencial</td>
+                        <td>5 Créditos</td>
+                        <td><span class="badge-status status-ativo">Ativo</span></td>
+                        <td>
+                            <button class="btn btn-action btn-credit" onclick="alert('Adicionar créditos manuais para Seu Jorge')">+ Inserir Créditos</button>
+                            <button class="btn btn-action btn-block" onclick="alert('Bloquear acesso temporariamente')">Bloquear</button>
+                            <button class="btn btn-action btn-remove" onclick="confirm('Tem certeza que deseja REMOVER esse profissional definitivamente do clube?')">Remover</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><b>Maria da Silva</b></td>
+                        <td>Diarista / Faxineira</td>
+                        <td>12 Créditos</td>
+                        <td><span class="badge-status status-ativo">Ativo</span></td>
+                        <td>
+                            <button class="btn btn-action btn-credit" onclick="alert('Adicionar créditos manuais para Maria')">+ Inserir Créditos</button>
+                            <button class="btn btn-action btn-block" onclick="alert('Bloquear acesso temporariamente')">Bloquear</button>
+                            <button class="btn btn-action btn-remove" onclick="confirm('Tem certeza que deseja REMOVER esse profissional definitivamente do clube?')">Remover</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</body>
+</html>
