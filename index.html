@@ -54,6 +54,8 @@
         .btn { padding: 12px 20px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; font-size: 14px; transition: background 0.2s; text-transform: uppercase; }
         .btn-success { background-color: #2e7d32; color: white; }
         .btn-success:hover { background-color: #1b5e20; }
+        .btn-primary { background-color: #005b96; color: white; }
+        .btn-primary:hover { background-color: #003f6b; }
         .btn-danger { background-color: #c62828; color: white; padding: 6px 12px; font-size: 12px; border-radius: 6px; }
 
         /* Tabelas */
@@ -72,6 +74,11 @@
         
         .btn-confirm-credits { background: #e65100; color: white; border: none; padding: 8px 12px; border-radius: 20px; font-size: 12px; font-weight: bold; cursor: pointer; margin-left: 5px; text-transform: uppercase; }
         .btn-confirm-credits:hover { background: #bf360c; }
+        
+        /* Input de Preço Customizado */
+        .price-input-wrapper { display: flex; align-items: center; background: #f9fbfd; border: 1px solid #ccc; border-radius: 6px; overflow: hidden; width: fit-content; }
+        .price-input-wrapper span { background: #eef2f5; padding: 8px 10px; color: #555; font-weight: bold; font-size: 14px; border-right: 1px solid #ccc; }
+        .price-input { border: none; padding: 8px; width: 70px; font-size: 14px; font-weight: bold; color: #333; outline: none; }
     </style>
 </head>
 <body>
@@ -87,6 +94,9 @@
         <div style="margin-top: 10px; font-size: 14px; display: flex; flex-direction: column; gap: 5px;">
             <p class="menu-item active" id="menu-dash" onclick="navegarPara('dashboard')">📊 Dashboard Master</p>
             <p class="menu-item" id="menu-cadastro" onclick="navegarPara('cadastro')">🤝 Cadastrar Revenda</p>
+            
+            <p class="menu-item" id="menu-precos" onclick="navegarPara('precos')">📈 Tabela de Preços</p>
+            
             <p class="menu-item" onclick="alert('Tela de Profissionais Diretos em desenvolvimento')">👷‍♂️ Profissionais Diretos</p>
         </div>
     </div>
@@ -183,18 +193,69 @@
             </div>
         </div>
 
+        <div id="view-precos" class="panel-view">
+            <div class="action-box">
+                <div class="section-title">📈 Ajustar Custos dos Serviços</div>
+                <p style="font-size: 14px; margin-bottom: 20px; color: #666;">Defina o valor em Reais (R$) que o aplicativo cobrará do profissional por cada serviço. O sistema dividirá pela base <b>(1 Crédito = R$ 12,00)</b> e converterá automaticamente.</p>
+                
+                <div class="table-container">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Categoria</th>
+                                <th>Valor do Serviço (R$)</th>
+                                <th>Peso no Aplicativo</th>
+                                <th>Ação</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>🧹 Diarista / Faxineira</td>
+                                <td>
+                                    <div class="price-input-wrapper">
+                                        <span>R$</span>
+                                        <input type="number" id="preco-diarista" value="12.00" step="0.50" class="price-input">
+                                    </div>
+                                </td>
+                                <td><span id="calc-diarista" style="font-weight: bold; color: #e65100; font-size: 16px;">1</span> Crs</td>
+                                <td><button class="btn btn-primary" style="padding: 6px 12px; font-size: 12px;" onclick="salvarNovoPreco('diarista', 'Diarista')">Salvar</button></td>
+                            </tr>
+
+                            <tr>
+                                <td>⚡ Eletricista Residencial</td>
+                                <td>
+                                    <div class="price-input-wrapper">
+                                        <span>R$</span>
+                                        <input type="number" id="preco-eletricista" value="15.00" step="0.50" class="price-input">
+                                    </div>
+                                </td>
+                                <td><span id="calc-eletricista" style="font-weight: bold; color: #e65100; font-size: 16px;">1,25</span> Crs</td>
+                                <td><button class="btn btn-primary" style="padding: 6px 12px; font-size: 12px;" onclick="salvarNovoPreco('eletricista', 'Eletricista')">Salvar</button></td>
+                            </tr>
+
+                            <tr>
+                                <td>🧱 Pedreiro</td>
+                                <td>
+                                    <div class="price-input-wrapper">
+                                        <span>R$</span>
+                                        <input type="number" id="preco-pedreiro" value="18.00" step="0.50" class="price-input">
+                                    </div>
+                                </td>
+                                <td><span id="calc-pedreiro" style="font-weight: bold; color: #e65100; font-size: 16px;">1,5</span> Crs</td>
+                                <td><button class="btn btn-primary" style="padding: 6px 12px; font-size: 12px;" onclick="salvarNovoPreco('pedreiro', 'Pedreiro')">Salvar</button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
     </div>
 </div>
 
 <script>
-    // Memória global simulada para manter as revendas ativas na tabela
-    let dadosRevendas = [
-        { id: 1, nome: "Revenda Alecrim (Primo)", regiao: "Alecrim / Leste", whats: "(84) 98888-7777", saldo: 150.00 }
-    ];
-
-    // Função de Troca de Telas (Navegação dinâmica)
+    // Navegação Dinâmica de Telas
     function navegarPara(tela) {
-        // Remove a classe ativa de todas as visões e botões do menu
         document.querySelectorAll('.panel-view').forEach(view => view.classList.remove('active'));
         document.querySelectorAll('.menu-item').forEach(item => item.classList.remove('active'));
         
@@ -207,7 +268,34 @@
             document.getElementById('menu-cadastro').classList.add('active');
             document.getElementById('page-title').innerText = "Parcerias & Expansão";
             document.getElementById('add-nome-revenda').focus();
+        } else if (tela === 'precos') {
+            document.getElementById('view-precos').classList.add('active');
+            document.getElementById('menu-precos').classList.add('active');
+            document.getElementById('page-title').innerText = "Configuração de Valores";
         }
+    }
+
+    // A Mágica Matemática da Tabela de Preços
+    function salvarNovoPreco(idCampo, nomeCategoria) {
+        // Pega o valor digitado (Ex: 18.00)
+        let valorReais = parseFloat(document.getElementById(`preco-${idCampo}`).value);
+        
+        if (isNaN(valorReais) || valorReais <= 0) {
+            alert("Por favor, insira um valor válido.");
+            return;
+        }
+
+        // A Matemática Central do Sistema: Valor / 12
+        let valorMoedaBase = 12.00;
+        let calculoCreditos = valorReais / valorMoedaBase;
+        
+        // Formatação limpa (Tira o .00 se for inteiro, ex: 1, ou mantém os decimais, ex: 1,5)
+        let creditosFinais = Number.isInteger(calculoCreditos) ? calculoCreditos : calculoCreditos.toFixed(2);
+        
+        // Atualiza a visualização substituindo ponto por vírgula
+        document.getElementById(`calc-${idCampo}`).innerText = creditosFinais.toString().replace('.', ',');
+        
+        alert(`⚙️ Valor Atualizado!\n\nA categoria ${nomeCategoria} agora custará R$ ${valorReais.toFixed(2).replace('.',',')}.\nO sistema debitará automaticamente ${creditosFinais.toString().replace('.',',')} Créditos do profissional.`);
     }
 
     // Função do Contador Inteligente [-] [ Input ] [+]
@@ -215,7 +303,6 @@
         const input = document.getElementById(inputId);
         let valorAtual = parseFloat(input.value) || 0;
         valorAtual += valor;
-        
         if (valorAtual < 0) valorAtual = 0;
         input.value = Number.isInteger(valorAtual) ? valorAtual : valorAtual.toFixed(2);
     }
@@ -224,7 +311,6 @@
     function atualizarSaldo(id) {
         const inputCrs = document.getElementById(`input-revenda-${id}`);
         const saldoElemento = document.getElementById(`saldo-revenda-${id}`);
-        
         let quantidadeAlterar = parseFloat(inputCrs.value) || 0;
         let textoSaldoAtual = saldoElemento.innerText.replace(',', '.');
         let saldoAtual = parseFloat(textoSaldoAtual) || 0;
@@ -235,7 +321,6 @@
         }
 
         let novoSaldo = saldoAtual + quantidadeAlterar;
-        
         let saldoFormatado = novoSaldo.toFixed(2).replace('.', ',');
         if (saldoFormatado.endsWith(',00')) {
             saldoFormatado = saldoFormatado.replace(',00', '');
@@ -246,14 +331,13 @@
         inputCrs.value = 10; 
     }
 
-    // Criação dinâmica de uma nova linha de revenda e retorno automático para o dashboard
+    // Criação dinâmica de revenda
     let contadorRevendas = 1;
     function criarNovaRevenda() {
         contadorRevendas++;
         const nome = document.getElementById('add-nome-revenda').value;
         const whats = document.getElementById('add-whats-revenda').value;
         const regiao = document.getElementById('add-regiao-revenda').value;
-        
         const tabela = document.getElementById('tabela-revendas');
         const novaLinhaId = `linha-revenda-${contadorRevendas}`;
         const inputId = `input-revenda-${contadorRevendas}`;
@@ -283,14 +367,10 @@
         
         tabela.appendChild(novaLinha);
         document.getElementById('total-revendas').innerText = contadorRevendas;
-        
-        // Limpa formulário
         document.getElementById('add-nome-revenda').value = '';
         document.getElementById('add-whats-revenda').value = '';
         
         alert(`🤝 Revenda de ${nome} criada com sucesso no sistema! Redirecionando para o painel...`);
-        
-        // Retorna automaticamente para o Dashboard para ver a nova revenda listada lá!
         navegarPara('dashboard');
     }
 
