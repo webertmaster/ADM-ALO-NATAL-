@@ -19,6 +19,11 @@
         .admin-badge p { font-size: 12px; color: #aaa; text-transform: uppercase; }
         .admin-badge h3 { font-size: 24px; margin-top: 5px; color: #fff; }
         
+        /* Itens do Menu Lateral */
+        .menu-item { padding: 10px; cursor: pointer; transition: 0.2s; color: #8da2b4; border-radius: 6px; }
+        .menu-item:hover { color: #ffffff; background: rgba(255,255,255,0.05); }
+        .menu-item.active { background: rgba(255,255,255,0.1); color: #ffc107; font-weight: bold; }
+        
         /* Conteúdo Principal */
         .main-content { flex: 1; padding: 30px; overflow-y: auto; }
         .main-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; border-bottom: 2px solid #d0d7de; padding-bottom: 15px; }
@@ -44,8 +49,6 @@
         .btn { padding: 12px 20px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; font-size: 14px; transition: background 0.2s; text-transform: uppercase; }
         .btn-success { background-color: #2e7d32; color: white; }
         .btn-success:hover { background-color: #1b5e20; }
-        .btn-primary { background-color: #005b96; color: white; }
-        .btn-primary:hover { background-color: #003f6b; }
         .btn-danger { background-color: #c62828; color: white; padding: 6px 12px; font-size: 12px; border-radius: 6px; }
 
         /* Tabelas */
@@ -55,12 +58,11 @@
         .data-table th { background-color: #005b96; color: white; font-size: 13px; text-transform: uppercase; letter-spacing: 0.5px; }
         .data-table tr:hover { background-color: #f4f7f6; }
 
-        /* Componente de Contador Solicitado [-] [ Input ] [+] */
+        /* Componente de Contador */
         .credit-controller { display: flex; align-items: center; gap: 5px; background: #f0f4f8; padding: 6px; border-radius: 30px; width: fit-content; border: 1px solid #cfd8dc; }
         .counter-btn { width: 32px; height: 32px; border-radius: 50%; border: none; background-color: #fff; color: #005b96; font-size: 18px; font-weight: bold; cursor: pointer; display: flex; justify-content: center; align-items: center; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
         .counter-btn:hover { background-color: #e3f2fd; }
         .credit-input { width: 65px; text-align: center; border: none; background: transparent; font-size: 16px; font-weight: bold; color: #333; outline: none; }
-        /* Remove setas padrão do input number */
         .credit-input::-webkit-outer-spin-button, .credit-input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
         
         .btn-confirm-credits { background: #e65100; color: white; border: none; padding: 8px 12px; border-radius: 20px; font-size: 12px; font-weight: bold; cursor: pointer; margin-left: 5px; text-transform: uppercase; }
@@ -76,10 +78,13 @@
             <p>Painel de Controle</p>
             <h3> ♾️ Créditos </h3>
         </div>
-        <div style="margin-top: 10px; font-size: 14px; color: #8da2b4; display: flex; flex-direction: column; gap: 10px;">
-            <p style="padding: 10px; background: rgba(255,255,255,0.05); border-radius: 6px; color: #ffc107; font-weight: bold;">📊 Dashboard Master</p>
-            <p style="padding: 10px; cursor: pointer;">🤝 Gerenciar Revendas</p>
-            <p style="padding: 10px; cursor: pointer;">👷‍♂️ Profissionais Diretos</p>
+        
+        <div style="margin-top: 10px; font-size: 14px; display: flex; flex-direction: column; gap: 5px;">
+            <p class="menu-item active">📊 Dashboard Master</p>
+            <p class="menu-item">🤝 Gerenciar Revendas</p>
+            <p class="menu-item">👷‍♂️ Profissionais Diretos</p>
+            
+            <p class="menu-item" onclick="document.getElementById('add-nome-revenda').focus();" style="border-left: 3px solid #ffc107; padding-left: 15px;">➕ Cadastrar Revenda</p>
         </div>
     </div>
 
@@ -104,8 +109,8 @@
             </div>
         </div>
 
-        <div class="action-box" style="border-left: 6px solid #ffc107;">
-            <div class="section-title">🤝 Cadastrar Nova Revenda (Sub-Admin de Região)</div>
+        <div class="action-box" id="secao-cadastro-revenda" style="border-left: 6px solid #ffc107;">
+            <div class="section-title">➕ Cadastrar Nova Revenda (Sub-Admin)</div>
             <form onsubmit="event.preventDefault(); criarNovaRevenda();">
                 <div class="form-row">
                     <div class="form-group">
@@ -156,7 +161,7 @@
                                 <div style="display: flex; align-items: center;">
                                     <div class="credit-controller">
                                         <button class="counter-btn" onclick="ajustarContador('input-revenda-1', -10)">-</button>
-                                        <input type="number" class="credit-input" id="input-revenda-1" value="50">
+                                        <input type="number" class="credit-input" id="input-revenda-1" value="10">
                                         <button class="counter-btn" onclick="ajustarContador('input-revenda-1', 10)">+</button>
                                     </div>
                                     <button class="btn-confirm-credits" onclick="atualizarSaldo('1')">Injetar</button>
@@ -178,20 +183,21 @@
     // Função do Contador Inteligente [-] [ Input ] [+]
     function ajustarContador(inputId, valor) {
         const input = document.getElementById(inputId);
-        let valorAtual = parseInt(input.value) || 0;
+        let valorAtual = parseFloat(input.value) || 0;
         valorAtual += valor;
         
-        if (valorAtual < 0) valorAtual = 0; // Evita valores negativos no ajuste rápido
-        input.value = valorAtual;
+        if (valorAtual < 0) valorAtual = 0;
+        input.value = Number.isInteger(valorAtual) ? valorAtual : valorAtual.toFixed(2);
     }
 
-    // Processa a injeção ou remoção manual de créditos na revenda
+    // Processa a injeção ou remoção manual de créditos
     function atualizarSaldo(id) {
-        const inputCrs = document.getElementById(`input-revenda-1`); // Alvo simulado
+        const inputCrs = document.getElementById(`input-revenda-${id}`);
         const saldoElemento = document.getElementById(`saldo-revenda-${id}`);
         
-        let quantidadeAlterar = parseInt(inputCrs.value) || 0;
-        let saldoAtual = parseInt(saldoElemento.innerText);
+        let quantidadeAlterar = parseFloat(inputCrs.value) || 0;
+        let textoSaldoAtual = saldoElemento.innerText.replace(',', '.');
+        let saldoAtual = parseFloat(textoSaldoAtual) || 0;
         
         if(quantidadeAlterar <= 0) {
             alert("Digite ou ajuste uma quantidade válida acima de 0 para transferir.");
@@ -199,10 +205,16 @@
         }
 
         let novoSaldo = saldoAtual + quantidadeAlterar;
-        saldoElemento.innerText = novoSaldo;
         
-        alert(`🪙 Sucesso! Você transferiu ${quantidadeAlterar} créditos para esta revenda.\nNovo saldo deles: ${novoSaldo} créditos.`);
-        inputCrs.value = 50; // Reseta para o padrão limpo
+        let saldoFormatado = novoSaldo.toFixed(2).replace('.', ',');
+        if (saldoFormatado.endsWith(',00')) {
+            saldoFormatado = saldoFormatado.replace(',00', '');
+        }
+
+        saldoElemento.innerText = saldoFormatado;
+        
+        alert(`🪙 Sucesso! Você transferiu ${quantidadeAlterar} créditos para esta revenda.\nNovo saldo deles: ${saldoFormatado} créditos.`);
+        inputCrs.value = 10; 
     }
 
     // Criação dinâmica visual de uma nova linha de revenda
@@ -229,10 +241,10 @@
                 <div style="display: flex; align-items: center;">
                     <div class="credit-controller">
                         <button class="counter-btn" onclick="ajustarContador('${inputId}', -10)">-</button>
-                        <input type="number" class="credit-input" id="${inputId}" value="50">
+                        <input type="number" step="0.25" class="credit-input" id="${inputId}" value="10">
                         <button class="counter-btn" onclick="ajustarContador('${inputId}', 10)">+</button>
                     </div>
-                    <button class="btn-confirm-credits" onclick="alert('Conectado ao Firebase, isso injetaria o valor digitado diretamente no banco!')">Injetar</button>
+                    <button class="btn-confirm-credits" onclick="atualizarSaldo('${contadorRevendas}')">Injetar</button>
                 </div>
             </td>
             <td>
@@ -243,7 +255,6 @@
         tabela.appendChild(novaLinha);
         document.getElementById('total-revendas').innerText = contadorRevendas;
         
-        // Limpa formulário
         document.getElementById('add-nome-revenda').value = '';
         document.getElementById('add-whats-revenda').value = '';
         
