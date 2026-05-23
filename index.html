@@ -3,17 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Alô Natal - Painel do Administrador</title>
+    <title>Alô Natal - Painel do Administrador Master</title>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
-        body { background-color: #f0f4f8; color: #333; display: flex; min-height: 100vh; }
+        body { background-color: #f0f4f8; color: #333; display: flex; min-height: 100vh; flex-direction: column; }
         
-        /* Layout Lateral (Menu) */
-        .sidebar { width: 260px; background-color: #002b49; color: white; padding: 20px; display: flex; flex-direction: column; gap: 20px; }
+        /* Layout Grid para Desktop/Tablet */
+        .wrapper { display: flex; flex: 1; flex-direction: row; }
+        @media(max-width: 768px) { .wrapper { flex-direction: column; } .sidebar { width: 100% !important; } }
+
+        /* Menu Lateral */
+        .sidebar { width: 280px; background-color: #002b49; color: white; padding: 20px; display: flex; flex-direction: column; gap: 20px; }
         .sidebar h2 { color: #ffc107; font-size: 22px; text-align: center; margin-bottom: 10px; }
         .admin-badge { background: rgba(255,255,255,0.1); padding: 15px; border-radius: 10px; text-align: center; }
         .admin-badge p { font-size: 12px; color: #aaa; text-transform: uppercase; }
-        .admin-badge h3 { font-size: 18px; margin-top: 5px; color: #fff; }
+        .admin-badge h3 { font-size: 24px; margin-top: 5px; color: #fff; }
         
         /* Conteúdo Principal */
         .main-content { flex: 1; padding: 30px; overflow-y: auto; }
@@ -21,143 +25,241 @@
         .main-header h1 { color: #005b96; font-size: 28px; }
         
         /* Cards de Resumo */
-        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin-bottom: 30px; }
+        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; margin-bottom: 30px; }
         .stat-card { background: white; padding: 20px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); border-top: 4px solid #005b96; }
-        .stat-card p { font-size: 14px; color: #666; }
+        .stat-card p { font-size: 14px; color: #666; font-weight: bold; text-transform: uppercase; }
         .stat-card h2 { font-size: 30px; color: #333; margin-top: 5px; }
 
-        /* Seções de Ação */
+        /* Caixas de Ações */
         .action-box { background: white; padding: 25px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); margin-bottom: 30px; }
-        .section-title { font-size: 18px; color: #002b49; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center; }
+        .section-title { font-size: 18px; color: #002b49; margin-bottom: 20px; font-weight: bold; display: flex; align-items: center; gap: 10px; }
         
-        /* Formulário Simples de Cadastro */
-        .form-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 15px; margin-bottom: 15px; }
+        /* Formulários */
+        .form-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 15px; }
         .form-group { display: flex; flex-direction: column; gap: 5px; }
         .form-group label { font-size: 13px; font-weight: bold; color: #555; }
-        .form-group input, .form-group select { padding: 10px; border: 1px solid #ccc; border-radius: 6px; font-size: 14px; }
+        .form-group input, .form-group select { padding: 12px; border: 1px solid #ccc; border-radius: 8px; font-size: 14px; background: #f9fbfd; }
         
         /* Botões */
-        .btn { padding: 10px 15px; border: none; border-radius: 6px; font-weight: bold; cursor: pointer; font-size: 14px; transition: background 0.2s; }
+        .btn { padding: 12px 20px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; font-size: 14px; transition: background 0.2s; text-transform: uppercase; }
         .btn-success { background-color: #2e7d32; color: white; }
         .btn-success:hover { background-color: #1b5e20; }
-        .btn-action { padding: 5px 10px; font-size: 12px; margin-right: 5px; border-radius: 4px; }
-        .btn-credit { background-color: #ff9100; color: white; }
-        .btn-block { background-color: #c62828; color: white; }
-        .btn-remove { background-color: #333; color: white; }
+        .btn-primary { background-color: #005b96; color: white; }
+        .btn-primary:hover { background-color: #003f6b; }
+        .btn-danger { background-color: #c62828; color: white; padding: 6px 12px; font-size: 12px; border-radius: 6px; }
 
-        /* Tabela de Profissionais */
-        .data-table { width: 100%; border-collapse: collapse; background: white; border-radius: 8px; overflow: hidden; }
-        .data-table th, .data-table td { padding: 15px; text-align: left; border-bottom: 1px solid #eee; }
-        .data-table th { background-color: #005b96; color: white; font-size: 14px; text-transform: uppercase; }
-        .data-table tr:hover { background-color: #f9fbfd; }
-        .badge-status { padding: 4px 8px; border-radius: 12px; font-size: 12px; font-weight: bold; }
-        .status-ativo { background-color: #e8f5e9; color: #2e7d32; }
+        /* Tabelas */
+        .table-container { overflow-x: auto; background: white; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
+        .data-table { width: 100%; border-collapse: collapse; text-align: left; }
+        .data-table th, .data-table td { padding: 15px; border-bottom: 1px solid #eee; vertical-align: middle; }
+        .data-table th { background-color: #005b96; color: white; font-size: 13px; text-transform: uppercase; letter-spacing: 0.5px; }
+        .data-table tr:hover { background-color: #f4f7f6; }
+
+        /* Componente de Contador Solicitado [-] [ Input ] [+] */
+        .credit-controller { display: flex; align-items: center; gap: 5px; background: #f0f4f8; padding: 6px; border-radius: 30px; width: fit-content; border: 1px solid #cfd8dc; }
+        .counter-btn { width: 32px; height: 32px; border-radius: 50%; border: none; background-color: #fff; color: #005b96; font-size: 18px; font-weight: bold; cursor: pointer; display: flex; justify-content: center; align-items: center; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        .counter-btn:hover { background-color: #e3f2fd; }
+        .credit-input { width: 65px; text-align: center; border: none; background: transparent; font-size: 16px; font-weight: bold; color: #333; outline: none; }
+        /* Remove setas padrão do input number */
+        .credit-input::-webkit-outer-spin-button, .credit-input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+        
+        .btn-confirm-credits { background: #e65100; color: white; border: none; padding: 8px 12px; border-radius: 20px; font-size: 12px; font-weight: bold; cursor: pointer; margin-left: 5px; text-transform: uppercase; }
+        .btn-confirm-credits:hover { background: #bf360c; }
     </style>
 </head>
 <body>
 
+<div class="wrapper">
     <div class="sidebar">
-        <h2>☀️ Alô Natal</h2>
+        <h2>☀️ Alô Natal Master</h2>
         <div class="admin-badge">
-            <p>Seu Saldo Admin</p>
-            <h3>♾️ Créditos</h3>
+            <p>Painel de Controle</p>
+            <h3> ♾️ Créditos </h3>
         </div>
-        <div style="margin-top: 20px; font-size: 14px; color: #8da2b4;">
-            <p style="padding: 10px 0; border-bottom: 1px solid #003f6b; cursor: pointer; color: #ffc107;">📊 Dashboard</p>
-            <p style="padding: 10px 0; border-bottom: 1px solid #003f6b; cursor: pointer;">👷‍♂️ Profissionais</p>
-            <p style="padding: 10px 0; border-bottom: 1px solid #003f6b; cursor: pointer;">📈 Configurar Preços</p>
+        <div style="margin-top: 10px; font-size: 14px; color: #8da2b4; display: flex; flex-direction: column; gap: 10px;">
+            <p style="padding: 10px; background: rgba(255,255,255,0.05); border-radius: 6px; color: #ffc107; font-weight: bold;">📊 Dashboard Master</p>
+            <p style="padding: 10px; cursor: pointer;">🤝 Gerenciar Revendas</p>
+            <p style="padding: 10px; cursor: pointer;">👷‍♂️ Profissionais Diretos</p>
         </div>
     </div>
 
     <div class="main-content">
         <div class="main-header">
-            <h1>Painel de Controle Geral</h1>
-            <span style="font-size: 14px; color: #666;">Modo Administrador Ativo</span>
+            <h1>Cabine de Comando Master</h1>
+            <span style="font-size: 14px; color: #666; font-weight: bold; background: #ffc107; padding: 5px 10px; border-radius: 20px;">Dono do Sistema</span>
         </div>
 
         <div class="stats-grid">
+            <div class="stat-card" style="border-top-color: #ffc107;">
+                <p>Minhas Revendas</p>
+                <h2 id="total-revendas">1</h2>
+            </div>
             <div class="stat-card">
-                <p>Profissionais Ativos</p>
-                <h2>24</h2>
+                <p>Profissionais na Rede</p>
+                <h2>42</h2>
             </div>
-            <div class="stat-card" style="border-top-color: #ff9100;">
-                <p>Créditos em Circulação</p>
-                <h2>380 🪙</h2>
+            <div class="stat-card" style="border-top-color: #e65100;">
+                <p>Créditos Injetados</p>
+                <h2>1.250 🪙</h2>
             </div>
-            <div class="stat-col" style="display:none;"></div>
         </div>
 
-        <div class="action-box">
-            <div class="section-title">
-                <span>➕ Cadastrar Novo Profissional (Clube Fechado)</span>
-            </div>
-            <form onsubmit="event.preventDefault(); alert('Profissional cadastrado no banco de dados com sucesso!');">
+        <div class="action-box" style="border-left: 6px solid #ffc107;">
+            <div class="section-title">🤝 Cadastrar Nova Revenda (Sub-Admin de Região)</div>
+            <form onsubmit="event.preventDefault(); criarNovaRevenda();">
                 <div class="form-row">
                     <div class="form-group">
-                        <label>Nome do Profissional</label>
-                        <input type="text" placeholder="Ex: Seu Jorge" required>
+                        <label>Nome do Revendedor</label>
+                        <input type="text" id="add-nome-revenda" placeholder="Ex: Meu Primo" required>
                     </div>
                     <div class="form-group">
-                        <label>WhatsApp / Celular</label>
-                        <input type="text" placeholder="(84) 99999-9999" required>
+                        <label>WhatsApp (Login de Acesso)</label>
+                        <input type="text" id="add-whats-revenda" placeholder="(84) 99999-9999" required>
                     </div>
                     <div class="form-group">
-                        <label>Categoria</label>
-                        <select required>
-                            <option value="Eletricista">Eletricista (R$ 15/crédito)</option>
-                            <option value="Diarista">Diarista (R$ 12/crédito)</option>
-                            <option value="Gesseiro">Gesseiro (R$ 18/crédito)</option>
-                            <option value="Pedreiro">Pedreiro (R$ 18/crédito)</option>
+                        <label>Região de Atuação Dominante</label>
+                        <select id="add-regiao-revenda">
+                            <option value="Alecrim / Leste">Alecrim / Zona Leste</option>
+                            <option value="Zona Norte">Zona Norte</option>
+                            <option value="Zona Sul">Zona Sul</option>
+                            <option value="Geral">Geral (Livre)</option>
                         </select>
                     </div>
                     <div class="form-group" style="justify-content: flex-end;">
-                        <button type="submit" class="btn btn-success" style="height: 41px;">Salvar Cadastro</button>
+                        <button type="submit" class="btn btn-success">Liberar Revenda</button>
                     </div>
                 </div>
             </form>
         </div>
 
         <div class="action-box">
-            <div class="section-title">
-                <span>👥 Gerenciar Carteira e Acesso dos Parceiros</span>
+            <div class="section-title">👥 Controle de Estoque das Revendas</div>
+            <div class="table-container">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Revendedor</th>
+                            <th>Região</th>
+                            <th>Contato</th>
+                            <th>Saldo Atual</th>
+                            <th>Injetar / Remover Estoque (Atacado)</th>
+                            <th>Ação</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tabela-revendas">
+                        <tr id="linha-revenda-1">
+                            <td><b>Revenda Alecrim (Primo)</b></td>
+                            <td>Alecrim / Leste</td>
+                            <td>(84) 98888-7777</td>
+                            <td><span id="saldo-revenda-1" style="font-weight: bold; color: #005b96;">150</span> Crs</td>
+                            <td>
+                                <div style="display: flex; align-items: center;">
+                                    <div class="credit-controller">
+                                        <button class="counter-btn" onclick="ajustarContador('input-revenda-1', -10)">-</button>
+                                        <input type="number" class="credit-input" id="input-revenda-1" value="50">
+                                        <button class="counter-btn" onclick="ajustarContador('input-revenda-1', 10)">+</button>
+                                    </div>
+                                    <button class="btn-confirm-credits" onclick="atualizarSaldo('1')">Injetar</button>
+                                </div>
+                            </td>
+                            <td>
+                                <button class="btn btn-danger" onclick="removerLinha('linha-revenda-1')">Remover</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
-            <table class="data-table">
-                <thead>
-                    <tr>
-                        <th>Nome</th>
-                        <th>Categoria</th>
-                        <th>Saldo Atual</th>
-                        <th>Status</th>
-                        <th>Ações Administrativas</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td><b>Seu Jorge</b></td>
-                        <td>Eletricista Residencial</td>
-                        <td>5 Créditos</td>
-                        <td><span class="badge-status status-ativo">Ativo</span></td>
-                        <td>
-                            <button class="btn btn-action btn-credit" onclick="alert('Adicionar créditos manuais para Seu Jorge')">+ Inserir Créditos</button>
-                            <button class="btn btn-action btn-block" onclick="alert('Bloquear acesso temporariamente')">Bloquear</button>
-                            <button class="btn btn-action btn-remove" onclick="confirm('Tem certeza que deseja REMOVER esse profissional definitivamente do clube?')">Remover</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td><b>Maria da Silva</b></td>
-                        <td>Diarista / Faxineira</td>
-                        <td>12 Créditos</td>
-                        <td><span class="badge-status status-ativo">Ativo</span></td>
-                        <td>
-                            <button class="btn btn-action btn-credit" onclick="alert('Adicionar créditos manuais para Maria')">+ Inserir Créditos</button>
-                            <button class="btn btn-action btn-block" onclick="alert('Bloquear acesso temporariamente')">Bloquear</button>
-                            <button class="btn btn-action btn-remove" onclick="confirm('Tem certeza que deseja REMOVER esse profissional definitivamente do clube?')">Remover</button>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
         </div>
+
     </div>
+</div>
+
+<script>
+    // Função do Contador Inteligente [-] [ Input ] [+]
+    function ajustarContador(inputId, valor) {
+        const input = document.getElementById(inputId);
+        let valorAtual = parseInt(input.value) || 0;
+        valorAtual += valor;
+        
+        if (valorAtual < 0) valorAtual = 0; // Evita valores negativos no ajuste rápido
+        input.value = valorAtual;
+    }
+
+    // Processa a injeção ou remoção manual de créditos na revenda
+    function atualizarSaldo(id) {
+        const inputCrs = document.getElementById(`input-revenda-1`); // Alvo simulado
+        const saldoElemento = document.getElementById(`saldo-revenda-${id}`);
+        
+        let quantidadeAlterar = parseInt(inputCrs.value) || 0;
+        let saldoAtual = parseInt(saldoElemento.innerText);
+        
+        if(quantidadeAlterar <= 0) {
+            alert("Digite ou ajuste uma quantidade válida acima de 0 para transferir.");
+            return;
+        }
+
+        let novoSaldo = saldoAtual + quantidadeAlterar;
+        saldoElemento.innerText = novoSaldo;
+        
+        alert(`🪙 Sucesso! Você transferiu ${quantidadeAlterar} créditos para esta revenda.\nNovo saldo deles: ${novoSaldo} créditos.`);
+        inputCrs.value = 50; // Reseta para o padrão limpo
+    }
+
+    // Criação dinâmica visual de uma nova linha de revenda
+    let contadorRevendas = 1;
+    function criarNovaRevenda() {
+        contadorRevendas++;
+        const nome = document.getElementById('add-nome-revenda').value;
+        const whats = document.getElementById('add-whats-revenda').value;
+        const regiao = document.getElementById('add-regiao-revenda').value;
+        
+        const tabela = document.getElementById('tabela-revendas');
+        const novaLinhaId = `linha-revenda-${contadorRevendas}`;
+        const inputId = `input-revenda-${contadorRevendas}`;
+        const saldoId = `saldo-revenda-${contadorRevendas}`;
+
+        const novaLinha = document.createElement('tr');
+        novaLinha.id = novaLinhaId;
+        novaLinha.innerHTML = `
+            <td><b>${nome}</b></td>
+            <td>${regiao}</td>
+            <td>${whats}</td>
+            <td><span id="${saldoId}" style="font-weight: bold; color: #005b96;">0</span> Crs</td>
+            <td>
+                <div style="display: flex; align-items: center;">
+                    <div class="credit-controller">
+                        <button class="counter-btn" onclick="ajustarContador('${inputId}', -10)">-</button>
+                        <input type="number" class="credit-input" id="${inputId}" value="50">
+                        <button class="counter-btn" onclick="ajustarContador('${inputId}', 10)">+</button>
+                    </div>
+                    <button class="btn-confirm-credits" onclick="alert('Conectado ao Firebase, isso injetaria o valor digitado diretamente no banco!')">Injetar</button>
+                </div>
+            </td>
+            <td>
+                <button class="btn btn-danger" onclick="removerLinha('${novaLinhaId}')">Remover</button>
+            </td>
+        `;
+        
+        tabela.appendChild(novaLinha);
+        document.getElementById('total-revendas').innerText = contadorRevendas;
+        
+        // Limpa formulário
+        document.getElementById('add-nome-revenda').value = '';
+        document.getElementById('add-whats-revenda').value = '';
+        
+        alert(`🤝 Revenda de ${nome} criada com sucesso no sistema!`);
+    }
+
+    function removerLinha(idLinha) {
+        if(confirm("Tem certeza absoluta que deseja remover o acesso e deletar esta revenda do sistema?")) {
+            document.getElementById(idLinha).remove();
+            let totalAtual = parseInt(document.getElementById('total-revendas').innerText);
+            if(totalAtual > 0) {
+                document.getElementById('total-revendas').innerText = totalAtual - 1;
+            }
+        }
+    }
+</script>
 
 </body>
 </html>
