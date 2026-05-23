@@ -94,9 +94,7 @@
         <div style="margin-top: 10px; font-size: 14px; display: flex; flex-direction: column; gap: 5px;">
             <p class="menu-item active" id="menu-dash" onclick="navegarPara('dashboard')">📊 Dashboard Master</p>
             <p class="menu-item" id="menu-cadastro" onclick="navegarPara('cadastro')">🤝 Cadastrar Revenda</p>
-            
             <p class="menu-item" id="menu-precos" onclick="navegarPara('precos')">📈 Tabela de Preços</p>
-            
             <p class="menu-item" onclick="alert('Tela de Profissionais Diretos em desenvolvimento')">👷‍♂️ Profissionais Diretos</p>
         </div>
     </div>
@@ -195,8 +193,8 @@
 
         <div id="view-precos" class="panel-view">
             <div class="action-box">
-                <div class="section-title">📈 Ajustar Custos dos Serviços</div>
-                <p style="font-size: 14px; margin-bottom: 20px; color: #666;">Defina o valor em Reais (R$) que o aplicativo cobrará do profissional por cada serviço. O sistema dividirá pela base <b>(1 Crédito = R$ 12,00)</b> e converterá automaticamente.</p>
+                <div class="section-title">📈 Ajustar Custos dos Serviços Globais</div>
+                <p style="font-size: 14px; margin-bottom: 20px; color: #666;">Defina o valor em Reais (R$) base do sistema. Estes preços serão aplicados em todos os painéis de revenda. O sistema dividirá pela base <b>(1 Crédito = R$ 12,00)</b> automaticamente.</p>
                 
                 <div class="table-container">
                     <table class="data-table">
@@ -204,11 +202,22 @@
                             <tr>
                                 <th>Categoria</th>
                                 <th>Valor do Serviço (R$)</th>
-                                <th>Peso no Aplicativo</th>
+                                <th>Custo na Carteira</th>
                                 <th>Ação</th>
                             </tr>
                         </thead>
                         <tbody>
+                            <tr>
+                                <td>🪵 Servente / Ajudante</td>
+                                <td>
+                                    <div class="price-input-wrapper">
+                                        <span>R$</span>
+                                        <input type="number" id="preco-servente" value="12.00" step="0.50" class="price-input">
+                                    </div>
+                                </td>
+                                <td><span id="calc-servente" style="font-weight: bold; color: #e65100; font-size: 16px;">1</span> Crs</td>
+                                <td><button class="btn btn-primary" style="padding: 6px 12px; font-size: 12px;" onclick="salvarNovoPreco('servente', 'Servente / Ajudante')">Salvar</button></td>
+                            </tr>
                             <tr>
                                 <td>🧹 Diarista / Faxineira</td>
                                 <td>
@@ -220,7 +229,40 @@
                                 <td><span id="calc-diarista" style="font-weight: bold; color: #e65100; font-size: 16px;">1</span> Crs</td>
                                 <td><button class="btn btn-primary" style="padding: 6px 12px; font-size: 12px;" onclick="salvarNovoPreco('diarista', 'Diarista')">Salvar</button></td>
                             </tr>
+                            <tr>
+                                <td>🛠️ Marido de Aluguel</td>
+                                <td>
+                                    <div class="price-input-wrapper">
+                                        <span>R$</span>
+                                        <input type="number" id="preco-marido" value="12.00" step="0.50" class="price-input">
+                                    </div>
+                                </td>
+                                <td><span id="calc-marido" style="font-weight: bold; color: #e65100; font-size: 16px;">1</span> Crs</td>
+                                <td><button class="btn btn-primary" style="padding: 6px 12px; font-size: 12px;" onclick="salvarNovoPreco('marido', 'Marido de Aluguel')">Salvar</button></td>
+                            </tr>
+                            <tr>
+                                <td>🪑 Montador de Móveis</td>
+                                <td>
+                                    <div class="price-input-wrapper">
+                                        <span>R$</span>
+                                        <input type="number" id="preco-montador" value="12.00" step="0.50" class="price-input">
+                                    </div>
+                                </td>
+                                <td><span id="calc-montador" style="font-weight: bold; color: #e65100; font-size: 16px;">1</span> Crs</td>
+                                <td><button class="btn btn-primary" style="padding: 6px 12px; font-size: 12px;" onclick="salvarNovoPreco('montador', 'Montador de Móveis')">Salvar</button></td>
+                            </tr>
 
+                            <tr style="border-top: 3px solid #f0f4f8;">
+                                <td>🔑 Chaveiro</td>
+                                <td>
+                                    <div class="price-input-wrapper">
+                                        <span>R$</span>
+                                        <input type="number" id="preco-chaveiro" value="15.00" step="0.50" class="price-input">
+                                    </div>
+                                </td>
+                                <td><span id="calc-chaveiro" style="font-weight: bold; color: #e65100; font-size: 16px;">1,25</span> Crs</td>
+                                <td><button class="btn btn-primary" style="padding: 6px 12px; font-size: 12px;" onclick="salvarNovoPreco('chaveiro', 'Chaveiro')">Salvar</button></td>
+                            </tr>
                             <tr>
                                 <td>⚡ Eletricista Residencial</td>
                                 <td>
@@ -232,7 +274,51 @@
                                 <td><span id="calc-eletricista" style="font-weight: bold; color: #e65100; font-size: 16px;">1,25</span> Crs</td>
                                 <td><button class="btn btn-primary" style="padding: 6px 12px; font-size: 12px;" onclick="salvarNovoPreco('eletricista', 'Eletricista')">Salvar</button></td>
                             </tr>
+                            <tr>
+                                <td>🚰 Encanador</td>
+                                <td>
+                                    <div class="price-input-wrapper">
+                                        <span>R$</span>
+                                        <input type="number" id="preco-encanador" value="15.00" step="0.50" class="price-input">
+                                    </div>
+                                </td>
+                                <td><span id="calc-encanador" style="font-weight: bold; color: #e65100; font-size: 16px;">1,25</span> Crs</td>
+                                <td><button class="btn btn-primary" style="padding: 6px 12px; font-size: 12px;" onclick="salvarNovoPreco('encanador', 'Encanador')">Salvar</button></td>
+                            </tr>
+                            <tr>
+                                <td>❄️ Ar-Condicionado</td>
+                                <td>
+                                    <div class="price-input-wrapper">
+                                        <span>R$</span>
+                                        <input type="number" id="preco-arcondicionado" value="15.00" step="0.50" class="price-input">
+                                    </div>
+                                </td>
+                                <td><span id="calc-arcondicionado" style="font-weight: bold; color: #e65100; font-size: 16px;">1,25</span> Crs</td>
+                                <td><button class="btn btn-primary" style="padding: 6px 12px; font-size: 12px;" onclick="salvarNovoPreco('arcondicionado', 'Ar-Condicionado')">Salvar</button></td>
+                            </tr>
+                            <tr>
+                                <td>🌱 Jardineiro</td>
+                                <td>
+                                    <div class="price-input-wrapper">
+                                        <span>R$</span>
+                                        <input type="number" id="preco-jardineiro" value="15.00" step="0.50" class="price-input">
+                                    </div>
+                                </td>
+                                <td><span id="calc-jardineiro" style="font-weight: bold; color: #e65100; font-size: 16px;">1,25</span> Crs</td>
+                                <td><button class="btn btn-primary" style="padding: 6px 12px; font-size: 12px;" onclick="salvarNovoPreco('jardineiro', 'Jardineiro')">Salvar</button></td>
+                            </tr>
 
+                            <tr style="border-top: 3px solid #f0f4f8;">
+                                <td>🎉 Eventos e Locação</td>
+                                <td>
+                                    <div class="price-input-wrapper">
+                                        <span>R$</span>
+                                        <input type="number" id="preco-eventos" value="18.00" step="0.50" class="price-input">
+                                    </div>
+                                </td>
+                                <td><span id="calc-eventos" style="font-weight: bold; color: #e65100; font-size: 16px;">1,5</span> Crs</td>
+                                <td><button class="btn btn-primary" style="padding: 6px 12px; font-size: 12px;" onclick="salvarNovoPreco('eventos', 'Eventos e Locação')">Salvar</button></td>
+                            </tr>
                             <tr>
                                 <td>🧱 Pedreiro</td>
                                 <td>
@@ -243,6 +329,28 @@
                                 </td>
                                 <td><span id="calc-pedreiro" style="font-weight: bold; color: #e65100; font-size: 16px;">1,5</span> Crs</td>
                                 <td><button class="btn btn-primary" style="padding: 6px 12px; font-size: 12px;" onclick="salvarNovoPreco('pedreiro', 'Pedreiro')">Salvar</button></td>
+                            </tr>
+                            <tr>
+                                <td>🏗️ Gesseiro</td>
+                                <td>
+                                    <div class="price-input-wrapper">
+                                        <span>R$</span>
+                                        <input type="number" id="preco-gesseiro" value="18.00" step="0.50" class="price-input">
+                                    </div>
+                                </td>
+                                <td><span id="calc-gesseiro" style="font-weight: bold; color: #e65100; font-size: 16px;">1,5</span> Crs</td>
+                                <td><button class="btn btn-primary" style="padding: 6px 12px; font-size: 12px;" onclick="salvarNovoPreco('gesseiro', 'Gesseiro')">Salvar</button></td>
+                            </tr>
+                            <tr>
+                                <td>🖌️ Pintor Residencial</td>
+                                <td>
+                                    <div class="price-input-wrapper">
+                                        <span>R$</span>
+                                        <input type="number" id="preco-pintor" value="18.00" step="0.50" class="price-input">
+                                    </div>
+                                </td>
+                                <td><span id="calc-pintor" style="font-weight: bold; color: #e65100; font-size: 16px;">1,5</span> Crs</td>
+                                <td><button class="btn btn-primary" style="padding: 6px 12px; font-size: 12px;" onclick="salvarNovoPreco('pintor', 'Pintor Residencial')">Salvar</button></td>
                             </tr>
                         </tbody>
                     </table>
@@ -271,13 +379,12 @@
         } else if (tela === 'precos') {
             document.getElementById('view-precos').classList.add('active');
             document.getElementById('menu-precos').classList.add('active');
-            document.getElementById('page-title').innerText = "Configuração de Valores";
+            document.getElementById('page-title').innerText = "Configuração de Valores Globais";
         }
     }
 
-    // A Mágica Matemática da Tabela de Preços
+    // A Mágica Matemática da Tabela de Preços (1 Crédito = R$ 12,00)
     function salvarNovoPreco(idCampo, nomeCategoria) {
-        // Pega o valor digitado (Ex: 18.00)
         let valorReais = parseFloat(document.getElementById(`preco-${idCampo}`).value);
         
         if (isNaN(valorReais) || valorReais <= 0) {
@@ -285,17 +392,14 @@
             return;
         }
 
-        // A Matemática Central do Sistema: Valor / 12
         let valorMoedaBase = 12.00;
         let calculoCreditos = valorReais / valorMoedaBase;
         
-        // Formatação limpa (Tira o .00 se for inteiro, ex: 1, ou mantém os decimais, ex: 1,5)
         let creditosFinais = Number.isInteger(calculoCreditos) ? calculoCreditos : calculoCreditos.toFixed(2);
         
-        // Atualiza a visualização substituindo ponto por vírgula
         document.getElementById(`calc-${idCampo}`).innerText = creditosFinais.toString().replace('.', ',');
         
-        alert(`⚙️ Valor Atualizado!\n\nA categoria ${nomeCategoria} agora custará R$ ${valorReais.toFixed(2).replace('.',',')}.\nO sistema debitará automaticamente ${creditosFinais.toString().replace('.',',')} Créditos do profissional.`);
+        alert(`⚙️ Padrão Global Atualizado!\n\nA categoria ${nomeCategoria} agora custará R$ ${valorReais.toFixed(2).replace('.',',')} no sistema inteiro.\nEsta alteração será refletida em todos os painéis de revenda automaticamente.`);
     }
 
     // Função do Contador Inteligente [-] [ Input ] [+]
