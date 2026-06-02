@@ -8,7 +8,7 @@
     <style>
         :root { 
             --primary: #005b96; --primary-dark: #003f6b; --accent: #ffc107; 
-            --action: #e65100; --success: #10b981; --danger: #ef4444; 
+            --action: #e65100; --success: #10b981; --danger: #ef4444; --warning: #f59e0b;
             --bg: #f1f5f9; --card: #ffffff; --text: #0f172a; 
             --text-muted: #64748b; --border: #e2e8f0; 
         }
@@ -16,16 +16,16 @@
         body { background-color: var(--bg); color: var(--text); display: flex; min-height: 100vh; }
         
         .wrapper { display: flex; flex: 1; width: 100%; }
-        @media(max-width: 768px) { .wrapper { flex-direction: column; } .sidebar { width: 100% !important; min-height: auto; } }
+        @media(max-width: 900px) { .wrapper { flex-direction: column; } .sidebar { width: 100% !important; } }
 
-        .sidebar { width: 260px; background-color: var(--primary-dark); color: white; padding: 24px 16px; display: flex; flex-direction: column; gap: 8px; flex-shrink: 0; }
+        .sidebar { width: 260px; background-color: var(--primary-dark); color: white; padding: 24px 16px; display: flex; flex-direction: column; gap: 6px; flex-shrink: 0; }
         .sidebar h2 { color: var(--accent); font-size: 20px; text-align: center; margin-bottom: 20px; font-weight: 700; }
         .admin-badge { background: rgba(255,255,255,0.08); padding: 12px 16px; border-radius: 12px; text-align: center; margin-bottom: 16px; border: 1px solid rgba(255,255,255,0.1); }
         .admin-badge p { font-size: 10px; color: #94a3b8; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 2px; }
         .admin-badge h3 { font-size: 13px; color: #cbd5e1; font-weight: 500; }
         .admin-badge h3 span { color: var(--accent); }
         
-        .menu-item { padding: 12px 16px; cursor: pointer; transition: 0.2s; color: #94a3b8; border-radius: 8px; display: flex; align-items: center; gap: 12px; font-size: 14px; font-weight: 500; }
+        .menu-item { padding: 10px 14px; cursor: pointer; transition: 0.2s; color: #94a3b8; border-radius: 8px; display: flex; align-items: center; gap: 10px; font-size: 14px; font-weight: 500; }
         .menu-item:hover { color: #ffffff; background: rgba(255,255,255,0.08); }
         .menu-item.active { background: rgba(255,255,255,0.15); color: var(--accent); font-weight: 600; }
         
@@ -38,87 +38,62 @@
         .panel-view.active { display: block; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; margin-bottom: 32px; }
-        .stat-card { background: var(--card); padding: 24px; border-radius: 16px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); border-top: 4px solid var(--primary); }
-        .stat-card p { font-size: 13px; color: var(--text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }
-        .stat-card h2 { font-size: 32px; color: var(--text); margin-top: 8px; font-weight: 700; }
+        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; margin-bottom: 32px; }
+        .stat-card { background: var(--card); padding: 20px; border-radius: 16px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); border-top: 4px solid var(--primary); }
+        .stat-card p { font-size: 12px; color: var(--text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }
+        .stat-card h2 { font-size: 28px; color: var(--text); margin-top: 8px; font-weight: 700; }
+        .stat-card.alert { border-top-color: var(--danger); background: #fef2f2; }
+        .stat-card.alert h2 { color: var(--danger); font-size: 20px; }
 
-        .action-box { background: var(--card); padding: 28px; border-radius: 16px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); margin-bottom: 24px; }
+        .action-box { background: var(--card); padding: 24px; border-radius: 16px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); margin-bottom: 24px; }
         .section-title { font-size: 18px; color: var(--primary-dark); margin-bottom: 20px; font-weight: 700; display: flex; align-items: center; gap: 10px; }
         
-        .form-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; margin-bottom: 16px; }
+        .search-bar { width: 100%; padding: 12px 16px; border: 1px solid var(--border); border-radius: 10px; font-size: 14px; background: #f8fafc; outline: none; margin-bottom: 16px; }
+        .search-bar:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(0, 91, 150, 0.1); }
+
+        .form-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin-bottom: 16px; }
         .form-group { display: flex; flex-direction: column; gap: 6px; }
         .form-group label { font-size: 13px; font-weight: 600; color: var(--text-muted); }
         .form-group input, .form-group select { padding: 12px; border: 1px solid var(--border); border-radius: 10px; font-size: 14px; background: #f8fafc; outline: none; transition: 0.2s; }
-        .form-group input:focus, .form-group select:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(0, 91, 150, 0.1); }
         
-        .btn { padding: 12px 20px; border: none; border-radius: 10px; font-weight: 600; cursor: pointer; font-size: 14px; transition: 0.2s; display: inline-flex; align-items: center; justify-content: center; gap: 8px; }
+        .btn { padding: 10px 18px; border: none; border-radius: 10px; font-weight: 600; cursor: pointer; font-size: 14px; transition: 0.2s; }
         .btn-success { background-color: var(--success); color: white; }
-        .btn-success:hover { background-color: #059669; }
         .btn-primary { background-color: var(--primary); color: white; }
-        .btn-primary:hover { background-color: var(--primary-dark); }
-        .btn-danger { background-color: var(--danger); color: white; padding: 8px 14px; font-size: 13px; }
-        .btn-danger:hover { background-color: #dc2626; }
+        .btn-danger { background-color: var(--danger); color: white; padding: 6px 12px; font-size: 12px; }
 
-        .table-container { overflow-x: auto; border: 1px solid var(--border); border-radius: 12px; max-height: 600px; overflow-y: auto; }
-        .data-table { width: 100%; border-collapse: collapse; text-align: left; font-size: 14px; }
+        .table-container { overflow-x: auto; border: 1px solid var(--border); border-radius: 12px; max-height: 500px; overflow-y: auto; }
+        .data-table { width: 100%; border-collapse: collapse; text-align: left; font-size: 13px; }
         .data-table th, .data-table td { padding: 14px; border-bottom: 1px solid var(--border); }
-        .data-table th { background-color: #f8fafc; color: var(--text-muted); font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; font-weight: 600; position: sticky; top: 0; z-index: 10; }
-        .data-table tr:last-child td { border-bottom: none; }
-        .data-table tr:hover { background-color: #f8fafc; }
-
-        /* 🎯 CONTROLE DE CRÉDITOS ATUALIZADO */
-        .credit-controller { 
-            display: flex; align-items: center; gap: 6px; 
-            background: #f1f5f9; padding: 6px; 
-            border-radius: 10px; border: 1px solid var(--border); 
-        }
-        .counter-btn { 
-            width: 32px; height: 32px; border-radius: 8px; 
-            border: none; background-color: #fff; 
-            color: var(--primary); font-size: 18px; font-weight: bold; 
-            cursor: pointer; display: flex; justify-content: center; align-items: center;
-            box-shadow: 0 1px 2px rgba(0,0,0,0.1);
-            transition: all 0.2s;
-        }
-        .counter-btn:hover { background-color: #e0f2fe; transform: scale(1.05); }
-        .counter-btn.minus { color: var(--danger); }
-        .counter-btn.minus:hover { background-color: #fee2e2; }
-        .counter-btn.plus { color: var(--success); }
-        .counter-btn.plus:hover { background-color: #dcfce7; }
-        .credit-input { 
-            width: 60px; text-align: center; 
-            border: 1px solid var(--border); background: #fff; 
-            font-size: 15px; font-weight: 700; color: var(--text); 
-            outline: none; border-radius: 6px; padding: 4px;
-        }
-        .credit-input:focus { border-color: var(--primary); }
+        .data-table th { background-color: #f8fafc; color: var(--text-muted); font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; font-weight: 600; position: sticky; top: 0; z-index: 10; }
         
-        .btn-confirm-credits { 
-            border: none; padding: 8px 14px; border-radius: 8px; 
-            font-size: 12px; font-weight: 700; cursor: pointer; 
-            margin-left: 8px; transition: all 0.2s;
-            text-transform: uppercase; letter-spacing: 0.5px;
-        }
+        .credit-controller { display: flex; align-items: center; gap: 4px; background: #f1f5f9; padding: 4px; border-radius: 8px; border: 1px solid var(--border); }
+        .counter-btn { width: 28px; height: 28px; border-radius: 6px; border: none; background-color: #fff; font-size: 16px; font-weight: bold; cursor: pointer; }
+        .counter-btn.minus { color: var(--danger); }
+        .counter-btn.plus { color: var(--success); }
+        .credit-input { width: 50px; text-align: center; border: 1px solid var(--border); background: #fff; font-size: 14px; font-weight: 700; border-radius: 6px; padding: 4px; }
+        
+        .btn-confirm-credits { border: none; padding: 6px 12px; border-radius: 8px; font-size: 11px; font-weight: 700; cursor: pointer; margin-left: 6px; text-transform: uppercase; }
         .btn-confirm-credits.injetar { background: var(--success); color: white; }
-        .btn-confirm-credits.injetar:hover { background: #059669; }
         .btn-confirm-credits.remover { background: var(--danger); color: white; }
-        .btn-confirm-credits.remover:hover { background: #dc2626; }
         .btn-confirm-credits:disabled { background: #cbd5e1; color: #64748b; cursor: not-allowed; }
         
-        .price-input-wrapper { display: flex; align-items: center; background: #f8fafc; border: 1px solid var(--border); border-radius: 8px; overflow: hidden; width: 120px; }
-        .price-input-wrapper span { background: #e2e8f0; padding: 10px; color: var(--text-muted); font-weight: 600; font-size: 13px; border-right: 1px solid var(--border); }
-        .price-input { border: none; padding: 10px; width: 100%; font-size: 14px; font-weight: 600; color: var(--text); outline: none; }
+        .price-input-wrapper { display: flex; align-items: center; background: #f8fafc; border: 1px solid var(--border); border-radius: 8px; overflow: hidden; width: 110px; }
+        .price-input-wrapper span { background: #e2e8f0; padding: 8px; font-weight: 600; font-size: 12px; border-right: 1px solid var(--border); }
+        .price-input { border: none; padding: 8px; width: 100%; font-size: 13px; font-weight: 600; outline: none; }
 
-        .limit-badge { font-size: 11px; padding: 4px 8px; border-radius: 12px; font-weight: 600; }
-        .limit-ok { background: #dcfce7; color: #166534; }
-        .limit-warn { background: #fef9c3; color: #854d0e; }
-        .limit-full { background: #fee2e2; color: #991b1b; }
+        .status-badge { padding: 4px 10px; border-radius: 20px; font-size: 11px; font-weight: 700; text-transform: uppercase; }
+        .status-ativo { background: #dcfce7; color: #166534; }
+        .status-pausado { background: #fef9c3; color: #854d0e; }
+        .status-bloqueado { background: #fee2e2; color: #991b1b; }
         
-        /* Indicador visual de ação */
-        .action-indicator { font-size: 11px; margin-left: 8px; font-weight: 600; }
-        .action-indicator.add { color: var(--success); }
-        .action-indicator.sub { color: var(--danger); }
+        .stars { color: var(--accent); font-size: 14px; letter-spacing: 2px; }
+        .limit-badge { font-size: 10px; padding: 3px 6px; border-radius: 10px; font-weight: 600; background: #e0f2fe; color: #0369a1; }
+
+        .bar-chart { display: flex; flex-direction: column; gap: 12px; margin-top: 20px; }
+        .bar-item { display: flex; align-items: center; gap: 12px; font-size: 13px; }
+        .bar-label { width: 200px; font-weight: 600; color: var(--text-muted); }
+        .bar-track { flex: 1; background: #f1f5f9; height: 28px; border-radius: 12px; overflow: hidden; position: relative; }
+        .bar-fill { height: 100%; background: linear-gradient(90deg, var(--primary), var(--accent)); display: flex; align-items: center; padding-left: 10px; color: white; font-size: 11px; font-weight: bold; transition: width 0.5s ease; }
     </style>
 </head>
 <body>
@@ -131,11 +106,14 @@
             <h3>créditos ilimitados <span>♾️</span></h3>
         </div>
         
-        <div style="display: flex; flex-direction: column; gap: 4px;">
-            <div class="menu-item active" id="menu-dash" onclick="navegarPara('dashboard')"> Dashboard</div>
+        <div style="display: flex; flex-direction: column; gap: 2px;">
+            <div class="menu-item active" id="menu-dash" onclick="navegarPara('dashboard')">📊 Dashboard</div>
             <div class="menu-item" id="menu-cadastro" onclick="navegarPara('cadastro')">🤝 Cadastrar Revenda</div>
-            <div class="menu-item" id="menu-profissionais" onclick="navegarPara('profissionais')">👷‍️ Profissionais</div>
+            <div class="menu-item" id="menu-profissionais" onclick="navegarPara('profissionais')">👷‍♂️ Profissionais</div>
             <div class="menu-item" id="menu-precos" onclick="navegarPara('precos')">📈 Tabela de Preços</div>
+            <div class="menu-item" id="menu-historico" onclick="navegarPara('historico')">📜 Histórico</div>
+            <div class="menu-item" id="menu-relatorios" onclick="navegarPara('relatorios')"> Relatórios</div>
+            <div class="menu-item" id="menu-config" onclick="navegarPara('config')">⚙️ Configurações</div>
         </div>
     </div>
 
@@ -154,19 +132,20 @@
                 </div>
                 <div class="stat-card">
                     <p>Profissionais na Rede</p>
-                    <h2 id="total-profissionais">3</h2>
+                    <h2 id="total-profissionais">0</h2>
                 </div>
                 <div class="stat-card" style="border-top-color: var(--action);">
                     <p>Créditos em Circulação</p>
-                    <h2 id="total-creditos-circulacao">150</h2>
+                    <h2 id="total-creditos-circulacao">0</h2>
+                </div>
+                <div class="stat-card alert" id="card-alerta-saldo" style="display: none;">
+                    <p>⚠️ Profissionais com Saldo Crítico</p>
+                    <h2 id="total-alerta-saldo">0</h2>
                 </div>
             </div>
 
             <div class="action-box">
                 <div class="section-title">👥 Controle de Estoque das Revendas</div>
-                <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 16px;">
-                    💡 <strong>Dica:</strong> Use <strong>+</strong> para injetar e <strong>−</strong> para remover créditos. Digite qualquer valor no campo central.
-                </p>
                 <div class="table-container">
                     <table class="data-table">
                         <thead>
@@ -175,31 +154,11 @@
                                 <th>Região</th>
                                 <th>Contato</th>
                                 <th>Saldo Atual</th>
-                                <th>Ajustar Créditos</th>
+                                <th>Injetar / Remover (Atacado)</th>
                                 <th>Ação</th>
                             </tr>
                         </thead>
-                        <tbody id="tabela-revendas">
-                            <tr id="linha-revenda-1">
-                                <td><b>Revenda Alecrim (Primo)</b></td>
-                                <td>Alecrim / Leste</td>
-                                <td>(84) 98888-7777</td>
-                                <td><span id="saldo-revenda-1" style="font-weight: 700; color: var(--primary); font-size: 16px;">150</span> 🪙</td>
-                                <td>
-                                    <div style="display: flex; align-items: center; flex-wrap: wrap; gap: 8px;">
-                                        <div class="credit-controller">
-                                            <button class="counter-btn minus" onclick="ajustarContador('input-revenda-1', -1)" title="Remover 1">−</button>
-                                            <input type="number" class="credit-input" id="input-revenda-1" value="0" step="1" oninput="atualizarCorBotao('1')">
-                                            <button class="counter-btn plus" onclick="ajustarContador('input-revenda-1', 1)" title="Adicionar 1">+</button>
-                                        </div>
-                                        <button class="btn-confirm-credits injetar" id="btn-revenda-1" onclick="atualizarSaldo('1')" disabled>
-                                            Definir valor
-                                        </button>
-                                    </div>
-                                </td>
-                                <td><button class="btn btn-danger" onclick="removerLinha('linha-revenda-1', 'revenda-1')">Remover</button></td>
-                            </tr>
-                        </tbody>
+                        <tbody id="tabela-revendas"></tbody>
                     </table>
                 </div>
             </div>
@@ -208,7 +167,7 @@
         <!-- VIEW: CADASTRO REVENDA -->
         <div id="view-cadastro" class="panel-view">
             <div class="action-box" style="border-left: 4px solid var(--accent);">
-                <div class="section-title">🤝 Cadastrar Nova Revenda (Sub-Admin)</div>
+                <div class="section-title">🤝 Cadastrar Nova Revenda (Sub-Admin de Região)</div>
                 <form onsubmit="event.preventDefault(); criarNovaRevenda();">
                     <div class="form-row">
                         <div class="form-group">
@@ -216,11 +175,11 @@
                             <input type="text" id="add-nome-revenda" placeholder="Ex: Lucas Silva" required>
                         </div>
                         <div class="form-group">
-                            <label>WhatsApp (Login)</label>
+                            <label>WhatsApp (Login de Acesso)</label>
                             <input type="text" id="add-whats-revenda" placeholder="(84) 99999-9999" required>
                         </div>
                         <div class="form-group">
-                            <label>Região de Atuação</label>
+                            <label>Região de Atuação Dominante</label>
                             <select id="add-regiao-revenda">
                                 <option value="Alecrim / Leste">Alecrim / Zona Leste</option>
                                 <option value="Zona Norte">Zona Norte</option>
@@ -237,14 +196,18 @@
         <!-- VIEW: PROFISSIONAIS -->
         <div id="view-profissionais" class="panel-view">
             <div class="action-box">
-                <div class="section-title">👷‍️ Gerenciar Profissionais por Revenda</div>
+                <div class="section-title">👷‍♂️ Gestão de Profissionais por Revenda</div>
+                <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 16px;">
+                    <strong>Regra de Negócio:</strong> Cada revenda pode cadastrar no máximo <strong>3 profissionais por categoria</strong>. 
+                    Profissionais com saldo ≤ 1 crédito não receberão novas solicitações.
+                </p>
                 
-                <div class="form-row" style="background: #f8fafc; padding: 20px; border-radius: 12px; border: 1px solid var(--border);">
+                <input type="text" class="search-bar" id="busca-profissionais" placeholder="🔍 Buscar por nome, categoria ou revenda..." oninput="filtrarProfissionais()">
+                
+                <div class="form-row" style="background: #f8fafc; padding: 16px; border-radius: 12px; border: 1px solid var(--border);">
                     <div class="form-group">
                         <label>Selecionar Revenda</label>
-                        <select id="select-revenda-pro">
-                            <option value="revenda-1">Revenda Alecrim (Primo)</option>
-                        </select>
+                        <select id="select-revenda-pro"></select>
                     </div>
                     <div class="form-group">
                         <label>Nome do Profissional</label>
@@ -252,16 +215,14 @@
                     </div>
                     <div class="form-group">
                         <label>Categoria</label>
-                        <select id="categoria-novo-pro">
-                            <!-- Preenchido via JS -->
-                        </select>
+                        <select id="categoria-novo-pro"></select>
                     </div>
                     <div class="form-group" style="justify-content: flex-end;">
                         <button class="btn btn-primary" onclick="adicionarProfissional()">+ Adicionar Profissional</button>
                     </div>
                 </div>
 
-                <div class="table-container" style="margin-top: 24px;">
+                <div class="table-container" style="margin-top: 20px;">
                     <table class="data-table">
                         <thead>
                             <tr>
@@ -269,6 +230,8 @@
                                 <th>Profissional</th>
                                 <th>Categoria</th>
                                 <th>Status</th>
+                                <th>Avaliação</th>
+                                <th>Saldo</th>
                                 <th>Ação</th>
                             </tr>
                         </thead>
@@ -283,9 +246,9 @@
             <div class="action-box">
                 <div class="section-title">📈 Ajustar Custos dos Serviços Globais</div>
                 <p style="font-size: 14px; margin-bottom: 20px; color: var(--text-muted);">
-                    Defina o valor em Reais (R$). O sistema calculará os créditos automaticamente (<strong>Base: 1 Crédito = R$ 12,00</strong>).
+                    Defina o valor em Reais (R$) base do sistema. Estes preços serão aplicados em todos os painéis de revenda. 
+                    O sistema dividirá pela base (<strong id="label-base-preco">R$ 12,00</strong>) automaticamente.
                 </p>
-                
                 <div class="table-container">
                     <table class="data-table">
                         <thead>
@@ -302,167 +265,115 @@
             </div>
         </div>
 
+        <!-- VIEW: HISTÓRICO -->
+        <div id="view-historico" class="panel-view">
+            <div class="action-box">
+                <div class="section-title">📜 Histórico de Transações</div>
+                <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 16px;">
+                    Registro completo de todas as injeções e remoções de créditos realizadas no sistema.
+                </p>
+                <div class="table-container" style="max-height: 600px;">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Data/Hora</th>
+                                <th>Tipo</th>
+                                <th>Destino</th>
+                                <th>Qtd. Créditos</th>
+                                <th>Novo Saldo</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tabela-historico">
+                            <tr><td colspan="5" style="text-align:center; color: var(--text-muted); padding: 30px;">Nenhuma transação registrada ainda.</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- VIEW: RELATÓRIOS -->
+        <div id="view-relatorios" class="panel-view">
+            <div class="action-box">
+                <div class="section-title">📊 Relatórios de Demanda por Categoria</div>
+                <p style="font-size: 14px; margin-bottom: 20px; color: var(--text-muted);">
+                    Baseado nas solicitações dos últimos 30 dias no app do cliente. Use esses dados para direcionar o recrutamento de profissionais.
+                </p>
+                <div class="bar-chart" id="grafico-demanda"></div>
+            </div>
+        </div>
+
+        <!-- VIEW: CONFIGURAÇÕES -->
+        <div id="view-config" class="panel-view">
+            <div class="action-box">
+                <div class="section-title">️ Configurações Gerais do Sistema</div>
+                
+                <div class="form-group" style="max-width: 400px; margin-bottom: 20px;">
+                    <label>Valor Base do Crédito (R$)</label>
+                    <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 8px;">
+                        Atualmente: <strong id="config-atual">R$ 12,00</strong> = 1 Crédito.
+                        Altere este valor para redefinir toda a tabela de preços automaticamente.
+                    </p>
+                    <div class="price-input-wrapper" style="width: 100%;">
+                        <span>R$</span>
+                        <input type="number" id="config-valor-base" class="price-input" style="width: 100%;" value="12.00" step="0.50">
+                    </div>
+                    <button class="btn btn-primary" style="margin-top: 10px;" onclick="salvarConfigBase()">💾 Salvar Nova Base</button>
+                </div>
+                
+                <p style="font-size: 13px; color: var(--text-muted); margin-top: 20px; padding: 12px; background: #f8fafc; border-radius: 8px; border-left: 4px solid var(--accent);">
+                    ️ Ao alterar o valor base, todos os preços das categorias serão recalculados automaticamente. 
+                    Ex: Se mudar para R$ 10,00, uma diária de R$ 60,00 passará a custar 6 créditos em vez de 5.
+                </p>
+            </div>
+        </div>
+
     </div>
 </div>
 
 <script>
     // ==========================================
-    // LISTA COMPLETA DE 22 CATEGORIAS
+    // BANCO DE DADOS
     // ==========================================
     const CATEGORIAS_COMPLETAS = [
         { id: 'servente', nome: '🪵 Servente / Ajudante', preco: 12.00 },
         { id: 'diarista', nome: '🧹 Diarista / Faxineira', preco: 12.00 },
-        { id: 'marido', nome: '️ Assistência Domiciliar', preco: 12.00 },
+        { id: 'marido', nome: '🛠️ Assistência Domiciliar', preco: 12.00 },
         { id: 'montador', nome: '🪑 Montador de Móveis', preco: 12.00 },
-        { id: 'chaveiro', nome: ' Chaveiro', preco: 15.00 },
+        { id: 'chaveiro', nome: '🔑 Chaveiro', preco: 15.00 },
         { id: 'eletricista', nome: '⚡ Eletricista Residencial', preco: 15.00 },
-        { id: 'encanador', nome: ' Encanador', preco: 15.00 },
+        { id: 'encanador', nome: '🚰 Encanador', preco: 15.00 },
         { id: 'arcondicionado', nome: '❄️ Ar-Condicionado', preco: 15.00 },
-        { id: 'jardineiro', nome: ' Jardineiro', preco: 15.00 },
+        { id: 'jardineiro', nome: '🌱 Jardineiro', preco: 15.00 },
         { id: 'eventos', nome: '🎉 Eventos e Locação', preco: 18.00 },
-        { id: 'pedreiro', nome: '🧱 Pedreiro', preco: 18.00 },
+        { id: 'pedreiro', nome: ' Pedreiro', preco: 18.00 },
         { id: 'gesseiro', nome: '🏗️ Gesseiro', preco: 18.00 },
         { id: 'pintor', nome: '🖌️ Pintor Residencial', preco: 18.00 },
         { id: 'dedetizador', nome: '🪳 Dedetizador', preco: 18.00 },
         { id: 'marceneiro', nome: '🪚 Marceneiro', preco: 24.00 },
         { id: 'serralheiro', nome: '⛓️ Serralheiro', preco: 24.00 },
         { id: 'viagens', nome: '🚗 Viagens', preco: 24.00 },
-        { id: 'tosapet', nome: '🐕 Tosa Pet', preco: 12.00 },
+        { id: 'tosapet', nome: ' Tosa Pet', preco: 12.00 },
         { id: 'beleza', nome: '💇 Beleza', preco: 12.00 },
         { id: 'vidraceiro', nome: '🪟 Vidraceiro', preco: 18.00 },
         { id: 'informatica', nome: '🖥️ Técnico em Informática', preco: 18.00 },
         { id: 'personal', nome: '💪 Personal Trainer', preco: 18.00 }
     ];
 
-    let dbProfissionais = [
-        { id: 1, revendaId: 'revenda-1', revendaNome: 'Revenda Alecrim', nome: 'Carlos', categoria: 'Eletricista Residencial' },
-        { id: 2, revendaId: 'revenda-1', revendaNome: 'Revenda Alecrim', nome: 'João', categoria: 'Eletricista Residencial' },
-        { id: 3, revendaId: 'revenda-1', revendaNome: 'Revenda Alecrim', nome: 'Pedro', categoria: 'Pedreiro' }
+    let configSistema = { valorBaseCredito: 12.00 };
+    
+    let dbRevendas = [
+        { id: 'revenda-1', nome: 'Revenda Alecrim (Primo)', regiao: 'Alecrim / Leste', whats: '(84) 98888-7777', saldo: 150 }
     ];
+
+    let dbProfissionais = [
+        { id: 1, revendaId: 'revenda-1', revendaNome: 'Revenda Alecrim', nome: 'Carlos', categoria: 'Eletricista Residencial', status: 'Ativo', avaliacao: 4.8, saldo: 15 },
+        { id: 2, revendaId: 'revenda-1', revendaNome: 'Revenda Alecrim', nome: 'João', categoria: 'Eletricista Residencial', status: 'Ativo', avaliacao: 4.5, saldo: 1 },
+        { id: 3, revendaId: 'revenda-1', revendaNome: 'Revenda Alecrim', nome: 'Pedro', categoria: 'Pedreiro', status: 'Pausado', avaliacao: 3.9, saldo: 8 }
+    ];
+
+    let dbHistorico = [];
     let contadorRevendas = 1;
     let idCounterPro = 4;
-
-    // ==========================================
-    // CONTROLE DE CRÉDITOS ATUALIZADO
-    // ==========================================
-    
-    // Ajusta contador de 1 em 1 (permitindo valores negativos no input)
-    function ajustarContador(inputId, valor) {
-        const input = document.getElementById(inputId);
-        let valorAtual = parseFloat(input.value) || 0;
-        valorAtual += valor;
-        input.value = Number.isInteger(valorAtual) ? valorAtual : valorAtual.toFixed(2);
-        
-        // Descobre o ID da revenda a partir do input (input-revenda-X → X)
-        const revendaId = inputId.replace('input-revenda-', '');
-        atualizarCorBotao(revendaId);
-    }
-
-    // Atualiza cor e texto do botão conforme valor (positivo=Injetar, negativo=Remover)
-    function atualizarCorBotao(revendaId) {
-        const input = document.getElementById(`input-revenda-${revendaId}`);
-        const btn = document.getElementById(`btn-revenda-${revendaId}`);
-        const valor = parseFloat(input.value) || 0;
-        
-        btn.disabled = valor === 0;
-        
-        if (valor > 0) {
-            btn.className = 'btn-confirm-credits injetar';
-            btn.innerText = `+ Injetar ${valor}`;
-        } else if (valor < 0) {
-            btn.className = 'btn-confirm-credits remover';
-            btn.innerText = `− Remover ${Math.abs(valor)}`;
-        } else {
-            btn.className = 'btn-confirm-credits';
-            btn.innerText = 'Definir valor';
-        }
-    }
-
-    // Processa a injeção ou remoção (valida saldo não negativo)
-    function atualizarSaldo(revendaId) {
-        const inputCrs = document.getElementById(`input-revenda-${revendaId}`);
-        const saldoElemento = document.getElementById(`saldo-revenda-${revendaId}`);
-        const btn = document.getElementById(`btn-revenda-${revendaId}`);
-        
-        let quantidadeAlterar = parseFloat(inputCrs.value) || 0;
-        let saldoTexto = saldoElemento.innerText.replace(/[^\d,.-]/g, '').replace(',', '.');
-        let saldoAtual = parseFloat(saldoTexto) || 0;
-        
-        if (quantidadeAlterar === 0) { 
-            alert("Digite um valor diferente de zero."); 
-            return; 
-        }
-
-        // Validação: não deixa saldo ficar negativo
-        if (saldoAtual + quantidadeAlterar < 0) {
-            alert(`️ Saldo insuficiente!\n\nA revenda possui apenas ${saldoAtual} créditos.\nNão é possível remover ${Math.abs(quantidadeAlterar)} créditos.`);
-            return;
-        }
-
-        let novoSaldo = saldoAtual + quantidadeAlterar;
-        saldoElemento.innerText = novoSaldo.toFixed(2).replace('.', ',');
-        
-        // Feedback visual diferente para cada ação
-        const acao = quantidadeAlterar > 0 ? 'injetados' : 'removidos';
-        const emoji = quantidadeAlterar > 0 ? '' : '🗑️';
-        alert(`${emoji} Sucesso!\n\n${Math.abs(quantidadeAlterar)} créditos ${acao}.\nNovo saldo: ${novoSaldo.toFixed(2).replace('.', ',')} créditos.`);
-        
-        // Reset do input
-        inputCrs.value = 0;
-        atualizarCorBotao(revendaId);
-        atualizarTotalCreditos();
-    }
-
-    // Atualiza o card de "Créditos em Circulação"
-    function atualizarTotalCreditos() {
-        let total = 0;
-        document.querySelectorAll('[id^="saldo-revenda-"]').forEach(el => {
-            const valor = parseFloat(el.innerText.replace(',', '.')) || 0;
-            total += valor;
-        });
-        document.getElementById('total-creditos-circulacao').innerText = total.toFixed(0);
-    }
-
-    // ==========================================
-    // RENDERIZAÇÃO DO SELECT DE CATEGORIAS
-    // ==========================================
-    function popularSelectCategorias() {
-        const select = document.getElementById('categoria-novo-pro');
-        select.innerHTML = '';
-        CATEGORIAS_COMPLETAS.forEach(cat => {
-            const option = document.createElement('option');
-            option.value = cat.nome.replace(/^[^\s]+\s/, '');
-            option.text = cat.nome;
-            select.appendChild(option);
-        });
-    }
-
-    // ==========================================
-    // RENDERIZAÇÃO DA TABELA DE PREÇOS
-    // ==========================================
-    function renderizarTabelaPrecos() {
-        const tbody = document.getElementById('corpo-tabela-precos');
-        tbody.innerHTML = '';
-        
-        CATEGORIAS_COMPLETAS.forEach((cat, index) => {
-            const creditos = (cat.preco / 12.00).toFixed(2).replace('.', ',');
-            const tr = document.createElement('tr');
-            if (index > 0 && index % 5 === 0) tr.style.borderTop = '2px solid var(--border)';
-            
-            tr.innerHTML = `
-                <td>${cat.nome}</td>
-                <td>
-                    <div class="price-input-wrapper">
-                        <span>R$</span>
-                        <input type="number" id="preco-${cat.id}" value="${cat.preco.toFixed(2)}" step="0.50" class="price-input">
-                    </div>
-                </td>
-                <td><span id="calc-${cat.id}" style="font-weight: 700; color: var(--action); font-size: 16px;">${creditos}</span> Crs</td>
-                <td><button class="btn btn-primary" style="padding: 8px 14px; font-size: 12px;" onclick="salvarNovoPreco('${cat.id}', '${cat.nome}')">Salvar</button></td>
-            `;
-            tbody.appendChild(tr);
-        });
-    }
 
     // ==========================================
     // NAVEGAÇÃO
@@ -478,154 +389,338 @@
             'dashboard': "Cabine de Comando Master",
             'cadastro': "Parcerias & Expansão",
             'profissionais': "Gestão de Profissionais",
-            'precos': "Configuração de Valores Globais"
+            'precos': "Configuração de Valores Globais",
+            'historico': "Histórico de Transações",
+            'relatorios': "Relatórios de Demanda",
+            'config': "Configurações do Sistema"
         };
         document.getElementById('page-title').innerText = titulos[tela];
+    }
 
-        if(tela === 'profissionais') renderizarTabelaProfissionais();
+    function popularSelects() {
+        const selectCat = document.getElementById('categoria-novo-pro');
+        selectCat.innerHTML = '';
+        CATEGORIAS_COMPLETAS.forEach(cat => {
+            const opt = document.createElement('option');
+            opt.value = cat.nome.replace(/^[^\s]+\s/, '');
+            opt.text = cat.nome;
+            selectCat.appendChild(opt);
+        });
+
+        const selectRev = document.getElementById('select-revenda-pro');
+        selectRev.innerHTML = '';
+        dbRevendas.forEach(rev => {
+            const opt = document.createElement('option');
+            opt.value = rev.id;
+            opt.text = rev.nome;
+            selectRev.appendChild(opt);
+        });
     }
 
     // ==========================================
-    // CADASTRO DE PROFISSIONAL
+    // DASHBOARD E REVENDAS
     // ==========================================
-    function adicionarProfissional() {
-        const revendaSelect = document.getElementById('select-revenda-pro');
-        const revendaId = revendaSelect.value;
-        const revendaNome = revendaSelect.options[revendaSelect.selectedIndex].text;
-        const nomePro = document.getElementById('nome-novo-pro').value.trim();
-        const categoria = document.getElementById('categoria-novo-pro').value;
+    function renderizarDashboard() {
+        document.getElementById('total-revendas').innerText = dbRevendas.length;
+        document.getElementById('total-profissionais').innerText = dbProfissionais.length;
+        
+        let totalCirc = dbRevendas.reduce((acc, r) => acc + r.saldo, 0);
+        document.getElementById('total-creditos-circulacao').innerText = totalCirc;
 
-        if (!nomePro) { alert("Digite o nome do profissional."); return; }
-
-        const quantidadeNaCategoria = dbProfissionais.filter(p => p.revendaId === revendaId && p.categoria === categoria).length;
-
-        if (quantidadeNaCategoria >= 3) {
-            alert(`️ A revenda "${revendaNome}" já está com a categoria "${categoria}" lotada.\n\nEscolha outra categoria ou remova um profissional existente.`);
-            return; 
+        const criticos = dbProfissionais.filter(p => p.saldo <= 1 && p.status === 'Ativo').length;
+        const cardAlerta = document.getElementById('card-alerta-saldo');
+        if (critericos > 0) {
+            cardAlerta.style.display = 'block';
+            document.getElementById('total-alerta-saldo').innerText = criticos;
+        } else {
+            cardAlerta.style.display = 'none';
         }
 
-        dbProfissionais.push({ id: idCounterPro++, revendaId, revendaNome, nome: nomePro, categoria });
-        alert(`✅ "${nomePro}" cadastrado com sucesso como ${categoria}!`);
-        
-        document.getElementById('nome-novo-pro').value = '';
-        document.getElementById('total-profissionais').innerText = dbProfissionais.length;
-        renderizarTabelaProfissionais();
+        const tbody = document.getElementById('tabela-revendas');
+        tbody.innerHTML = '';
+        dbRevendas.forEach(rev => {
+            const tr = document.createElement('tr');
+            tr.innerHTML = `
+                <td><b>${rev.nome}</b></td>
+                <td>${rev.regiao}</td>
+                <td>${rev.whats}</td>
+                <td><span id="saldo-${rev.id}" style="font-weight: 700; color: var(--primary); font-size: 16px;">${rev.saldo}</span> Crs</td>
+                <td>
+                    <div style="display: flex; align-items: center; gap: 6px;">
+                        <div class="credit-controller">
+                            <button class="counter-btn minus" onclick="ajustarContador('in-${rev.id}', -1)">−</button>
+                            <input type="number" class="credit-input" id="in-${rev.id}" value="0" oninput="atualizarCorBotao('${rev.id}')">
+                            <button class="counter-btn plus" onclick="ajustarContador('in-${rev.id}', 1)">+</button>
+                        </div>
+                        <button class="btn-confirm-credits injetar" id="btn-${rev.id}" onclick="processarSaldo('${rev.id}')" disabled>Definir</button>
+                    </div>
+                </td>
+                <td><button class="btn btn-danger" onclick="removerRevenda('${rev.id}', 'linha-${rev.id}')">Remover</button></td>
+            `;
+            tr.id = `linha-${rev.id}`;
+            tbody.appendChild(tr);
+        });
     }
 
-    function renderizarTabelaProfissionais() {
+    function ajustarContador(inputId, val) {
+        const inp = document.getElementById(inputId);
+        let v = parseFloat(inp.value) || 0;
+        inp.value = v + val;
+        atualizarCorBotao(inputId.replace('in-', ''));
+    }
+
+    function atualizarCorBotao(revId) {
+        const val = parseFloat(document.getElementById(`in-${revId}`).value) || 0;
+        const btn = document.getElementById(`btn-${revId}`);
+        btn.disabled = val === 0;
+        if (val > 0) { btn.className = 'btn-confirm-credits injetar'; btn.innerText = `+ Injetar ${val}`; }
+        else if (val < 0) { btn.className = 'btn-confirm-credits remover'; btn.innerText = `− Remover ${Math.abs(val)}`; }
+        else { btn.className = 'btn-confirm-credits'; btn.innerText = 'Definir'; }
+    }
+
+    function processarSaldo(revId) {
+        const inp = document.getElementById(`in-${revId}`);
+        const rev = dbRevendas.find(r => r.id === revId);
+        const val = parseFloat(inp.value) || 0;
+        
+        if (rev.saldo + val < 0) { 
+            alert(`⚠️ Saldo insuficiente!\n\nA revenda possui apenas ${rev.saldo} créditos.\nNão é possível remover ${Math.abs(val)} créditos.`); 
+            return; 
+        }
+        
+        rev.saldo += val;
+        
+        dbHistorico.unshift({
+            data: new Date().toLocaleString('pt-BR'),
+            tipo: val > 0 ? 'Injeção' : 'Remoção',
+            destino: `Revenda: ${rev.nome}`,
+            qtd: val,
+            novoSaldo: rev.saldo
+        });
+        
+        inp.value = 0;
+        atualizarCorBotao(revId);
+        renderizarDashboard();
+        renderizarHistorico();
+        
+        const acao = val > 0 ? 'injetados' : 'removidos';
+        const emoji = val > 0 ? '🪙' : '🗑️';
+        alert(`${emoji} Sucesso!\n\n${Math.abs(val)} créditos ${acao}.\nNovo saldo: ${rev.saldo} créditos.`);
+    }
+
+    function criarNovaRevenda() {
+        const nome = document.getElementById('add-nome-revenda').value;
+        const whats = document.getElementById('add-whats-revenda').value;
+        const regiao = document.getElementById('add-regiao-revenda').value;
+        
+        contadorRevendas++;
+        const novaId = `revenda-${contadorRevendas}`;
+        dbRevendas.push({ id: novaId, nome, regiao, whats, saldo: 0 });
+        
+        document.getElementById('add-nome-revenda').value = '';
+        document.getElementById('add-whats-revenda').value = '';
+        popularSelects();
+        renderizarDashboard();
+        alert(`🤝 Revenda de ${nome} criada com sucesso no sistema!`);
+        navegarPara('dashboard');
+    }
+
+    function removerRevenda(revId, linhaId) {
+        if(!confirm("Tem certeza absoluta que deseja remover o acesso e deletar esta revenda do sistema?")) return;
+        document.getElementById(linhaId).remove();
+        dbRevendas = dbRevendas.filter(r => r.id !== revId);
+        dbProfissionais = dbProfissionais.filter(p => p.revendaId !== revId);
+        popularSelects();
+        renderizarDashboard();
+        renderizarProfissionais();
+    }
+
+    // ==========================================
+    // PROFISSIONAIS
+    // ==========================================
+    function adicionarProfissional() {
+        const revId = document.getElementById('select-revenda-pro').value;
+        const rev = dbRevendas.find(r => r.id === revId);
+        const nome = document.getElementById('nome-novo-pro').value.trim();
+        const cat = document.getElementById('categoria-novo-pro').value;
+        
+        if(!nome) return alert("Digite o nome do profissional.");
+        
+        const qtd = dbProfissionais.filter(p => p.revendaId === revId && p.categoria === cat).length;
+        if(qtd >= 3) return alert(`🚫 LIMITE ATINGIDO!\n\nA "${rev.nome}" já possui 3 profissionais na categoria "${cat}".\n\nRemova um existente ou escolha outra categoria.`);
+
+        dbProfissionais.push({
+            id: idCounterPro++, revendaId: revId, revendaNome: rev.nome,
+            nome, categoria: cat, status: 'Ativo', avaliacao: 5.0, saldo: 0
+        });
+        
+        document.getElementById('nome-novo-pro').value = '';
+        renderizarProfissionais();
+        renderizarDashboard();
+        alert(`✅ "${nome}" cadastrado com sucesso como ${cat}!`);
+    }
+
+    function renderizarProfissionais(lista = dbProfissionais) {
         const tbody = document.getElementById('tabela-profissionais');
         tbody.innerHTML = '';
-
-        dbProfissionais.forEach(pro => {
-            const qtdCategoria = dbProfissionais.filter(p => p.revendaId === pro.revendaId && p.categoria === pro.categoria).length;
-            let badgeClass = qtdCategoria === 3 ? 'limit-full' : (qtdCategoria === 2 ? 'limit-warn' : 'limit-ok');
-
+        
+        if(lista.length === 0) {
+            tbody.innerHTML = '<tr><td colspan="7" style="text-align:center; color: var(--text-muted); padding: 30px;">Nenhum profissional encontrado.</td></tr>';
+            return;
+        }
+        
+        lista.forEach(pro => {
+            const stars = '★'.repeat(Math.floor(pro.avaliacao)) + (pro.avaliacao % 1 >= 0.5 ? '☆' : '');
+            const alertaSaldo = pro.saldo <= 1 && pro.status === 'Ativo' ? ' ⚠️' : '';
+            
             const tr = document.createElement('tr');
             tr.innerHTML = `
                 <td>${pro.revendaNome}</td>
                 <td><b>${pro.nome}</b></td>
                 <td>${pro.categoria}</td>
-                <td><span class="limit-badge ${badgeClass}">${qtdCategoria}/3</span></td>
-                <td><button class="btn btn-danger" style="padding: 6px 10px; font-size: 12px;" onclick="removerProfissional(${pro.id})">Remover</button></td>
+                <td>
+                    <select onchange="mudarStatus(${pro.id}, this.value)" style="padding: 4px; border-radius: 6px; border: 1px solid var(--border); font-size: 12px;">
+                        <option value="Ativo" ${pro.status === 'Ativo' ? 'selected' : ''}>🟢 Ativo</option>
+                        <option value="Pausado" ${pro.status === 'Pausado' ? 'selected' : ''}>🟡 Pausado</option>
+                        <option value="Bloqueado" ${pro.status === 'Bloqueado' ? 'selected' : ''}>🔴 Bloqueado</option>
+                    </select>
+                </td>
+                <td><span class="stars">${stars}</span> <span style="font-size:11px; color:var(--text-muted)">(${pro.avaliacao})</span></td>
+                <td><b>${pro.saldo}</b> Crs${alertaSaldo}</td>
+                <td><button class="btn btn-danger" onclick="removerProfissional(${pro.id})">Remover</button></td>
             `;
             tbody.appendChild(tr);
         });
-        document.getElementById('total-profissionais').innerText = dbProfissionais.length;
+    }
+
+    function filtrarProfissionais() {
+        const termo = document.getElementById('busca-profissionais').value.toLowerCase();
+        const filtrados = dbProfissionais.filter(p => 
+            p.nome.toLowerCase().includes(termo) || 
+            p.categoria.toLowerCase().includes(termo) ||
+            p.revendaNome.toLowerCase().includes(termo)
+        );
+        renderizarProfissionais(filtrados);
+    }
+
+    function mudarStatus(id, novoStatus) {
+        const pro = dbProfissionais.find(p => p.id === id);
+        pro.status = novoStatus;
+        renderizarProfissionais();
     }
 
     function removerProfissional(id) {
-        if(confirm("Remover este profissional da base da revenda?")) {
-            dbProfissionais = dbProfissionais.filter(p => p.id !== id);
-            renderizarTabelaProfissionais();
+        if(!confirm("Remover este profissional da base da revenda?")) return;
+        dbProfissionais = dbProfissionais.filter(p => p.id !== id);
+        renderizarProfissionais();
+        renderizarDashboard();
+    }
+
+    // ==========================================
+    // PREÇOS E CONFIGURAÇÕES
+    // ==========================================
+    function renderizarPrecos() {
+        const tbody = document.getElementById('corpo-tabela-precos');
+        tbody.innerHTML = '';
+        const baseFormatada = configSistema.valorBaseCredito.toFixed(2).replace('.', ',');
+        document.getElementById('label-base-preco').innerText = `R$ ${baseFormatada}`;
+        document.getElementById('config-atual').innerText = `R$ ${baseFormatada}`;
+        
+        CATEGORIAS_COMPLETAS.forEach(cat => {
+            const crs = (cat.preco / configSistema.valorBaseCredito).toFixed(2).replace('.', ',');
+            const tr = document.createElement('tr');
+            tr.innerHTML = `
+                <td>${cat.nome}</td>
+                <td><div class="price-input-wrapper"><span>R$</span><input type="number" id="p-${cat.id}" value="${cat.preco.toFixed(2)}" step="0.50" class="price-input"></div></td>
+                <td><b style="color: var(--action); font-size: 16px;">${crs}</b> Crs</td>
+                <td><button class="btn btn-primary" style="padding: 6px 12px; font-size: 12px;" onclick="salvarPreco('${cat.id}')">Salvar</button></td>
+            `;
+            tbody.appendChild(tr);
+        });
+    }
+
+    function salvarPreco(id) {
+        const val = parseFloat(document.getElementById(`p-${id}`).value);
+        const cat = CATEGORIAS_COMPLETAS.find(c => c.id === id);
+        if(isNaN(val) || val <= 0) return alert("Insira um valor válido.");
+        cat.preco = val;
+        renderizarPrecos();
+        alert(`⚙️ Padrão Global Atualizado!\n\n${cat.nome} custará R$ ${val.toFixed(2)} no sistema inteiro.`);
+    }
+
+    function salvarConfigBase() {
+        const val = parseFloat(document.getElementById('config-valor-base').value);
+        if(val <= 0) return alert("Insira um valor válido.");
+        configSistema.valorBaseCredito = val;
+        renderizarPrecos();
+        alert(`⚙️ Valor Base Atualizado!\n\nNovo valor: R$ ${val.toFixed(2)} = 1 Crédito.\nTodos os preços foram recalculados automaticamente.`);
+    }
+
+    // ==========================================
+    // HISTÓRICO
+    // ==========================================
+    function renderizarHistorico() {
+        const tbody = document.getElementById('tabela-historico');
+        if(dbHistorico.length === 0) {
+            tbody.innerHTML = '<tr><td colspan="5" style="text-align:center; color: var(--text-muted); padding: 30px;">Nenhuma transação registrada ainda.</td></tr>';
+            return;
         }
+        tbody.innerHTML = '';
+        dbHistorico.forEach(h => {
+            const cor = h.tipo === 'Injeção' ? 'var(--success)' : 'var(--danger)';
+            const sinal = h.tipo === 'Injeção' ? '+' : '';
+            const tr = document.createElement('tr');
+            tr.innerHTML = `
+                <td>${h.data}</td>
+                <td><b style="color: ${cor}">${h.tipo}</b></td>
+                <td>${h.destino}</td>
+                <td><b>${sinal}${h.qtd}</b></td>
+                <td><b>${h.novoSaldo}</b></td>
+            `;
+            tbody.appendChild(tr);
+        });
     }
 
     // ==========================================
-    // FUNÇÕES DE PREÇO
+    // RELATÓRIOS
     // ==========================================
-    function salvarNovoPreco(idCampo, nomeCategoria) {
-        let valorReais = parseFloat(document.getElementById(`preco-${idCampo}`).value);
-        if (isNaN(valorReais) || valorReais <= 0) { alert("Insira um valor válido."); return; }
-
-        let valorMoedaBase = 12.00;
-        let calculoCreditos = valorReais / valorMoedaBase;
-        let creditosFinais = Number.isInteger(calculoCreditos) ? calculoCreditos : calculoCreditos.toFixed(2);
+    function renderizarRelatorios() {
+        const dadosMock = [
+            { cat: ' Servente / Ajudante', qtd: 28 },
+            { cat: ' Diarista / Faxineira', qtd: 38 },
+            { cat: '️ Assistência Domiciliar', qtd: 32 },
+            { cat: '⚡ Eletricista Residencial', qtd: 45 },
+            { cat: '❄️ Ar-Condicionado', qtd: 41 },
+            { cat: '🧱 Pedreiro', qtd: 15 },
+            { cat: '🖌️ Pintor Residencial', qtd: 22 },
+            { cat: '💇 Beleza', qtd: 18 },
+            { cat: '️ Técnico em Informática', qtd: 12 },
+            { cat: '💪 Personal Trainer', qtd: 9 }
+        ];
+        const max = Math.max(...dadosMock.map(d => d.qtd));
+        const container = document.getElementById('grafico-demanda');
+        container.innerHTML = '';
         
-        document.getElementById(`calc-${idCampo}`).innerText = creditosFinais.toString().replace('.', ',');
-        alert(`⚙️ Padrão Global Atualizado!\n\n${nomeCategoria} custará R$ ${valorReais.toFixed(2)}\nIsso equivale a ${creditosFinais} créditos.`);
-    }
-
-    // ==========================================
-    // CRIAR/REMOVER REVENDA
-    // ==========================================
-    function criarNovaRevenda() {
-        contadorRevendas++;
-        const nome = document.getElementById('add-nome-revenda').value;
-        const whats = document.getElementById('add-whats-revenda').value;
-        const regiao = document.getElementById('add-regiao-revenda').value;
-        const tabela = document.getElementById('tabela-revendas');
-        const selectPro = document.getElementById('select-revenda-pro');
-        
-        const novaLinhaId = `linha-revenda-${contadorRevendas}`;
-        const inputId = `input-revenda-${contadorRevendas}`;
-        const saldoId = `saldo-revenda-${contadorRevendas}`;
-        const revendaId = `revenda-${contadorRevendas}`;
-        const btnId = `btn-revenda-${contadorRevendas}`;
-
-        const novaLinha = document.createElement('tr');
-        novaLinha.id = novaLinhaId;
-        novaLinha.innerHTML = `
-            <td><b>${nome}</b></td>
-            <td>${regiao}</td>
-            <td>${whats}</td>
-            <td><span id="${saldoId}" style="font-weight: 700; color: var(--primary); font-size: 16px;">0</span> 🪙</td>
-            <td>
-                <div style="display: flex; align-items: center; flex-wrap: wrap; gap: 8px;">
-                    <div class="credit-controller">
-                        <button class="counter-btn minus" onclick="ajustarContador('${inputId}', -1)">−</button>
-                        <input type="number" class="credit-input" id="${inputId}" value="0" step="1" oninput="atualizarCorBotao('${contadorRevendas}')">
-                        <button class="counter-btn plus" onclick="ajustarContador('${inputId}', 1)">+</button>
+        dadosMock.forEach(d => {
+            const pct = (d.qtd / max) * 100;
+            container.innerHTML += `
+                <div class="bar-item">
+                    <div class="bar-label">${d.cat}</div>
+                    <div class="bar-track">
+                        <div class="bar-fill" style="width: ${pct}%;">${d.qtd} pedidos</div>
                     </div>
-                    <button class="btn-confirm-credits injetar" id="${btnId}" onclick="atualizarSaldo('${contadorRevendas}')" disabled>
-                        Definir valor
-                    </button>
                 </div>
-            </td>
-            <td><button class="btn btn-danger" onclick="removerLinha('${novaLinhaId}', '${revendaId}')">Remover</button></td>
-        `;
-        
-        tabela.appendChild(novaLinha);
-        const option = document.createElement('option');
-        option.value = revendaId;
-        option.text = nome;
-        selectPro.appendChild(option);
-
-        document.getElementById('total-revendas').innerText = contadorRevendas;
-        document.getElementById('add-nome-revenda').value = '';
-        document.getElementById('add-whats-revenda').value = '';
-        alert(`🤝 Revenda de ${nome} criada com sucesso!`);
-        navegarPara('dashboard');
+            `;
+        });
     }
 
-    function removerLinha(idLinha, revendaId) {
-        if(confirm("Remover esta revenda e todos os seus profissionais?")) {
-            document.getElementById(idLinha).remove();
-            if(revendaId) dbProfissionais = dbProfissionais.filter(p => p.revendaId !== revendaId);
-            let totalAtual = parseInt(document.getElementById('total-revendas').innerText);
-            document.getElementById('total-revendas').innerText = Math.max(0, totalAtual - 1);
-            renderizarTabelaProfissionais();
-            atualizarTotalCreditos();
-        }
-    }
-
-    // ==========================================
-    // INICIALIZAÇÃO
-    // ==========================================
-    popularSelectCategorias();
-    renderizarTabelaPrecos();
-    renderizarTabelaProfissionais();
-    atualizarTotalCreditos();
-    atualizarCorBotao('1'); // Inicializa o botão da primeira revenda
+    // Inicialização
+    popularSelects();
+    renderizarDashboard();
+    renderizarProfissionais();
+    renderizarPrecos();
+    renderizarHistorico();
+    renderizarRelatorios();
 </script>
 </body>
 </html>
