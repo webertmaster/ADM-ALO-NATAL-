@@ -11,69 +11,87 @@
         body { background-color: var(--bg); color: var(--text); display: flex; min-height: 100vh; }
         .wrapper { display: flex; flex: 1; width: 100%; }
         @media(max-width: 900px) { .wrapper { flex-direction: column; } .sidebar { width: 100% !important; } }
-        .sidebar { width: 260px; background-color: var(--primary-dark); color: white; padding: 24px 16px; display: flex; flex-direction: column; gap: 6px; }
-        .sidebar h2 { color: var(--accent); font-size: 20px; text-align: center; margin-bottom: 20px; }
-        .admin-badge { background: rgba(255,255,255,0.08); padding: 12px; border-radius: 12px; text-align: center; margin-bottom: 16px; }
-        .admin-badge p { font-size: 10px; color: #94a3b8; text-transform: uppercase; }
-        .admin-badge h3 { font-size: 13px; color: #cbd5e1; margin-top: 4px; }
+        .sidebar { width: 260px; background: linear-gradient(180deg, var(--primary-dark) 0%, #002a4a 100%); color: white; padding: 24px 16px; display: flex; flex-direction: column; gap: 4px; box-shadow: 2px 0 10px rgba(0,0,0,0.1); }
+        .sidebar h2 { color: var(--accent); font-size: 22px; text-align: center; margin-bottom: 24px; font-weight: 700; letter-spacing: -0.5px; }
+        .admin-badge { background: rgba(255,255,255,0.1); backdrop-filter: blur(10px); padding: 16px; border-radius: 12px; text-align: center; margin-bottom: 20px; border: 1px solid rgba(255,255,255,0.1); }
+        .admin-badge p { font-size: 10px; color: #94a3b8; text-transform: uppercase; letter-spacing: 1px; }
+        .admin-badge h3 { font-size: 14px; color: #e2e8f0; margin-top: 4px; }
         .admin-badge h3 span { color: var(--accent); }
-        .menu-item { padding: 10px 14px; cursor: pointer; color: #94a3b8; border-radius: 8px; display: flex; align-items: center; gap: 10px; font-size: 14px; }
-        .menu-item:hover { color: white; background: rgba(255,255,255,0.08); }
-        .menu-item.active { background: rgba(255,255,255,0.15); color: var(--accent); font-weight: 600; }
-        .main-content { flex: 1; padding: 32px; overflow-y: auto; }
-        .main-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 32px; padding-bottom: 16px; border-bottom: 1px solid var(--border); }
-        .main-header h1 { color: var(--primary); font-size: 24px; }
-        .badge-role { font-size: 12px; color: var(--primary-dark); font-weight: 600; background: var(--accent); padding: 6px 12px; border-radius: 20px; }
-        .panel-view { display: none; animation: fadeIn 0.3s; }
+        .menu-item { padding: 12px 16px; cursor: pointer; color: #94a3b8; border-radius: 10px; display: flex; align-items: center; gap: 12px; font-size: 14px; transition: all 0.2s ease; }
+        .menu-item:hover { color: white; background: rgba(255,255,255,0.1); transform: translateX(4px); }
+        .menu-item.active { background: rgba(255,255,255,0.15); color: var(--accent); font-weight: 600; box-shadow: 0 2px 8px rgba(0,0,0,0.2); }
+        .main-content { flex: 1; padding: 32px; overflow-y: auto; background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%); }
+        .main-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 32px; padding-bottom: 20px; border-bottom: 2px solid var(--border); }
+        .main-header h1 { color: var(--primary-dark); font-size: 28px; font-weight: 700; }
+        .badge-role { font-size: 12px; color: var(--primary-dark); font-weight: 600; background: linear-gradient(135deg, var(--accent), #ffca28); padding: 8px 16px; border-radius: 20px; box-shadow: 0 2px 8px rgba(255,193,7,0.3); }
+        .panel-view { display: none; animation: fadeIn 0.4s ease; }
         .panel-view.active { display: block; }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; margin-bottom: 32px; }
-        .stat-card { background: var(--card); padding: 20px; border-radius: 16px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); border-top: 4px solid var(--primary); }
-        .stat-card p { font-size: 12px; color: var(--text-muted); font-weight: 600; text-transform: uppercase; }
-        .stat-card h2 { font-size: 28px; margin-top: 8px; }
-        .stat-card.alert { border-top-color: var(--danger); background: #fef2f2; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 24px; margin-bottom: 32px; }
+        .stat-card { background: var(--card); padding: 24px; border-radius: 16px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); border-left: 4px solid var(--primary); transition: all 0.3s ease; }
+        .stat-card:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(0,0,0,0.1); }
+        .stat-card p { font-size: 12px; color: var(--text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }
+        .stat-card h2 { font-size: 32px; margin-top: 8px; font-weight: 700; }
+        .stat-card.alert { border-left-color: var(--danger); background: #fef2f2; }
         .stat-card.alert h2 { color: var(--danger); }
-        .action-box { background: var(--card); padding: 24px; border-radius: 16px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); margin-bottom: 24px; }
-        .section-title { font-size: 18px; color: var(--primary-dark); margin-bottom: 20px; font-weight: 700; display: flex; align-items: center; gap: 10px; }
-        .search-bar { width: 100%; padding: 12px 16px; border: 1px solid var(--border); border-radius: 10px; font-size: 14px; background: #f8fafc; margin-bottom: 16px; }
+        .action-box { background: var(--card); padding: 28px; border-radius: 16px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); margin-bottom: 24px; }
+        .section-title { font-size: 20px; color: var(--primary-dark); margin-bottom: 24px; font-weight: 700; display: flex; align-items: center; gap: 10px; }
+        .search-bar { width: 100%; padding: 12px 16px; border: 2px solid var(--border); border-radius: 10px; font-size: 14px; background: #f8fafc; margin-bottom: 16px; transition: all 0.2s; }
+        .search-bar:focus { outline: none; border-color: var(--primary); background: white; }
         .form-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin-bottom: 16px; }
-        .form-group { display: flex; flex-direction: column; gap: 6px; }
+        .form-group { display: flex; flex-direction: column; gap: 8px; }
         .form-group label { font-size: 13px; font-weight: 600; color: var(--text-muted); }
-        .form-group input, .form-group select { padding: 12px; border: 1px solid var(--border); border-radius: 10px; font-size: 14px; background: #f8fafc; }
-        .btn { padding: 10px 18px; border: none; border-radius: 10px; font-weight: 600; cursor: pointer; font-size: 14px; }
+        .form-group input, .form-group select { padding: 12px 16px; border: 2px solid var(--border); border-radius: 10px; font-size: 14px; background: #f8fafc; transition: all 0.2s; }
+        .form-group input:focus, .form-group select:focus { outline: none; border-color: var(--primary); background: white; }
+        .btn { padding: 10px 20px; border: none; border-radius: 10px; font-weight: 600; cursor: pointer; font-size: 14px; transition: all 0.2s; }
+        .btn:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
         .btn-success { background: var(--success); color: white; }
         .btn-primary { background: var(--primary); color: white; }
         .btn-danger { background: var(--danger); color: white; padding: 6px 12px; font-size: 12px; }
-        .table-container { overflow-x: auto; border: 1px solid var(--border); border-radius: 12px; max-height: 600px; overflow-y: auto; }
+        .btn-danger:hover { background: #dc2626; }
+        .table-container { overflow-x: auto; border: 2px solid var(--border); border-radius: 12px; max-height: 600px; overflow-y: auto; background: white; }
         .data-table { width: 100%; border-collapse: collapse; text-align: left; font-size: 13px; }
-        .data-table th, .data-table td { padding: 14px; border-bottom: 1px solid var(--border); vertical-align: middle; }
-        .data-table th { background: #f8fafc; color: var(--text-muted); font-size: 11px; text-transform: uppercase; font-weight: 600; position: sticky; top: 0; }
-        .credit-controller { display: flex; align-items: center; gap: 4px; background: #f1f5f9; padding: 4px; border-radius: 8px; border: 1px solid var(--border); }
-        .counter-btn { width: 28px; height: 28px; border-radius: 6px; border: none; background: white; font-size: 16px; font-weight: bold; cursor: pointer; }
-        .counter-btn.minus { color: var(--danger); }
-        .counter-btn.plus { color: var(--success); }
-        .credit-input { width: 50px; text-align: center; border: 1px solid var(--border); background: white; font-size: 14px; font-weight: 700; border-radius: 6px; padding: 4px; }
-        .btn-confirm-credits { border: none; padding: 6px 12px; border-radius: 8px; font-size: 11px; font-weight: 700; cursor: pointer; margin-left: 6px; text-transform: uppercase; }
-        .btn-confirm-credits.injetar { background: var(--success); color: white; }
-        .btn-confirm-credits.remover { background: var(--danger); color: white; }
-        .btn-confirm-credits:disabled { background: #cbd5e1; cursor: not-allowed; }
-        .price-input-wrapper { display: flex; align-items: center; background: #f8fafc; border: 1px solid var(--border); border-radius: 8px; overflow: hidden; width: 110px; }
-        .price-input-wrapper span { background: #e2e8f0; padding: 8px; font-weight: 600; font-size: 12px; }
-        .price-input { border: none; padding: 8px; width: 100%; font-size: 13px; font-weight: 600; }
-        .btn-whatsapp { display: inline-flex; align-items: center; gap: 6px; background: var(--whatsapp); color: white; padding: 6px 12px; border-radius: 8px; font-size: 12px; font-weight: 700; text-decoration: none; margin-left: 8px; }
+        .data-table th, .data-table td { padding: 16px; border-bottom: 1px solid var(--border); vertical-align: middle; }
+        .data-table th { background: #f8fafc; color: var(--text-muted); font-size: 11px; text-transform: uppercase; font-weight: 700; position: sticky; top: 0; z-index: 10; }
+        .data-table tbody tr:hover { background: #f8fafc; }
+        
+        /* Novo estilo para ajuste de créditos */
+        .credit-adjust-group { display: flex; align-items: center; gap: 8px; }
+        .credit-input-small { width: 70px; padding: 8px 12px; border: 2px solid var(--border); border-radius: 8px; font-size: 14px; font-weight: 600; text-align: center; background: white; transition: all 0.2s; }
+        .credit-input-small:focus { outline: none; border-color: var(--primary); }
+        .btn-add-credit { background: var(--success); color: white; border: none; padding: 8px 14px; border-radius: 8px; font-weight: 700; font-size: 16px; cursor: pointer; transition: all 0.2s; min-width: 40px; }
+        .btn-add-credit:hover { background: #059669; transform: scale(1.05); }
+        .btn-remove-credit { background: var(--danger); color: white; border: none; padding: 8px 14px; border-radius: 8px; font-weight: 700; font-size: 16px; cursor: pointer; transition: all 0.2s; min-width: 40px; }
+        .btn-remove-credit:hover { background: #dc2626; transform: scale(1.05); }
+        
+        .price-input-wrapper { display: flex; align-items: center; background: #f8fafc; border: 2px solid var(--border); border-radius: 8px; overflow: hidden; width: 120px; }
+        .price-input-wrapper span { background: #e2e8f0; padding: 10px 12px; font-weight: 700; font-size: 13px; color: var(--text-muted); }
+        .price-input { border: none; padding: 10px; width: 100%; font-size: 14px; font-weight: 600; background: white; }
+        .price-input:focus { outline: none; }
+        .btn-whatsapp { display: inline-flex; align-items: center; gap: 6px; background: var(--whatsapp); color: white; padding: 8px 14px; border-radius: 8px; font-size: 12px; font-weight: 700; text-decoration: none; transition: all 0.2s; }
+        .btn-whatsapp:hover { background: #128C7E; transform: scale(1.05); }
+        .config-card { background: #f8fafc; padding: 24px; border-radius: 12px; border: 2px solid var(--border); margin-bottom: 20px; }
+        .config-card h3 { color: var(--primary-dark); margin-bottom: 16px; font-size: 16px; }
+        .price-preview { background: white; padding: 16px; border-radius: 10px; border: 2px solid var(--border); margin-top: 16px; }
+        .price-preview p { font-size: 13px; color: var(--text-muted); margin-bottom: 6px; }
+        .price-preview strong { color: var(--primary); font-size: 15px; }
+        
+        /* Melhorias visuais */
+        .saldo-badge { background: #dbeafe; color: #1e40af; padding: 6px 12px; border-radius: 20px; font-weight: 700; font-size: 13px; }
+        .nome-revenda { font-weight: 700; color: var(--primary-dark); }
     </style>
 </head>
 <body>
 <div class="wrapper">
     <div class="sidebar">
         <h2>☀️ Alô Natal</h2>
-        <div class="admin-badge"><p>Acesso</p><h3>créditos ilimitados <span>♾️</span></h3></div>
+        <div class="admin-badge"><p>Acesso</p><h3>Administrador <span>♾️</span></h3></div>
         <div class="menu-item active" id="menu-dash" onclick="navegarPara('dashboard')">📊 Dashboard</div>
         <div class="menu-item" id="menu-cadastro" onclick="navegarPara('cadastro')">🤝 Cadastrar Revenda</div>
         <div class="menu-item" id="menu-profissionais" onclick="navegarPara('profissionais')">👷‍️ Profissionais</div>
         <div class="menu-item" id="menu-precos" onclick="navegarPara('precos')">📈 Tabela de Preços</div>
+        <div class="menu-item" id="menu-config" onclick="navegarPara('config')">⚙️ Configuração</div>
         <div class="menu-item" id="menu-historico" onclick="navegarPara('historico')">📜 Histórico</div>
-        <div class="menu-item" onclick="limparTudo()" style="color: var(--danger); margin-top: 20px;">🗑️ Resetar</div>
     </div>
     <div class="main-content">
         <div class="main-header"><h1 id="page-title">Painel Master</h1><span class="badge-role">👑 Admin</span></div>
@@ -81,27 +99,28 @@
         <!-- DASHBOARD -->
         <div id="view-dashboard" class="panel-view active">
             <div class="stats-grid">
-                <div class="stat-card"><p>Revendas</p><h2 id="total-revendas">0</h2></div>
-                <div class="stat-card"><p>Profissionais</p><h2 id="total-profissionais">0</h2></div>
-                <div class="stat-card"><p>Créditos</p><h2 id="total-creditos">0</h2></div>
+                <div class="stat-card"><p>Total de Revendas</p><h2 id="total-revendas">0</h2></div>
+                <div class="stat-card"><p>Profissionais Ativos</p><h2 id="total-profissionais">0</h2></div>
+                <div class="stat-card"><p>Créditos em Circulação</p><h2 id="total-creditos">0</h2></div>
+                <div class="stat-card"><p>Preço Base do Crédito</p><h2 id="preco-base-dash">R$ 12,00</h2></div>
             </div>
             <div class="action-box">
-                <div class="section-title">👥 Revendas</div>
-                <div class="table-container"><table class="data-table"><thead><tr><th>Revenda</th><th>Região</th><th>Contato</th><th>Saldo</th><th>Ajustar</th><th>Ação</th></tr></thead><tbody id="tabela-revendas"></tbody></table></div>
+                <div class="section-title">👥 Gerenciar Revendas</div>
+                <div class="table-container"><table class="data-table"><thead><tr><th>Revenda</th><th>Região</th><th>Contato</th><th>Saldo</th><th>Ajustar Créditos</th><th>Ação</th></tr></thead><tbody id="tabela-revendas"></tbody></table></div>
             </div>
         </div>
 
         <!-- CADASTRO -->
         <div id="view-cadastro" class="panel-view">
             <div class="action-box">
-                <div class="section-title">🤝 Nova Revenda</div>
+                <div class="section-title">🤝 Cadastrar Nova Revenda</div>
                 <form onsubmit="event.preventDefault(); criarRevenda();">
                     <div class="form-row">
-                        <div class="form-group"><label>Nome</label><input type="text" id="add-nome" required></div>
+                        <div class="form-group"><label>Nome da Revenda</label><input type="text" id="add-nome" placeholder="Ex: Revenda Centro" required></div>
                         <div class="form-group"><label>WhatsApp</label><input type="text" id="add-whats" placeholder="(84) 99999-9999" required></div>
                         <div class="form-group"><label>Região</label><select id="add-regiao"><option>Alecrim / Leste</option><option>Zona Norte</option><option>Zona Sul</option><option>Geral</option></select></div>
                     </div>
-                    <button type="submit" class="btn btn-success" style="width:100%">Cadastrar</button>
+                    <button type="submit" class="btn btn-success" style="width:100%; padding: 14px; font-size: 16px;">✅ Cadastrar Revenda</button>
                 </form>
             </div>
         </div>
@@ -109,23 +128,23 @@
         <!-- PROFISSIONAIS -->
         <div id="view-profissionais" class="panel-view">
             <div class="action-box">
-                <div class="section-title">👷‍️ Profissionais</div>
-                <input type="text" class="search-bar" placeholder="🔍 Buscar..." oninput="filtrarPro()">
-                <div class="form-row" style="background:#f8fafc;padding:16px;border-radius:12px;">
+                <div class="section-title">👷‍️ Gerenciar Profissionais</div>
+                <input type="text" class="search-bar" placeholder="🔍 Buscar por nome, categoria ou revenda..." oninput="filtrarPro()">
+                <div class="form-row" style="background:#f8fafc;padding:20px;border-radius:12px;border:2px solid var(--border);">
                     <div class="form-group">
                         <label>Revenda</label>
                         <select id="select-revenda-pro"></select>
                     </div>
                     <div class="form-group">
-                        <label>Nome</label>
-                        <input type="text" id="nome-pro" placeholder="Ex: Carlos">
+                        <label>Nome do Profissional</label>
+                        <input type="text" id="nome-pro" placeholder="Ex: Carlos Silva">
                     </div>
                     <div class="form-group">
                         <label>Categoria</label>
                         <select id="cat-pro"></select>
                     </div>
                     <div class="form-group" style="justify-content:flex-end">
-                        <button class="btn btn-primary" onclick="addPro()">+ Adicionar</button>
+                        <button class="btn btn-primary" onclick="addPro()" style="margin-top: 24px;">➕ Adicionar Profissional</button>
                     </div>
                 </div>
                 <div class="table-container" style="margin-top:20px">
@@ -137,35 +156,79 @@
         <!-- PREÇOS -->
         <div id="view-precos" class="panel-view">
             <div class="action-box">
-                <div class="section-title">📈 Tabela de Preços</div>
+                <div class="section-title">📈 Tabela de Preços por Categoria</div>
                 <div class="table-container">
                     <table class="data-table">
                         <thead><tr><th>Categoria</th><th>Valor (R$)</th><th>Créditos</th><th>Ação</th></tr></thead>
                         <tbody>
-                            <tr><td>🪵 Servente</td><td><div class="price-input-wrapper"><span>R$</span><input type="number" id="p-servente" value="12" step="0.5"></div></td><td><b id="c-servente">1</b></td><td><button class="btn btn-primary" onclick="savePrice('servente')">Salvar</button></td></tr>
-                            <tr><td>🧹 Diarista</td><td><div class="price-input-wrapper"><span>R$</span><input type="number" id="p-diarista" value="12" step="0.5"></div></td><td><b id="c-diarista">1</b></td><td><button class="btn btn-primary" onclick="savePrice('diarista')">Salvar</button></td></tr>
-                            <tr><td>🛠️ Assistência</td><td><div class="price-input-wrapper"><span>R$</span><input type="number" id="p-marido" value="12" step="0.5"></div></td><td><b id="c-marido">1</b></td><td><button class="btn btn-primary" onclick="savePrice('marido')">Salvar</button></td></tr>
-                            <tr><td>🪑 Montador</td><td><div class="price-input-wrapper"><span>R$</span><input type="number" id="p-montador" value="12" step="0.5"></div></td><td><b id="c-montador">1</b></td><td><button class="btn btn-primary" onclick="savePrice('montador')">Salvar</button></td></tr>
-                            <tr><td>🔑 Chaveiro</td><td><div class="price-input-wrapper"><span>R$</span><input type="number" id="p-chaveiro" value="15" step="0.5"></div></td><td><b id="c-chaveiro">1,25</b></td><td><button class="btn btn-primary" onclick="savePrice('chaveiro')">Salvar</button></td></tr>
-                            <tr><td>⚡ Eletricista</td><td><div class="price-input-wrapper"><span>R$</span><input type="number" id="p-eletricista" value="15" step="0.5"></div></td><td><b id="c-eletricista">1,25</b></td><td><button class="btn btn-primary" onclick="savePrice('eletricista')">Salvar</button></td></tr>
-                            <tr><td>🚰 Encanador</td><td><div class="price-input-wrapper"><span>R$</span><input type="number" id="p-encanador" value="15" step="0.5"></div></td><td><b id="c-encanador">1,25</b></td><td><button class="btn btn-primary" onclick="savePrice('encanador')">Salvar</button></td></tr>
-                            <tr><td>❄️ Ar-Condicionado</td><td><div class="price-input-wrapper"><span>R$</span><input type="number" id="p-ar" value="15" step="0.5"></div></td><td><b id="c-ar">1,25</b></td><td><button class="btn btn-primary" onclick="savePrice('ar')">Salvar</button></td></tr>
-                            <tr><td>🌱 Jardineiro</td><td><div class="price-input-wrapper"><span>R$</span><input type="number" id="p-jardineiro" value="15" step="0.5"></div></td><td><b id="c-jardineiro">1,25</b></td><td><button class="btn btn-primary" onclick="savePrice('jardineiro')">Salvar</button></td></tr>
-                            <tr><td>🎉 Eventos</td><td><div class="price-input-wrapper"><span>R$</span><input type="number" id="p-eventos" value="18" step="0.5"></div></td><td><b id="c-eventos">1,5</b></td><td><button class="btn btn-primary" onclick="savePrice('eventos')">Salvar</button></td></tr>
-                            <tr><td>🧱 Pedreiro</td><td><div class="price-input-wrapper"><span>R$</span><input type="number" id="p-pedreiro" value="18" step="0.5"></div></td><td><b id="c-pedreiro">1,5</b></td><td><button class="btn btn-primary" onclick="savePrice('pedreiro')">Salvar</button></td></tr>
-                            <tr><td>🏗️ Gesseiro</td><td><div class="price-input-wrapper"><span>R$</span><input type="number" id="p-gesseiro" value="18" step="0.5"></div></td><td><b id="c-gesseiro">1,5</b></td><td><button class="btn btn-primary" onclick="savePrice('gesseiro')">Salvar</button></td></tr>
-                            <tr><td>🖌️ Pintor</td><td><div class="price-input-wrapper"><span>R$</span><input type="number" id="p-pintor" value="18" step="0.5"></div></td><td><b id="c-pintor">1,5</b></td><td><button class="btn btn-primary" onclick="savePrice('pintor')">Salvar</button></td></tr>
-                            <tr><td>🪳 Dedetizador</td><td><div class="price-input-wrapper"><span>R$</span><input type="number" id="p-dedetizador" value="18" step="0.5"></div></td><td><b id="c-dedetizador">1,5</b></td><td><button class="btn btn-primary" onclick="savePrice('dedetizador')">Salvar</button></td></tr>
-                            <tr><td>🪚 Marceneiro</td><td><div class="price-input-wrapper"><span>R$</span><input type="number" id="p-marceneiro" value="24" step="0.5"></div></td><td><b id="c-marceneiro">2</b></td><td><button class="btn btn-primary" onclick="savePrice('marceneiro')">Salvar</button></td></tr>
-                            <tr><td>⛓️ Serralheiro</td><td><div class="price-input-wrapper"><span>R$</span><input type="number" id="p-serralheiro" value="24" step="0.5"></div></td><td><b id="c-serralheiro">2</b></td><td><button class="btn btn-primary" onclick="savePrice('serralheiro')">Salvar</button></td></tr>
-                            <tr><td>🚗 Viagens</td><td><div class="price-input-wrapper"><span>R$</span><input type="number" id="p-viagens" value="24" step="0.5"></div></td><td><b id="c-viagens">2</b></td><td><button class="btn btn-primary" onclick="savePrice('viagens')">Salvar</button></td></tr>
-                            <tr><td>🐕 Tosa Pet</td><td><div class="price-input-wrapper"><span>R$</span><input type="number" id="p-tosa" value="12" step="0.5"></div></td><td><b id="c-tosa">1</b></td><td><button class="btn btn-primary" onclick="savePrice('tosa')">Salvar</button></td></tr>
-                            <tr><td>💇 Beleza</td><td><div class="price-input-wrapper"><span>R$</span><input type="number" id="p-beleza" value="12" step="0.5"></div></td><td><b id="c-beleza">1</b></td><td><button class="btn btn-primary" onclick="savePrice('beleza')">Salvar</button></td></tr>
-                            <tr><td>🪟 Vidraceiro</td><td><div class="price-input-wrapper"><span>R$</span><input type="number" id="p-vidraceiro" value="18" step="0.5"></div></td><td><b id="c-vidraceiro">1,5</b></td><td><button class="btn btn-primary" onclick="savePrice('vidraceiro')">Salvar</button></td></tr>
-                            <tr><td>🖥️ Informática</td><td><div class="price-input-wrapper"><span>R$</span><input type="number" id="p-info" value="18" step="0.5"></div></td><td><b id="c-info">1,5</b></td><td><button class="btn btn-primary" onclick="savePrice('info')">Salvar</button></td></tr>
-                            <tr><td>💪 Personal</td><td><div class="price-input-wrapper"><span>R$</span><input type="number" id="p-personal" value="18" step="0.5"></div></td><td><b id="c-personal">1,5</b></td><td><button class="btn btn-primary" onclick="savePrice('personal')">Salvar</button></td></tr>
+                            <tr><td>🪵 Servente</td><td><div class="price-input-wrapper"><span>R$</span><input type="number" id="p-servente" value="12" step="0.5"></div></td><td><b id="c-servente">1</b></td><td><button class="btn btn-primary" onclick="savePrice('servente')">💾 Salvar</button></td></tr>
+                            <tr><td>🧹 Diarista</td><td><div class="price-input-wrapper"><span>R$</span><input type="number" id="p-diarista" value="12" step="0.5"></div></td><td><b id="c-diarista">1</b></td><td><button class="btn btn-primary" onclick="savePrice('diarista')">💾 Salvar</button></td></tr>
+                            <tr><td>🛠️ Assistência</td><td><div class="price-input-wrapper"><span>R$</span><input type="number" id="p-marido" value="12" step="0.5"></div></td><td><b id="c-marido">1</b></td><td><button class="btn btn-primary" onclick="savePrice('marido')">💾 Salvar</button></td></tr>
+                            <tr><td>🪑 Montador</td><td><div class="price-input-wrapper"><span>R$</span><input type="number" id="p-montador" value="12" step="0.5"></div></td><td><b id="c-montador">1</b></td><td><button class="btn btn-primary" onclick="savePrice('montador')">💾 Salvar</button></td></tr>
+                            <tr><td>🔑 Chaveiro</td><td><div class="price-input-wrapper"><span>R$</span><input type="number" id="p-chaveiro" value="15" step="0.5"></div></td><td><b id="c-chaveiro">1,25</b></td><td><button class="btn btn-primary" onclick="savePrice('chaveiro')">💾 Salvar</button></td></tr>
+                            <tr><td>⚡ Eletricista</td><td><div class="price-input-wrapper"><span>R$</span><input type="number" id="p-eletricista" value="15" step="0.5"></div></td><td><b id="c-eletricista">1,25</b></td><td><button class="btn btn-primary" onclick="savePrice('eletricista')">💾 Salvar</button></td></tr>
+                            <tr><td>🚰 Encanador</td><td><div class="price-input-wrapper"><span>R$</span><input type="number" id="p-encanador" value="15" step="0.5"></div></td><td><b id="c-encanador">1,25</b></td><td><button class="btn btn-primary" onclick="savePrice('encanador')">💾 Salvar</button></td></tr>
+                            <tr><td>❄️ Ar-Condicionado</td><td><div class="price-input-wrapper"><span>R$</span><input type="number" id="p-ar" value="15" step="0.5"></div></td><td><b id="c-ar">1,25</b></td><td><button class="btn btn-primary" onclick="savePrice('ar')">💾 Salvar</button></td></tr>
+                            <tr><td>🌱 Jardineiro</td><td><div class="price-input-wrapper"><span>R$</span><input type="number" id="p-jardineiro" value="15" step="0.5"></div></td><td><b id="c-jardineiro">1,25</b></td><td><button class="btn btn-primary" onclick="savePrice('jardineiro')">💾 Salvar</button></td></tr>
+                            <tr><td>🎉 Eventos</td><td><div class="price-input-wrapper"><span>R$</span><input type="number" id="p-eventos" value="18" step="0.5"></div></td><td><b id="c-eventos">1,5</b></td><td><button class="btn btn-primary" onclick="savePrice('eventos')">💾 Salvar</button></td></tr>
+                            <tr><td>🧱 Pedreiro</td><td><div class="price-input-wrapper"><span>R$</span><input type="number" id="p-pedreiro" value="18" step="0.5"></div></td><td><b id="c-pedreiro">1,5</b></td><td><button class="btn btn-primary" onclick="savePrice('pedreiro')">💾 Salvar</button></td></tr>
+                            <tr><td>🏗️ Gesseiro</td><td><div class="price-input-wrapper"><span>R$</span><input type="number" id="p-gesseiro" value="18" step="0.5"></div></td><td><b id="c-gesseiro">1,5</b></td><td><button class="btn btn-primary" onclick="savePrice('gesseiro')">💾 Salvar</button></td></tr>
+                            <tr><td>🖌️ Pintor</td><td><div class="price-input-wrapper"><span>R$</span><input type="number" id="p-pintor" value="18" step="0.5"></div></td><td><b id="c-pintor">1,5</b></td><td><button class="btn btn-primary" onclick="savePrice('pintor')">💾 Salvar</button></td></tr>
+                            <tr><td>🪳 Dedetizador</td><td><div class="price-input-wrapper"><span>R$</span><input type="number" id="p-dedetizador" value="18" step="0.5"></div></td><td><b id="c-dedetizador">1,5</b></td><td><button class="btn btn-primary" onclick="savePrice('dedetizador')">💾 Salvar</button></td></tr>
+                            <tr><td>🪚 Marceneiro</td><td><div class="price-input-wrapper"><span>R$</span><input type="number" id="p-marceneiro" value="24" step="0.5"></div></td><td><b id="c-marceneiro">2</b></td><td><button class="btn btn-primary" onclick="savePrice('marceneiro')">💾 Salvar</button></td></tr>
+                            <tr><td>⛓️ Serralheiro</td><td><div class="price-input-wrapper"><span>R$</span><input type="number" id="p-serralheiro" value="24" step="0.5"></div></td><td><b id="c-serralheiro">2</b></td><td><button class="btn btn-primary" onclick="savePrice('serralheiro')">💾 Salvar</button></td></tr>
+                            <tr><td>🚗 Viagens</td><td><div class="price-input-wrapper"><span>R$</span><input type="number" id="p-viagens" value="24" step="0.5"></div></td><td><b id="c-viagens">2</b></td><td><button class="btn btn-primary" onclick="savePrice('viagens')">💾 Salvar</button></td></tr>
+                            <tr><td>🐕 Tosa Pet</td><td><div class="price-input-wrapper"><span>R$</span><input type="number" id="p-tosa" value="12" step="0.5"></div></td><td><b id="c-tosa">1</b></td><td><button class="btn btn-primary" onclick="savePrice('tosa')">💾 Salvar</button></td></tr>
+                            <tr><td>💇 Beleza</td><td><div class="price-input-wrapper"><span>R$</span><input type="number" id="p-beleza" value="12" step="0.5"></div></td><td><b id="c-beleza">1</b></td><td><button class="btn btn-primary" onclick="savePrice('beleza')">💾 Salvar</button></td></tr>
+                            <tr><td>🪟 Vidraceiro</td><td><div class="price-input-wrapper"><span>R$</span><input type="number" id="p-vidraceiro" value="18" step="0.5"></div></td><td><b id="c-vidraceiro">1,5</b></td><td><button class="btn btn-primary" onclick="savePrice('vidraceiro')">💾 Salvar</button></td></tr>
+                            <tr><td>🖥️ Informática</td><td><div class="price-input-wrapper"><span>R$</span><input type="number" id="p-info" value="18" step="0.5"></div></td><td><b id="c-info">1,5</b></td><td><button class="btn btn-primary" onclick="savePrice('info')">💾 Salvar</button></td></tr>
+                            <tr><td>💪 Personal</td><td><div class="price-input-wrapper"><span>R$</span><input type="number" id="p-personal" value="18" step="0.5"></div></td><td><b id="c-personal">1,5</b></td><td><button class="btn btn-primary" onclick="savePrice('personal')">💾 Salvar</button></td></tr>
                         </tbody>
                     </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- CONFIGURAÇÃO -->
+        <div id="view-config" class="panel-view">
+            <div class="action-box">
+                <div class="section-title">⚙️ Configuração do Sistema</div>
+                <div class="config-card">
+                    <h3>💰 Valor Base do Crédito</h3>
+                    <p style="color: var(--text-muted); font-size: 13px; margin-bottom: 16px;">
+                        Este valor define quanto custa 1 crédito. Todos os preços da tabela serão recalculados automaticamente.
+                    </p>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Valor do Crédito (R$)</label>
+                            <div style="display: flex; align-items: center; gap: 12px;">
+                                <div class="price-input-wrapper" style="width: 150px;">
+                                    <span>R$</span>
+                                    <input type="number" id="config-base-credito" class="price-input" value="12.00" step="0.50" min="1" onchange="atualizarPreview()">
+                                </div>
+                                <button class="btn btn-success" onclick="salvarConfiguracao()">💾 Salvar Configuração</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="price-preview" id="config-preview">
+                        <p><strong>Preço base atual:</strong> R$ <span id="preview-valor">12,00</span></p>
+                        <p style="margin-top: 8px;">📊 <strong>Exemplos de conversão:</strong></p>
+                        <p>• Servente (1 crédito) = R$ <span id="preview-servente">12,00</span></p>
+                        <p>• Chaveiro (1,25 créditos) = R$ <span id="preview-chaveiro">15,00</span></p>
+                        <p>• Pedreiro (1,5 créditos) = R$ <span id="preview-pedreiro">18,00</span></p>
+                        <p>• Marceneiro (2 créditos) = R$ <span id="preview-marceneiro">24,00</span></p>
+                    </div>
+                </div>
+
+                <div class="config-card" style="margin-top: 20px;">
+                    <h3>📋 Informações do Sistema</h3>
+                    <p style="color: var(--text-muted); font-size: 13px; line-height: 1.6;">
+                        • O preço base é usado para calcular automaticamente os créditos de cada categoria<br>
+                        • Fórmula: Créditos = Valor da Categoria ÷ Preço Base<br>
+                        • Alterações no preço base não afetam os saldos existentes<br>
+                        • Recomenda-se atualizar a tabela de preços após mudar o valor base
+                    </p>
                 </div>
             </div>
         </div>
@@ -173,8 +236,8 @@
         <!-- HISTÓRICO -->
         <div id="view-historico" class="panel-view">
             <div class="action-box">
-                <div class="section-title">📜 Histórico</div>
-                <div class="table-container"><table class="data-table"><thead><tr><th>Data</th><th>Tipo</th><th>Destino</th><th>Qtd</th><th>Saldo</th></tr></thead><tbody id="tabela-hist"></tbody></table></div>
+                <div class="section-title">📜 Histórico de Movimentações</div>
+                <div class="table-container"><table class="data-table"><thead><tr><th>Data</th><th>Tipo</th><th>Destino</th><th>Quantidade</th><th>Saldo</th></tr></thead><tbody id="tabela-hist"></tbody></table></div>
             </div>
         </div>
     </div>
@@ -185,12 +248,17 @@
 let revendas = JSON.parse(localStorage.getItem('revendas')) || [{id:'r1',nome:'Revenda Alecrim',regiao:'Leste',whats:'(84) 98888-7777',saldo:150}];
 let profissionais = JSON.parse(localStorage.getItem('profissionais')) || [];
 let historico = JSON.parse(localStorage.getItem('historico')) || [];
-let baseCredito = 12.00;
+let baseCredito = parseFloat(localStorage.getItem('baseCredito')) || 12.00;
+
+// Inicializar campo de configuração
+document.getElementById('config-base-credito').value = baseCredito.toFixed(2);
+atualizarPreview();
 
 function saveData() {
     localStorage.setItem('revendas', JSON.stringify(revendas));
     localStorage.setItem('profissionais', JSON.stringify(profissionais));
     localStorage.setItem('historico', JSON.stringify(historico));
+    localStorage.setItem('baseCredito', baseCredito.toString());
 }
 
 function navegarPara(tela) {
@@ -201,46 +269,104 @@ function navegarPara(tela) {
     if(tela==='dashboard') renderDash();
     if(tela==='profissionais') renderPro();
     if(tela==='historico') renderHist();
+    if(tela==='config') {
+        document.getElementById('config-base-credito').value = baseCredito.toFixed(2);
+        atualizarPreview();
+    }
 }
 
 function renderDash() {
     document.getElementById('total-revendas').innerText = revendas.length;
     document.getElementById('total-profissionais').innerText = profissionais.length;
     document.getElementById('total-creditos').innerText = revendas.reduce((a,r)=>a+r.saldo,0);
+    document.getElementById('preco-base-dash').innerText = `R$ ${baseCredito.toFixed(2).replace('.',',')}`;
     
     const tbody = document.getElementById('tabela-revendas');
     tbody.innerHTML = '';
     revendas.forEach(r => {
         const link = `https://wa.me/55${r.whats.replace(/\D/g,'')}?text=Olá!`;
         tbody.innerHTML += `<tr>
-            <td><b>${r.nome}</b></td>
+            <td><span class="nome-revenda">${r.nome}</span></td>
             <td>${r.regiao}</td>
-            <td>${r.whats} <a href="${link}" class="btn-whatsapp" target="_blank">WhatsApp</a></td>
-            <td><b>${r.saldo}</b> Crs</td>
-            <td><button class="btn btn-primary" onclick="addCredito('${r.id}',10)">+10</button> <button class="btn btn-danger" onclick="addCredito('${r.id}',-10)">-10</button></td>
-            <td><button class="btn btn-danger" onclick="delRevenda('${r.id}')">X</button></td>
+            <td>${r.whats} <a href="${link}" class="btn-whatsapp" target="_blank">💬 WhatsApp</a></td>
+            <td><span class="saldo-badge">${r.saldo} Créditos</span></td>
+            <td>
+                <div class="credit-adjust-group">
+                    <input type="number" id="credit-value-${r.id}" class="credit-input-small" value="10" min="1" max="1000" placeholder="Qtd">
+                    <button class="btn-add-credit" onclick="addCredito('${r.id}')" title="Adicionar créditos">+</button>
+                    <button class="btn-remove-credit" onclick="removeCredito('${r.id}')" title="Remover créditos">−</button>
+                </div>
+            </td>
+            <td><button class="btn btn-danger" onclick="delRevenda('${r.id}')">🗑️</button></td>
         </tr>`;
     });
 }
 
-function addCredito(id,qtd) {
+function addCredito(id) {
+    const input = document.getElementById(`credit-value-${id}`);
+    const qtd = parseInt(input.value) || 0;
+    if(qtd <= 0) return alert('Digite uma quantidade válida!');
+    
     const r = revendas.find(x=>x.id===id);
-    if(r) { r.saldo+=qtd; saveData(); renderDash(); }
+    if(r) { 
+        r.saldo += qtd;
+        saveData(); 
+        renderDash();
+        // Adicionar ao histórico
+        historico.unshift({
+            data: new Date().toLocaleString('pt-BR'),
+            tipo: 'Adição',
+            destino: r.nome,
+            qtd: `+${qtd}`,
+            saldo: r.saldo
+        });
+        saveData();
+    }
+}
+
+function removeCredito(id) {
+    const input = document.getElementById(`credit-value-${id}`);
+    const qtd = parseInt(input.value) || 0;
+    if(qtd <= 0) return alert('Digite uma quantidade válida!');
+    
+    const r = revendas.find(x=>x.id===id);
+    if(r) {
+        if(r.saldo < qtd) return alert('Saldo insuficiente!');
+        r.saldo -= qtd;
+        saveData(); 
+        renderDash();
+        // Adicionar ao histórico
+        historico.unshift({
+            data: new Date().toLocaleString('pt-BR'),
+            tipo: 'Remoção',
+            destino: r.nome,
+            qtd: `-${qtd}`,
+            saldo: r.saldo
+        });
+        saveData();
+    }
 }
 
 function delRevenda(id) {
-    if(confirm('Remover?')) { revendas=revendas.filter(x=>x.id!==id); saveData(); renderDash(); }
+    if(confirm('Tem certeza que deseja remover esta revenda?')) { 
+        revendas=revendas.filter(x=>x.id!==id); 
+        saveData(); 
+        renderDash(); 
+    }
 }
 
 function criarRevenda() {
-    const nome = document.getElementById('add-nome').value;
-    const whats = document.getElementById('add-whats').value;
+    const nome = document.getElementById('add-nome').value.trim();
+    const whats = document.getElementById('add-whats').value.trim();
     const regiao = document.getElementById('add-regiao').value;
+    
+    if(!nome || !whats) return alert('Preencha todos os campos!');
+    
     revendas.push({id:'r'+Date.now(),nome,whats,regiao,saldo:0});
     saveData();
     document.getElementById('add-nome').value='';
     document.getElementById('add-whats').value='';
-    alert('Revenda criada!');
+    alert('✅ Revenda cadastrada com sucesso!');
     navegarPara('dashboard');
 }
 
@@ -261,17 +387,20 @@ function renderPro() {
     // Renderizar tabela
     const tbody = document.getElementById('tabela-pro');
     tbody.innerHTML = '';
-    if(profissionais.length===0) { tbody.innerHTML='<tr><td colspan="6" style="text-align:center;padding:20px">Nenhum profissional</td></tr>'; return; }
+    if(profissionais.length===0) { 
+        tbody.innerHTML='<tr><td colspan="6" style="text-align:center;padding:30px;color:var(--text-muted);">📭 Nenhum profissional cadastrado</td></tr>'; 
+        return; 
+    }
     
     profissionais.forEach((p,idx) => {
         const rev = revendas.find(r=>r.id===p.revendaId);
         tbody.innerHTML += `<tr>
-            <td>${rev?rev.nome:'-'}</td>
+            <td>${rev ? rev.nome : '<span style="color:var(--danger);">Revenda removida</span>'}</td>
             <td><b>${p.nome}</b></td>
             <td>${p.categoria}</td>
-            <td><span style="background:#dcfce7;color:#166534;padding:4px 8px;border-radius:12px;font-size:11px">Ativo</span></td>
-            <td><b>${p.saldo||0}</b></td>
-            <td><button class="btn btn-danger" onclick="delPro(${idx})">X</button></td>
+            <td><span style="background:#dcfce7;color:#166534;padding:6px 12px;border-radius:20px;font-size:11px;font-weight:600;">✅ Ativo</span></td>
+            <td><span class="saldo-badge">${p.saldo||0} Crs</span></td>
+            <td><button class="btn btn-danger" onclick="delPro(${idx})">🗑️</button></td>
         </tr>`;
     });
 }
@@ -280,51 +409,83 @@ function addPro() {
     const revId = document.getElementById('select-revenda-pro').value;
     const nome = document.getElementById('nome-pro').value.trim();
     const cat = document.getElementById('cat-pro').value;
-    if(!nome) return alert('Digite o nome');
     
-    const rev = revendas.find(r=>r.id===revId);
+    if(!nome) return alert('Digite o nome do profissional!');
+    if(!revId) return alert('Selecione uma revenda!');
+    
     const qtd = profissionais.filter(p=>p.revendaId===revId && p.categoria===cat).length;
-    if(qtd>=3) return alert(`Limite de 3 profissionais atingido para ${cat}`);
+    if(qtd>=3) return alert(`⚠️ Limite de 3 profissionais atingido para ${cat}!`);
     
-    profissionais.push({revendaId,nome,categoria,saldo:0});
+    profissionais.push({revendaId: revId, nome, categoria: cat, saldo: 0});
     saveData();
     document.getElementById('nome-pro').value='';
     renderPro();
-    alert('Profissional adicionado!');
+    alert('✅ Profissional adicionado com sucesso!');
 }
 
 function delPro(idx) {
-    if(confirm('Remover?')) { profissionais.splice(idx,1); saveData(); renderPro(); }
+    if(confirm('Remover este profissional?')) { 
+        profissionais.splice(idx,1); 
+        saveData(); 
+        renderPro(); 
+    }
 }
 
 function filtrarPro() {
     const termo = document.querySelector('.search-bar').value.toLowerCase();
     const rows = document.querySelectorAll('#tabela-pro tr');
-    rows.forEach((row,idx) => {
-        if(idx===0) return;
+    rows.forEach(row => {
         const text = row.innerText.toLowerCase();
-        row.style.display = text.includes(termo)?'':'none';
+        row.style.display = text.includes(termo) ? '' : 'none';
     });
 }
 
 function savePrice(id) {
     const val = parseFloat(document.getElementById('p-'+id).value);
+    if(val <= 0) return alert('Valor inválido!');
+    
     const creds = (val/baseCredito).toFixed(2).replace('.',',');
     document.getElementById('c-'+id).innerText = creds;
-    alert(`Preço atualizado: ${creds} créditos`);
+    alert(`✅ Preço atualizado: ${creds} créditos`);
+}
+
+function atualizarPreview() {
+    const valor = parseFloat(document.getElementById('config-base-credito').value) || 12;
+    document.getElementById('preview-valor').innerText = valor.toFixed(2).replace('.',',');
+    document.getElementById('preview-servente').innerText = (valor * 1).toFixed(2).replace('.',',');
+    document.getElementById('preview-chaveiro').innerText = (valor * 1.25).toFixed(2).replace('.',',');
+    document.getElementById('preview-pedreiro').innerText = (valor * 1.5).toFixed(2).replace('.',',');
+    document.getElementById('preview-marceneiro').innerText = (valor * 2).toFixed(2).replace('.',',');
+}
+
+function salvarConfiguracao() {
+    const novoValor = parseFloat(document.getElementById('config-base-credito').value);
+    if(novoValor <= 0) return alert('Valor inválido!');
+    
+    baseCredito = novoValor;
+    saveData();
+    alert('✅ Configuração salva com sucesso!');
+    atualizarPreview();
+    renderDash();
 }
 
 function renderHist() {
     const tbody = document.getElementById('tabela-hist');
     tbody.innerHTML = '';
-    if(historico.length===0) { tbody.innerHTML='<tr><td colspan="5" style="text-align:center;padding:20px">Sem histórico</td></tr>'; return; }
+    if(historico.length===0) { 
+        tbody.innerHTML='<tr><td colspan="5" style="text-align:center;padding:30px;color:var(--text-muted);">📭 Nenhum histórico disponível</td></tr>'; 
+        return; 
+    }
     historico.forEach(h => {
-        tbody.innerHTML += `<tr><td>${h.data}</td><td>${h.tipo}</td><td>${h.destino}</td><td>${h.qtd}</td><td>${h.saldo}</td></tr>`;
+        const corTipo = h.tipo === 'Adição' ? 'var(--success)' : 'var(--danger)';
+        tbody.innerHTML += `<tr>
+            <td>${h.data}</td>
+            <td><span style="color:${corTipo};font-weight:700;">${h.tipo}</span></td>
+            <td>${h.destino}</td>
+            <td>${h.qtd}</td>
+            <td><span class="saldo-badge">${h.saldo} Crs</span></td>
+        </tr>`;
     });
-}
-
-function limparTudo() {
-    if(confirm('RESETAR TUDO?')) { localStorage.clear(); location.reload(); }
 }
 
 // Inicializar
@@ -332,4 +493,3 @@ renderDash();
 </script>
 </body>
 </html>
-
