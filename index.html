@@ -670,6 +670,8 @@
             border-radius: 20px; 
             font-weight: 700; 
             font-size: 14px;
+            display: inline-block;
+            white-space: nowrap;
         }
         
         .nome-revenda { 
@@ -685,11 +687,18 @@
             font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 0.5px;
+            white-space: nowrap;
         }
         
         .status-ativo {
             background: linear-gradient(135deg, #dcfce7, #bbf7d0);
             color: #166534;
+        }
+
+        .numero-credito {
+            font-size: 32px;
+            font-weight: 800;
+            color: #1e40af;
         }
     </style>
 </head>
@@ -962,10 +971,17 @@
 </div>
 
 <script>
-// DADOS
+// DADOS - Garantindo que saldo seja sempre número inteiro
 let revendas = JSON.parse(localStorage.getItem('revendas')) || [
-    {id:'r1', nome:'Revenda Alecrim', regiao:'Leste', whats:'(84) 98888-7777', saldo:150}
+    {id:'r1', nome:'Revenda Alecrim', regiao:'Leste', whats:'(84) 98888-7777', saldo: 150}
 ];
+
+// Corrigir saldos existentes
+revendas = revendas.map(r => ({
+    ...r,
+    saldo: parseInt(r.saldo) || 0
+}));
+
 let profissionais = JSON.parse(localStorage.getItem('profissionais')) || [];
 let historico = JSON.parse(localStorage.getItem('historico')) || [];
 let baseCredito = parseFloat(localStorage.getItem('baseCredito')) || 12.00;
@@ -1025,16 +1041,28 @@ function navegarPara(tela) {
     }
 }
 
+function formatarNumero(numero) {
+    // Garantir que é um número inteiro
+    return parseInt(numero) || 0;
+}
+
 function renderDash() {
     document.getElementById('total-revendas').innerText = revendas.length;
     document.getElementById('total-profissionais').innerText = profissionais.length;
-    document.getElementById('total-creditos').innerText = revendas.reduce((a, r) => a + r.saldo, 0);
+    
+    // Calcular total de créditos garantindo números inteiros
+    const totalCreditos = revendas.reduce((a, r) => a + (parseInt(r.saldo) || 0), 0);
+    document.getElementById('total-creditos').innerText = totalCreditos;
+    
     document.getElementById('preco-base-dash').innerText = `R$ ${baseCredito.toFixed(2).replace('.', ',')}`;
     
     const tbody = document.getElementById('tabela-revendas');
     tbody.innerHTML = '';
     
     revendas.forEach(r => {
+        // Garantir que saldo seja número inteiro
+        r.saldo = parseInt(r.saldo) || 0;
+        
         const link = `https://wa.me/55${r.whats.replace(/\D/g, '')}?text=Olá!`;
         tbody.innerHTML += `
             <tr>
@@ -1049,14 +1077,14 @@ function renderDash() {
                 <td><span class="saldo-badge">${r.saldo} Créditos</span></td>
                 <td>
                     <div class="credit-adjust-group">
-                        <button class="btn-remove-credit" onclick="ajustarCredito('${r.id}', -1)" title="Remover">
+                        <button class="btn-remove-credit" onclick="ajustarCredito('${r.id}', -1)" title="Remover 1 crédito">
                             <i class="fas fa-minus"></i>
                         </button>
                         <input type="number" id="credit-value-${r.id}" class="credit-input-small" value="1" min="1" max="1000" placeholder="Qtd">
-                        <button class="btn-add-credit" onclick="ajustarCredito('${r.id}', 1)" title="Adicionar">
+                        <button class="btn-add-credit" onclick="ajustarCredito('${r.id}', 1)" title="Adicionar 1 crédito">
                             <i class="fas fa-plus"></i>
                         </button>
-                        <button class="btn-save-credit" onclick="salvarAjusteCredito('${r.id}')" title="Salvar ajuste">
+                        <button class="btn-save-credit" onclick="salvarAjusteCredito('${r.id}')" title="Aplicar quantidade digitada">
                             <i class="fas fa-check"></i> Aplicar
                         </button>
                     </div>
@@ -1068,13 +1096,17 @@ function renderDash() {
                 </td>
             </tr>`;
     });
+    
+    // Salvar após corrigir os saldos
+    saveData();
 }
 
 function ajustarCredito(id, direction) {
     const input = document.getElementById(`credit-value-${id}`);
-    let valor = parseInt(input.value) || 0;
+    let valor = parseInt(input.value) || 1;
     valor += direction;
     if(valor < 1) valor = 1;
+    if(valor > 1000) valor = 1000;
     input.value = valor;
 }
 
@@ -1090,6 +1122,10 @@ function salvarAjusteCredito(id) {
     const r = revendas.find(x => x.id === id);
     if(!r) return;
     
+    // Garantir que o saldo atual seja número inteiro
+    r.saldo = parseInt(r.saldo) || 0;
+    
+    // Se for remoção, verificar saldo
     if(qtd < 0 && r.saldo < Math.abs(qtd)) {
         alert('⚠️ Saldo insuficiente!');
         return;
@@ -1097,6 +1133,9 @@ function salvarAjusteCredito(id) {
     
     const tipo = qtd > 0 ? 'Adição' : 'Remoção';
     r.saldo += qtd;
+    
+    // Garantir que o saldo não fique negativo
+    if(r.saldo < 0) r.saldo = 0;
     
     // Registrar no histórico
     historico.unshift({
@@ -1107,18 +1146,19 @@ function salvarAjusteCredito(id) {
         saldo: r.saldo
     });
     
+    // Manter apenas os últimos 100 registros
+    if(historico.length > 100) {
+        historico = historico.slice(0, 100);
+    }
+    
     saveData();
     renderDash();
     
-    // Resetar input
+    // Resetar input para 1
     input.value = 1;
     
     // Feedback visual
-    const btn = event.target;
-    btn.style.transform = 'scale(0.95)';
-    setTimeout(() => {
-        btn.style.transform = 'scale(1)';
-    }, 200);
+    alert(`✅ ${tipo} de ${Math.abs(qtd)} créditos realizada com sucesso!\nNovo saldo: ${r.saldo} créditos`);
 }
 
 function delRevenda(id) {
@@ -1141,7 +1181,7 @@ function criarRevenda() {
         nome,
         whats,
         regiao,
-        saldo: 0
+        saldo: 0 // Garantir que começa com 0 como número inteiro
     });
     
     saveData();
@@ -1168,7 +1208,7 @@ function renderTabelaPrecos() {
                         <input type="number" id="p-${id}" class="price-input" value="${cat.valor}" step="0.5" onchange="atualizarCredito('${id}')">
                     </div>
                 </td>
-                <td><strong id="c-${id}">${creditos}</strong></td>
+                <td><strong id="c-${id}">${creditos}</strong> créditos</td>
                 <td>
                     <button class="btn btn-primary" onclick="savePrice('${id}')">
                         <i class="fas fa-save"></i> Salvar
@@ -1196,18 +1236,24 @@ function savePrice(id) {
 
 function renderPro() {
     const selRev = document.getElementById('select-revenda-pro');
-    selRev.innerHTML = '';
+    if(!selRev) return;
+    
+    selRev.innerHTML = '<option value="">Selecione uma revenda</option>';
     revendas.forEach(r => {
         selRev.innerHTML += `<option value="${r.id}">${r.nome}</option>`;
     });
     
     const selCat = document.getElementById('cat-pro');
-    selCat.innerHTML = '';
+    if(!selCat) return;
+    
+    selCat.innerHTML = '<option value="">Selecione uma categoria</option>';
     Object.values(categoriasPrecos).forEach(cat => {
         selCat.innerHTML += `<option>${cat.nome}</option>`;
     });
     
     const tbody = document.getElementById('tabela-pro');
+    if(!tbody) return;
+    
     tbody.innerHTML = '';
     
     if(profissionais.length === 0) { 
@@ -1240,6 +1286,7 @@ function addPro() {
     
     if(!nome) return alert('⚠️ Digite o nome do profissional!');
     if(!revId) return alert('⚠️ Selecione uma revenda!');
+    if(!cat) return alert('⚠️ Selecione uma categoria!');
     
     const qtd = profissionais.filter(p => p.revendaId === revId && p.categoria === cat).length;
     if(qtd >= 3) return alert(`⚠️ Limite de 3 profissionais atingido para ${cat}!`);
@@ -1266,7 +1313,7 @@ function delPro(idx) {
 }
 
 function filtrarPro() {
-    const termo = document.querySelector('.search-bar').value.toLowerCase();
+    const termo = document.querySelector('.search-bar')?.value.toLowerCase() || '';
     const rows = document.querySelectorAll('#tabela-pro tr');
     rows.forEach(row => {
         const text = row.innerText.toLowerCase();
@@ -1297,6 +1344,8 @@ function salvarConfiguracao() {
 
 function renderHist() {
     const tbody = document.getElementById('tabela-hist');
+    if(!tbody) return;
+    
     tbody.innerHTML = '';
     
     if(historico.length === 0) { 
@@ -1316,6 +1365,9 @@ function renderHist() {
             </tr>`;
     });
 }
+
+// Inicializar tudo
+renderDash();
 </script>
 </body>
 </html>
