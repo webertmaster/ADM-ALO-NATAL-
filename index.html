@@ -80,6 +80,7 @@
         .plan-header { text-align: center; margin-bottom: 20px; padding-bottom: 20px; border-bottom: 2px solid var(--border); }
         .plan-icon { font-size: 36px; margin-bottom: 10px; } .plan-name { font-size: 18px; font-weight: 800; }
         .plan-price { font-size: 32px; font-weight: 800; color: var(--primary); } .plan-price small { font-size: 13px; color: var(--text-muted); }
+        .plan-credits { font-size: 13px; color: var(--text-muted); font-weight: 600; }
         .plan-features { margin-bottom: 20px; } .plan-feature { display: flex; align-items: center; gap: 8px; padding: 6px 0; font-size: 12px; color: var(--text-muted); }
         .plan-feature i { color: var(--success); font-size: 13px; } .plan-card .btn { width: 100%; margin-top: 6px; }
         .resgate-card { background: var(--card); border-radius: 16px; padding: 24px; border: 2px solid var(--border); margin-bottom: 16px; transition: all 0.3s; }
@@ -147,7 +148,7 @@
             </div>
         </div>
 
-        <!-- RESGATES (NOVA TELA) -->
+        <!-- RESGATES -->
         <div id="view-resgates" class="panel-view">
             <div class="stats-grid">
                 <div class="stat-card" style="border-left-color:#f59e0b;"><p>Pendentes</p><h2 id="count-pendentes">0</h2></div>
@@ -160,20 +161,63 @@
             </div>
         </div>
 
-        <!-- DEMAIS VIEWS MANTIDAS -->
+        <!-- CADASTRO -->
         <div id="view-cadastro" class="panel-view"><div class="action-box"><div class="section-title"><i class="fas fa-user-plus"></i> Cadastrar Nova Revenda</div><form onsubmit="event.preventDefault(); criarRevenda();"><div class="form-row"><div class="form-group"><label>Nome</label><input type="text" id="add-nome" placeholder="Ex: Revenda Centro" required></div><div class="form-group"><label>WhatsApp</label><input type="text" id="add-whats" placeholder="(84) 99999-9999" required></div><div class="form-group"><label>Região</label><select id="add-regiao"><option>Alecrim / Leste</option><option>Zona Norte</option><option>Zona Sul</option><option>Geral</option></select></div></div><button type="submit" class="btn btn-success" style="width:100%;padding:16px;"><i class="fas fa-check-circle"></i> Cadastrar</button></form></div></div>
 
+        <!-- PROFISSIONAIS -->
         <div id="view-profissionais" class="panel-view"><div class="action-box"><div class="section-title"><i class="fas fa-hard-hat"></i> Profissionais</div><input type="text" class="search-bar" placeholder="🔍 Buscar..." oninput="filtrarPro()"><div style="background:#f8fafc;padding:24px;border-radius:16px;border:2px solid var(--border);"><div class="form-row"><div class="form-group"><label>Revenda</label><select id="select-revenda-pro"></select></div><div class="form-group"><label>Nome</label><input type="text" id="nome-pro" placeholder="Ex: Carlos"></div><div class="form-group"><label>Categoria</label><select id="cat-pro"></select></div><div class="form-group" style="justify-content:flex-end"><button class="btn btn-primary" onclick="addPro()" style="margin-top:28px">+ Adicionar</button></div></div></div><div class="table-container" style="margin-top:24px"><table class="data-table"><thead><tr><th>Revenda</th><th>Nome</th><th>Categoria</th><th>Status</th><th>Saldo</th><th>Ações</th></tr></thead><tbody id="tabela-pro"></tbody></table></div></div></div>
 
+        <!-- PLANOS -->
         <div id="view-planos" class="panel-view"><div class="action-box"><div class="section-title"><i class="fas fa-crown"></i> Planos</div><div class="plan-cards-grid" id="planos-cards"></div><div style="text-align:center;margin-top:24px;"><button class="btn btn-primary" onclick="abrirModalPlano()">+ Criar Plano</button></div></div></div>
 
+        <!-- ASSINATURAS -->
         <div id="view-assinaturas" class="panel-view"><div class="action-box"><div class="section-title"><i class="fas fa-credit-card"></i> Assinaturas</div><div class="table-container"><table class="data-table"><thead><tr><th>Revenda</th><th>Plano</th><th>Créditos</th><th>Solicitações</th><th>Status</th><th>Renovação</th><th>Ações</th></tr></thead><tbody id="tabela-assinaturas"></tbody></table></div></div></div>
 
+        <!-- PREÇOS -->
         <div id="view-precos" class="panel-view"><div class="action-box"><div class="section-title"><i class="fas fa-tags"></i> Tabela de Preços</div><div class="table-container"><table class="data-table"><thead><tr><th>Categoria</th><th>Valor</th><th>Créditos</th><th>Ações</th></tr></thead><tbody id="tabela-precos"></tbody></table></div></div></div>
 
+        <!-- CONFIG -->
         <div id="view-config" class="panel-view"><div class="action-box"><div class="section-title"><i class="fas fa-cog"></i> Configuração</div><div class="config-card"><h3>Valor Base do Crédito</h3><div class="form-row"><div class="form-group"><label>Valor (R$)</label><div style="display:flex;align-items:center;gap:16px;"><div class="price-input-wrapper" style="width:160px;"><span>R$</span><input type="number" id="config-base-credito" class="price-input" value="12.00" step="0.50" onchange="atualizarPreview()"></div><button class="btn btn-success" onclick="salvarConfiguracao()">Salvar</button></div></div></div></div></div></div>
 
+        <!-- HISTÓRICO -->
         <div id="view-historico" class="panel-view"><div class="action-box"><div class="section-title"><i class="fas fa-history"></i> Histórico</div><div class="table-container"><table class="data-table"><thead><tr><th>Data</th><th>Tipo</th><th>Destino</th><th>Qtd</th><th>Saldo</th></tr></thead><tbody id="tabela-hist"></tbody></table></div></div></div>
+    </div>
+</div>
+
+<!-- MODAL PLANO -->
+<div class="modal-overlay" id="modal-plano">
+    <div class="modal">
+        <h3 id="modal-plano-titulo"><i class="fas fa-plus-circle"></i> Novo Plano</h3>
+        <form onsubmit="event.preventDefault(); salvarPlano();">
+            <input type="hidden" id="plano-id">
+            <div class="form-row">
+                <div class="form-group"><label>Nome do Plano</label><input type="text" id="plano-nome" placeholder="Ex: Start" required></div>
+                <div class="form-group"><label>Ícone (Font Awesome)</label><input type="text" id="plano-icone" placeholder="fas fa-star" value="fas fa-star"></div>
+            </div>
+            <div class="form-row">
+                <div class="form-group"><label>Valor Mensal (R$)</label><input type="number" id="plano-valor" step="0.01" placeholder="29.90" required></div>
+                <div class="form-group"><label>Créditos por Mês</label><input type="number" id="plano-creditos" placeholder="5" required></div>
+            </div>
+            <div class="form-row">
+                <div class="form-group"><label>Limite de Solicitações</label><input type="number" id="plano-limite" placeholder="3" required></div>
+                <div class="form-group"><label>Categorias Permitidas</label><input type="number" id="plano-categorias" placeholder="1" required></div>
+            </div>
+            <div class="form-row">
+                <div class="form-group"><label>Prioridade (%)</label><input type="number" id="plano-prioridade" placeholder="75" min="0" max="100" required></div>
+                <div class="form-group"><label>Selo Especial</label><input type="text" id="plano-selo" placeholder="Ex: 🏢 Empresa Verificada"></div>
+            </div>
+            <div class="form-row">
+                <div class="form-group"><label>Comissão (créditos)</label><input type="number" id="plano-comissao" placeholder="2" required></div>
+                <div class="form-group"><label>Cor do Badge</label><select id="plano-cor"><option value="start">Verde (Start)</option><option value="pro">Azul (Pro)</option><option value="premium">Roxo (Premium)</option><option value="empresa">Laranja (Empresa)</option><option value="gratis">Cinza (Grátis)</option></select></div>
+            </div>
+            <div class="form-row">
+                <div class="form-group"><label>Destaque</label><select id="plano-destaque"><option value="false">Normal</option><option value="true">⭐ Mais Popular</option></select></div>
+            </div>
+            <div style="display:flex;gap:12px;margin-top:20px;">
+                <button type="submit" class="btn btn-success" style="flex:1"><i class="fas fa-save"></i> Salvar Plano</button>
+                <button type="button" class="btn btn-danger" onclick="fecharModalPlano()" style="flex:1">Cancelar</button>
+            </div>
+        </form>
     </div>
 </div>
 
@@ -187,13 +231,13 @@ let resgates = JSON.parse(localStorage.getItem('resgates')) || [];
 let baseCredito = parseFloat(localStorage.getItem('baseCredito')) || 12.00;
 const VALOR_RESGATE_CREDITO = 5.00;
 
-const comissoesPadrao = { 'plano1': 2, 'plano2': 3, 'plano3': 4, 'plano4': 6 };
+let comissoesPadrao = JSON.parse(localStorage.getItem('comissoesPadrao')) || { 'plano1': 2, 'plano2': 3, 'plano3': 4, 'plano4': 6 };
 
 const planosPadrao = [
-    { id: 'plano1', nome: 'Start', icone: 'fas fa-seedling', valor: 29.90, creditos: 5, limiteSolicitacoes: 3, categorias: 1, prioridade: 75, selo: '', cor: 'start', destaque: false },
-    { id: 'plano2', nome: 'Pro', icone: 'fas fa-star', valor: 39.90, creditos: 8, limiteSolicitacoes: 6, categorias: 1, prioridade: 80, selo: '', cor: 'pro', destaque: true },
-    { id: 'plano3', nome: 'Premium', icone: 'fas fa-gem', valor: 49.90, creditos: 10, limiteSolicitacoes: 8, categorias: 2, prioridade: 85, selo: '', cor: 'premium', destaque: false },
-    { id: 'plano4', nome: 'Empresa', icone: 'fas fa-building', valor: 79.90, creditos: 15, limiteSolicitacoes: 999, categorias: 999, prioridade: 100, selo: '🏢 Empresa Verificada', cor: 'empresa', destaque: false }
+    { id: 'plano1', nome: 'Start', icone: 'fas fa-seedling', valor: 29.90, creditos: 5, limiteSolicitacoes: 3, categorias: 1, prioridade: 75, selo: '', cor: 'start', destaque: false, comissao: 2 },
+    { id: 'plano2', nome: 'Pro', icone: 'fas fa-star', valor: 39.90, creditos: 8, limiteSolicitacoes: 6, categorias: 1, prioridade: 80, selo: '', cor: 'pro', destaque: true, comissao: 3 },
+    { id: 'plano3', nome: 'Premium', icone: 'fas fa-gem', valor: 49.90, creditos: 10, limiteSolicitacoes: 8, categorias: 2, prioridade: 85, selo: '', cor: 'premium', destaque: false, comissao: 4 },
+    { id: 'plano4', nome: 'Empresa', icone: 'fas fa-building', valor: 79.90, creditos: 15, limiteSolicitacoes: 999, categorias: 999, prioridade: 100, selo: '🏢 Empresa Verificada', cor: 'empresa', destaque: false, comissao: 6 }
 ];
 let planos = JSON.parse(localStorage.getItem('planos')) || planosPadrao;
 
@@ -218,6 +262,7 @@ function saveData() {
     localStorage.setItem('resgates', JSON.stringify(resgates));
     localStorage.setItem('baseCredito', baseCredito.toString());
     localStorage.setItem('planos', JSON.stringify(planos));
+    localStorage.setItem('comissoesPadrao', JSON.stringify(comissoesPadrao));
 }
 
 // ==================== RESGATES ====================
@@ -232,57 +277,22 @@ function renderResgates() {
     document.getElementById('count-negados').innerText = negados.length;
     
     const badge = document.getElementById('badge-resgates');
-    if(pendentes.length > 0) {
-        badge.style.display = 'flex';
-        badge.innerText = pendentes.length;
-    } else {
-        badge.style.display = 'none';
-    }
+    if(pendentes.length > 0) { badge.style.display = 'flex'; badge.innerText = pendentes.length; }
+    else { badge.style.display = 'none'; }
     
-    if(resgates.length === 0) {
-        container.innerHTML = '<div style="text-align:center;padding:40px;color:var(--text-muted);">Nenhuma solicitação de resgate</div>';
-        return;
-    }
+    if(resgates.length === 0) { container.innerHTML = '<div style="text-align:center;padding:40px;color:var(--text-muted);">Nenhuma solicitação de resgate</div>'; return; }
     
     container.innerHTML = '<h3 style="margin-bottom:16px;color:#f59e0b;">⏳ Pendentes (' + pendentes.length + ')</h3>';
-    
     pendentes.forEach(sol => {
         const rev = revendas.find(r => r.id === sol.revendaId);
-        container.innerHTML += `
-            <div class="resgate-card pendente">
-                <div class="resgate-header">
-                    <strong>${rev ? rev.nome : 'Revenda'}</strong>
-                    <span class="status-badge status-pendente">⏳ Pendente</span>
-                </div>
-                <div class="resgate-info">
-                    <p>Créditos: <strong>${sol.creditos}</strong></p>
-                    <p>Valor: <strong>R$ ${sol.valor.toFixed(2).replace('.', ',')}</strong></p>
-                    <p>WhatsApp: <strong>${rev ? rev.whats : '-'}</strong></p>
-                    <p>Data: <strong>${new Date(sol.data).toLocaleString('pt-BR')}</strong></p>
-                </div>
-                <div style="margin-top:12px;display:flex;gap:8px;">
-                    <button class="btn btn-success btn-sm" onclick="aprovarResgate('${sol.id}')">✅ Aprovar</button>
-                    <button class="btn btn-danger btn-sm" onclick="negarResgate('${sol.id}')">❌ Negar</button>
-                </div>
-            </div>`;
+        container.innerHTML += `<div class="resgate-card pendente"><div class="resgate-header"><strong>${rev ? rev.nome : 'Revenda'}</strong><span class="status-badge status-pendente">⏳ Pendente</span></div><div class="resgate-info"><p>Créditos: <strong>${sol.creditos}</strong></p><p>Valor: <strong>R$ ${sol.valor.toFixed(2).replace('.', ',')}</strong></p><p>WhatsApp: <strong>${rev ? rev.whats : '-'}</strong></p><p>Data: <strong>${new Date(sol.data).toLocaleString('pt-BR')}</strong></p></div><div style="margin-top:12px;display:flex;gap:8px;"><button class="btn btn-success btn-sm" onclick="aprovarResgate('${sol.id}')">✅ Aprovar</button><button class="btn btn-danger btn-sm" onclick="negarResgate('${sol.id}')">❌ Negar</button></div></div>`;
     });
     
     if(aprovados.length > 0 || negados.length > 0) {
         container.innerHTML += '<h3 style="margin-top:24px;margin-bottom:16px;">📜 Histórico</h3>';
         [...aprovados, ...negados].sort((a,b) => new Date(b.data) - new Date(a.data)).forEach(sol => {
             const rev = revendas.find(r => r.id === sol.revendaId);
-            container.innerHTML += `
-                <div class="resgate-card ${sol.status}">
-                    <div class="resgate-header">
-                        <strong>${rev ? rev.nome : 'Revenda'}</strong>
-                        <span class="status-badge status-${sol.status}">${sol.status === 'aprovado' ? '✅ Pago' : '❌ Negado'}</span>
-                    </div>
-                    <div class="resgate-info">
-                        <p>Créditos: <strong>${sol.creditos}</strong></p>
-                        <p>Valor: <strong>R$ ${sol.valor.toFixed(2).replace('.', ',')}</strong></p>
-                        <p>Data: <strong>${new Date(sol.data).toLocaleString('pt-BR')}</strong></p>
-                    </div>
-                </div>`;
+            container.innerHTML += `<div class="resgate-card ${sol.status}"><div class="resgate-header"><strong>${rev ? rev.nome : 'Revenda'}</strong><span class="status-badge status-${sol.status}">${sol.status === 'aprovado' ? '✅ Pago' : '❌ Negado'}</span></div><div class="resgate-info"><p>Créditos: <strong>${sol.creditos}</strong></p><p>Valor: <strong>R$ ${sol.valor.toFixed(2).replace('.', ',')}</strong></p><p>Data: <strong>${new Date(sol.data).toLocaleString('pt-BR')}</strong></p></div></div>`;
         });
     }
 }
@@ -290,34 +300,22 @@ function renderResgates() {
 function aprovarResgate(id) {
     const sol = resgates.find(r => r.id === id);
     if(!sol) return;
-    if(!confirm(`Aprovar resgate de ${sol.creditos} créditos = R$ ${sol.valor.toFixed(2)}?\n\nLembre-se de fazer o PIX para a revenda!`)) return;
-    
+    if(!confirm(`Aprovar resgate de ${sol.creditos} créditos = R$ ${sol.valor.toFixed(2)}?\n\nLembre-se de fazer o PIX!`)) return;
     sol.status = 'aprovado';
     const rev = revendas.find(r => r.id === sol.revendaId);
-    if(rev) {
-        rev.comissao = (rev.comissao || 0) - sol.creditos;
-        if(rev.comissao < 0) rev.comissao = 0;
-        historico.unshift({data: new Date().toLocaleString('pt-BR'), tipo: 'Resgate Aprovado', destino: rev.nome, qtd: `-${sol.creditos} créditos`, saldo: rev.comissao});
-    }
-    saveData();
-    renderResgates();
-    renderDash();
-    alert('✅ Resgate aprovado! Faça o PIX de R$ ' + sol.valor.toFixed(2).replace('.', ',') + ' para a revenda.');
+    if(rev) { rev.comissao = (rev.comissao || 0) - sol.creditos; if(rev.comissao < 0) rev.comissao = 0; historico.unshift({data: new Date().toLocaleString('pt-BR'), tipo: 'Resgate Aprovado', destino: rev.nome, qtd: `-${sol.creditos} créditos`, saldo: rev.comissao}); }
+    saveData(); renderResgates(); renderDash();
+    alert('✅ Resgate aprovado! Faça o PIX de R$ ' + sol.valor.toFixed(2).replace('.', ','));
 }
 
 function negarResgate(id) {
     const sol = resgates.find(r => r.id === id);
     if(!sol) return;
     if(!confirm('Negar este resgate? Os créditos voltarão para a revenda.')) return;
-    
     sol.status = 'negado';
     const rev = revendas.find(r => r.id === sol.revendaId);
-    if(rev) {
-        historico.unshift({data: new Date().toLocaleString('pt-BR'), tipo: 'Resgate Negado', destino: rev.nome, qtd: `Devolvido ${sol.creditos}`, saldo: rev.comissao});
-    }
-    saveData();
-    renderResgates();
-    alert('❌ Resgate negado. Créditos devolvidos à revenda.');
+    if(rev) { historico.unshift({data: new Date().toLocaleString('pt-BR'), tipo: 'Resgate Negado', destino: rev.nome, qtd: `Devolvido ${sol.creditos}`, saldo: rev.comissao}); }
+    saveData(); renderResgates();
 }
 
 // ==================== NAVEGAÇÃO ====================
@@ -343,7 +341,6 @@ function renderDash() {
     document.getElementById('total-profissionais').innerText = profissionais.length;
     document.getElementById('total-creditos').innerText = revendas.reduce((a, r) => a + (parseInt(r.saldo) || 0), 0);
     document.getElementById('total-resgates-pendentes').innerText = resgates.filter(r => r.status === 'pendente').length;
-    document.getElementById('preco-base-dash').innerText = `R$ ${baseCredito.toFixed(2).replace('.', ',')}`;
     
     const tbody = document.getElementById('tabela-revendas');
     tbody.innerHTML = '';
@@ -396,14 +393,96 @@ function criarRevenda() {
     alert('Revenda cadastrada!'); navegarPara('dashboard');
 }
 
+// ==================== PLANOS (CORRIGIDO) ====================
 function renderPlanos() {
     const c=document.getElementById('planos-cards'); if(!c)return;
     c.innerHTML='';
     planos.forEach(p=>{
-        c.innerHTML+=`<div class="plan-card ${p.destaque?'popular':''}"><div class="plan-header"><div class="plan-icon"><i class="${p.icone||'fas fa-box'}"></i></div><div class="plan-name">${p.nome}</div><div class="plan-price">R$ ${p.valor.toFixed(2).replace('.',',')}<small>/mês</small></div></div><div class="plan-features"><div class="plan-feature"><i class="fas fa-check-circle"></i> ${p.creditos} créditos</div><div class="plan-feature"><i class="fas fa-check-circle"></i> Comissão: ${comissoesPadrao[p.id]||0} créditos</div></div><button class="btn btn-primary btn-sm" onclick="editarPlano('${p.id}')">Editar</button></div>`;
+        const vr=(p.creditos*baseCredito).toFixed(2).replace('.',',');
+        const eco=((p.creditos*baseCredito-p.valor)/(p.creditos*baseCredito)*100).toFixed(0);
+        const comissao = p.comissao || comissoesPadrao[p.id] || 0;
+        c.innerHTML+=`<div class="plan-card ${p.destaque?'popular':''}">
+            <div class="plan-header"><div class="plan-icon"><i class="${p.icone||'fas fa-box'}"></i></div><div class="plan-name">${p.nome}</div><div class="plan-price">R$ ${p.valor.toFixed(2).replace('.',',')}<small>/mês</small></div><div class="plan-credits">${p.creditos} créditos (R$ ${vr})</div><span class="badge-plan badge-${p.cor}" style="margin-top:8px;">${eco}% economia</span></div>
+            <div class="plan-features">
+                <div class="plan-feature"><i class="fas fa-check-circle"></i> ${p.creditos} créditos/mês</div>
+                <div class="plan-feature"><i class="fas fa-check-circle"></i> ${p.limiteSolicitacoes>=999?'Sem limite':'Até '+p.limiteSolicitacoes+' solicitações'}</div>
+                <div class="plan-feature"><i class="fas fa-check-circle"></i> ${p.categorias>=999?'Todas categorias':p.categorias+' categoria(s)'}</div>
+                <div class="plan-feature"><i class="fas fa-check-circle"></i> Prioridade ${p.prioridade}%</div>
+                ${p.selo?`<div class="plan-feature"><i class="fas fa-check-circle"></i> ${p.selo}</div>`:''}
+                <div class="plan-feature"><i class="fas fa-star" style="color:#f59e0b;"></i> <strong>Comissão: ${comissao} créditos</strong></div>
+            </div>
+            <button class="btn btn-primary btn-sm" onclick="editarPlano('${p.id}')"><i class="fas fa-edit"></i> Editar</button>
+            <button class="btn btn-danger btn-sm" onclick="excluirPlano('${p.id}')" style="margin-top:4px;"><i class="fas fa-trash"></i> Excluir</button>
+        </div>`;
     });
 }
 
+function abrirModalPlano(planoId = null) {
+    const modal = document.getElementById('modal-plano');
+    modal.classList.add('active');
+    if(planoId) {
+        const plano = planos.find(p => p.id === planoId);
+        if(plano) {
+            document.getElementById('modal-plano-titulo').innerHTML = '<i class="fas fa-edit"></i> Editar Plano';
+            document.getElementById('plano-id').value = plano.id;
+            document.getElementById('plano-nome').value = plano.nome;
+            document.getElementById('plano-icone').value = plano.icone || '';
+            document.getElementById('plano-valor').value = plano.valor;
+            document.getElementById('plano-creditos').value = plano.creditos;
+            document.getElementById('plano-limite').value = plano.limiteSolicitacoes;
+            document.getElementById('plano-categorias').value = plano.categorias;
+            document.getElementById('plano-prioridade').value = plano.prioridade;
+            document.getElementById('plano-selo').value = plano.selo || '';
+            document.getElementById('plano-comissao').value = plano.comissao || comissoesPadrao[plano.id] || 0;
+            document.getElementById('plano-cor').value = plano.cor;
+            document.getElementById('plano-destaque').value = plano.destaque ? 'true' : 'false';
+        }
+    } else {
+        document.getElementById('modal-plano-titulo').innerHTML = '<i class="fas fa-plus-circle"></i> Novo Plano';
+        document.getElementById('plano-id').value = '';
+        ['plano-nome','plano-icone','plano-valor','plano-creditos','plano-limite','plano-categorias','plano-prioridade','plano-selo','plano-comissao'].forEach(id => { const el = document.getElementById(id); if(el) el.value = ''; });
+        document.getElementById('plano-icone').value = 'fas fa-star';
+        document.getElementById('plano-cor').value = 'start';
+        document.getElementById('plano-destaque').value = 'false';
+    }
+}
+
+function fecharModalPlano() { document.getElementById('modal-plano').classList.remove('active'); }
+
+function salvarPlano() {
+    const id = document.getElementById('plano-id').value || 'plano' + Date.now();
+    const nome = document.getElementById('plano-nome').value.trim();
+    const icone = document.getElementById('plano-icone').value.trim();
+    const valor = parseFloat(document.getElementById('plano-valor').value);
+    const creditos = parseInt(document.getElementById('plano-creditos').value);
+    const limiteSolicitacoes = parseInt(document.getElementById('plano-limite').value);
+    const categorias = parseInt(document.getElementById('plano-categorias').value);
+    const prioridade = parseInt(document.getElementById('plano-prioridade').value);
+    const selo = document.getElementById('plano-selo').value.trim();
+    const comissao = parseInt(document.getElementById('plano-comissao').value) || 0;
+    const cor = document.getElementById('plano-cor').value;
+    const destaque = document.getElementById('plano-destaque').value === 'true';
+    if(!nome || !valor || !creditos) return alert('⚠️ Preencha campos obrigatórios!');
+    const index = planos.findIndex(p => p.id === id);
+    const planoData = { id, nome, icone, valor, creditos, limiteSolicitacoes, categorias, prioridade, selo, comissao, cor, destaque };
+    if(index >= 0) planos[index] = planoData;
+    else planos.push(planoData);
+    comissoesPadrao[id] = comissao;
+    saveData(); fecharModalPlano(); renderPlanos();
+    alert('✅ Plano salvo!');
+}
+
+function editarPlano(id) { abrirModalPlano(id); }
+
+function excluirPlano(id) {
+    if(!confirm('Excluir este plano?')) return;
+    planos = planos.filter(p => p.id !== id);
+    delete comissoesPadrao[id];
+    revendas.forEach(r => { if(r.planoId === id) { r.planoId = null; r.assinatura = null; } });
+    saveData(); renderPlanos();
+}
+
+// ==================== ASSINATURAS ====================
 function renderAssinaturas() {
     const tbody=document.getElementById('tabela-assinaturas'); if(!tbody)return;
     tbody.innerHTML='';
@@ -417,11 +496,11 @@ function renderAssinaturas() {
         tbody.innerHTML+=`<tr><td>${r.nome}</td><td><span class="badge-plan badge-${plano.cor}">${plano.nome}</span></td><td>${r.saldo}/${plano.creditos}</td><td>${r.assinatura?r.assinatura.solicitacoesUsadas||0:0}/${plano.limiteSolicitacoes>=999?'∞':plano.limiteSolicitacoes}</td><td><span class="status-badge ${sc}">${st==='ativo'?'Ativo':st==='pausado'?'Pausado':'Cancelado'}</span></td><td>${dr}</td><td>${st==='ativo'?`<button class="btn btn-warning btn-xs" onclick="pausarAss('${r.id}')">Pausar</button>`:''}${st==='pausado'?`<button class="btn btn-success btn-xs" onclick="reativarAss('${r.id}')">Reativar</button>`:''}<button class="btn btn-danger btn-xs" onclick="cancelarAss('${r.id}')">Cancelar</button></td></tr>`;
     });
 }
-
 function pausarAss(id){const r=revendas.find(x=>x.id===id);if(!r)return;r.assinatura.status='pausado';saveData();renderAssinaturas();}
 function reativarAss(id){const r=revendas.find(x=>x.id===id);if(!r)return;r.assinatura.status='ativo';r.assinatura.dataRenovacao=new Date(Date.now()+30*24*60*60*1000).toISOString();saveData();renderAssinaturas();}
 function cancelarAss(id){if(!confirm('Cancelar?'))return;const r=revendas.find(x=>x.id===id);if(!r)return;r.assinatura.status='cancelado';saveData();renderAssinaturas();}
 
+// ==================== TABELA DE PREÇOS ====================
 function renderTabelaPrecos() {
     const tbody=document.getElementById('tabela-precos'); if(!tbody)return;
     tbody.innerHTML='';
@@ -432,6 +511,7 @@ function renderTabelaPrecos() {
 function atualizarCredito(id){document.getElementById('c-'+id).innerText=(parseFloat(document.getElementById('p-'+id).value)/baseCredito).toFixed(2).replace('.',',');}
 function savePrice(id){const v=parseFloat(document.getElementById('p-'+id).value);if(v<=0)return;categoriasPrecos[id].valor=v;atualizarCredito(id);}
 
+// ==================== PROFISSIONAIS ====================
 function renderPro() {
     const selRev=document.getElementById('select-revenda-pro'); if(!selRev)return;
     selRev.innerHTML='<option value="">Selecione</option>';
@@ -454,28 +534,6 @@ function renderHist(){
     const tbody=document.getElementById('tabela-hist'); if(!tbody)return;
     tbody.innerHTML=historico.length===0?'<tr><td colspan="5" style="text-align:center;padding:40px;">Nenhum</td></tr>':'';
     historico.forEach(h=>{const ct=['Adição','Assinatura','Reativação','Resgate Aprovado'].includes(h.tipo)?'var(--success)':'var(--danger)';tbody.innerHTML+=`<tr><td>${h.data}</td><td><span style="color:${ct};font-weight:700;">${h.tipo}</span></td><td>${h.destino}</td><td>${h.qtd}</td><td>${h.saldo} Crs</td></tr>`;});
-}
-
-// Adicionar função para revenda solicitar resgate (chamada pelo painel da revenda)
-function solicitarResgate(revendaId, creditos) {
-    const rev = revendas.find(r => r.id === revendaId);
-    if(!rev) return alert('Revenda não encontrada!');
-    if(creditos > (rev.comissao || 0)) return alert('Créditos de comissão insuficientes!');
-    
-    resgates.push({
-        id: 'res' + Date.now(),
-        revendaId,
-        creditos,
-        valor: creditos * VALOR_RESGATE_CREDITO,
-        data: new Date().toISOString(),
-        status: 'pendente'
-    });
-    
-    rev.comissao = (rev.comissao || 0) - creditos;
-    historico.unshift({data: new Date().toLocaleString('pt-BR'), tipo: 'Solicitação Resgate', destino: rev.nome, qtd: `${creditos} créditos`, saldo: rev.comissao});
-    saveData();
-    renderResgates();
-    alert(`✅ Solicitação de resgate enviada!\n${creditos} créditos = R$ ${(creditos * VALOR_RESGATE_CREDITO).toFixed(2).replace('.', ',')}`);
 }
 
 // Inicializar
