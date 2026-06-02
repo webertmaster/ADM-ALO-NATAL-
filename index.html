@@ -107,8 +107,6 @@
         .price-input:focus { outline: none; }
         .search-bar { width: 100%; padding: 14px 18px; border: 2px solid var(--border); border-radius: 12px; font-size: 14px; background: #f8fafc; margin-bottom: 20px; }
         .search-bar:focus { outline: none; border-color: var(--primary); background: white; }
-        
-        /* MODAL PIX */
         .modal-overlay { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.7); z-index: 100; justify-content: center; align-items: center; }
         .modal-overlay.active { display: flex; }
         .modal-pix { background: white; border-radius: 24px; padding: 36px; width: 90%; max-width: 450px; text-align: center; box-shadow: 0 20px 60px rgba(0,0,0,0.4); }
@@ -120,8 +118,8 @@
         .pix-copia-cola { background: #f0f4f8; padding: 16px; border-radius: 12px; word-break: break-all; font-size: 11px; color: #333; margin: 16px 0; border: 1px solid var(--border); text-align: left; cursor: pointer; }
         .pix-copia-cola:hover { background: #e2e8f0; }
         .pix-status { font-size: 14px; color: var(--text-muted); margin: 12px 0; }
-        .pix-status i { animation: spin 1s linear infinite; }
-        @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+        .modal { background: white; border-radius: 20px; padding: 32px; width: 90%; max-width: 600px; max-height: 80vh; overflow-y: auto; box-shadow: 0 20px 60px rgba(0,0,0,0.3); }
+        .modal h3 { font-size: 22px; color: var(--primary-dark); margin-bottom: 24px; font-weight: 800; }
     </style>
 </head>
 <body>
@@ -162,9 +160,104 @@
             </div>
         </div>
 
-        <!-- DEMAIS VIEWS MANTIDAS IGUAIS... -->
-        <!-- CADASTRO, PROFISSIONAIS, PLANOS, ASSINATURAS, PREÇOS, CONFIG, HISTÓRICO -->
-        <!-- (Código completo abaixo no script) -->
+        <!-- CADASTRO -->
+        <div id="view-cadastro" class="panel-view">
+            <div class="action-box">
+                <div class="section-title"><i class="fas fa-user-plus"></i> Cadastrar Nova Revenda</div>
+                <form onsubmit="event.preventDefault(); criarRevenda();">
+                    <div class="form-row">
+                        <div class="form-group"><label>Nome da Revenda</label><input type="text" id="add-nome" placeholder="Ex: Revenda Centro" required></div>
+                        <div class="form-group"><label>WhatsApp</label><input type="text" id="add-whats" placeholder="(84) 99999-9999" required></div>
+                        <div class="form-group"><label>Região</label><select id="add-regiao"><option>Alecrim / Leste</option><option>Zona Norte</option><option>Zona Sul</option><option>Geral</option></select></div>
+                    </div>
+                    <button type="submit" class="btn btn-success" style="width:100%;padding:16px;font-size:16px;"><i class="fas fa-check-circle"></i> Cadastrar Revenda</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- PROFISSIONAIS -->
+        <div id="view-profissionais" class="panel-view">
+            <div class="action-box">
+                <div class="section-title"><i class="fas fa-hard-hat"></i> Gerenciar Profissionais</div>
+                <input type="text" class="search-bar" placeholder="🔍 Buscar por nome, categoria ou revenda..." oninput="filtrarPro()">
+                <div style="background:#f8fafc;padding:24px;border-radius:16px;border:2px solid var(--border);">
+                    <div class="form-row">
+                        <div class="form-group"><label>Revenda</label><select id="select-revenda-pro"></select></div>
+                        <div class="form-group"><label>Nome do Profissional</label><input type="text" id="nome-pro" placeholder="Ex: Carlos Silva"></div>
+                        <div class="form-group"><label>Categoria</label><select id="cat-pro"></select></div>
+                        <div class="form-group" style="justify-content:flex-end"><button class="btn btn-primary" onclick="addPro()" style="margin-top:28px"><i class="fas fa-plus-circle"></i> Adicionar Profissional</button></div>
+                    </div>
+                </div>
+                <div class="table-container" style="margin-top:24px"><table class="data-table"><thead><tr><th>Revenda</th><th>Nome</th><th>Categoria</th><th>Status</th><th>Saldo</th><th>Ações</th></tr></thead><tbody id="tabela-pro"></tbody></table></div>
+            </div>
+        </div>
+
+        <!-- PLANOS -->
+        <div id="view-planos" class="panel-view">
+            <div class="action-box">
+                <div class="section-title"><i class="fas fa-crown"></i> Gerenciar Planos</div>
+                <div class="plan-cards-grid" id="planos-cards"></div>
+                <div style="text-align:center;margin-top:24px;">
+                    <button class="btn btn-primary" onclick="abrirModalPlano()"><i class="fas fa-plus-circle"></i> Criar Novo Plano</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- ASSINATURAS -->
+        <div id="view-assinaturas" class="panel-view">
+            <div class="action-box">
+                <div class="section-title"><i class="fas fa-credit-card"></i> Assinaturas Ativas</div>
+                <div class="table-container"><table class="data-table"><thead><tr><th>Revenda</th><th>Plano</th><th>Créditos</th><th>Limite Solicitações</th><th>Status</th><th>Próxima Renovação</th><th>Ações</th></tr></thead><tbody id="tabela-assinaturas"></tbody></table></div>
+            </div>
+        </div>
+
+        <!-- PREÇOS -->
+        <div id="view-precos" class="panel-view">
+            <div class="action-box">
+                <div class="section-title"><i class="fas fa-tags"></i> Tabela de Preços por Categoria</div>
+                <div class="table-container"><table class="data-table"><thead><tr><th>Categoria</th><th>Valor (R$)</th><th>Créditos</th><th>Ações</th></tr></thead><tbody id="tabela-precos"></tbody></table></div>
+            </div>
+        </div>
+
+        <!-- CONFIGURAÇÃO -->
+        <div id="view-config" class="panel-view">
+            <div class="action-box">
+                <div class="section-title"><i class="fas fa-cog"></i> Configuração do Sistema</div>
+                <div class="config-card">
+                    <h3><i class="fas fa-dollar-sign"></i> Valor Base do Crédito</h3>
+                    <p style="color:var(--text-muted);font-size:14px;margin-bottom:20px;">Este valor define quanto custa 1 crédito. Todos os preços da tabela serão recalculados automaticamente.</p>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Valor do Crédito (R$)</label>
+                            <div style="display:flex;align-items:center;gap:16px;">
+                                <div class="price-input-wrapper" style="width:160px;"><span>R$</span><input type="number" id="config-base-credito" class="price-input" value="12.00" step="0.50" min="1" onchange="atualizarPreview()"></div>
+                                <button class="btn btn-success" onclick="salvarConfiguracao()"><i class="fas fa-save"></i> Salvar Configuração</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="price-preview" id="config-preview" style="background:white;padding:20px;border-radius:12px;border:2px solid var(--border);margin-top:20px;">
+                        <p><strong>Preço base atual:</strong> R$ <span id="preview-valor">12,00</span></p>
+                        <p style="margin-top:12px;"><strong>📊 Exemplos de conversão:</strong></p>
+                        <p>• Servente (1 crédito) = R$ <span id="preview-servente">12,00</span></p>
+                        <p>• Chaveiro (1,25 créditos) = R$ <span id="preview-chaveiro">15,00</span></p>
+                        <p>• Pedreiro (1,5 créditos) = R$ <span id="preview-pedreiro">18,00</span></p>
+                        <p>• Marceneiro (2 créditos) = R$ <span id="preview-marceneiro">24,00</span></p>
+                    </div>
+                </div>
+                <div class="config-card">
+                    <h3><i class="fas fa-info-circle"></i> Informações do Sistema</h3>
+                    <p style="color:var(--text-muted);font-size:14px;line-height:1.8;">• O preço base é usado para calcular automaticamente os créditos de cada categoria<br>• Fórmula: Créditos = Valor da Categoria ÷ Preço Base<br>• Alterações no preço base não afetam os saldos existentes<br>• Recomenda-se atualizar a tabela de preços após mudar o valor base</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- HISTÓRICO -->
+        <div id="view-historico" class="panel-view">
+            <div class="action-box">
+                <div class="section-title"><i class="fas fa-history"></i> Histórico de Movimentações</div>
+                <div class="table-container"><table class="data-table"><thead><tr><th>Data/Hora</th><th>Tipo</th><th>Destino</th><th>Quantidade</th><th>Saldo Atual</th></tr></thead><tbody id="tabela-hist"></tbody></table></div>
+            </div>
+        </div>
     </div>
 </div>
 
@@ -182,11 +275,43 @@
             00020126360014BR.GOV.BCB.PIX0114+551199999999520400005303986540510.005802BR5908AloNatal6009SaoPaulo62070503***6304A1B2
         </div>
         <button class="btn btn-primary btn-sm" onclick="copiarPix()" style="margin-bottom:16px;"><i class="fas fa-copy"></i> Copiar PIX</button>
-        <div class="pix-status" id="pix-status">
-            <i class="fas fa-spinner"></i> Aguardando pagamento...
-        </div>
+        <div class="pix-status" id="pix-status"><i class="fas fa-spinner fa-spin"></i> Aguardando pagamento...</div>
         <button class="btn btn-success" onclick="simularPagamento()" style="margin-top:8px;"><i class="fas fa-check-circle"></i> Simular Pagamento (Teste)</button>
         <button class="btn btn-danger btn-sm" onclick="fecharModalPix()" style="margin-top:8px;">Cancelar</button>
+    </div>
+</div>
+
+<!-- MODAL PLANO -->
+<div class="modal-overlay" id="modal-plano">
+    <div class="modal">
+        <h3 id="modal-plano-titulo"><i class="fas fa-plus-circle"></i> Novo Plano</h3>
+        <form onsubmit="event.preventDefault(); salvarPlano();">
+            <input type="hidden" id="plano-id">
+            <div class="form-row">
+                <div class="form-group"><label>Nome do Plano</label><input type="text" id="plano-nome" placeholder="Ex: Start" required></div>
+                <div class="form-group"><label>Ícone (Font Awesome)</label><input type="text" id="plano-icone" placeholder="fas fa-star" value="fas fa-star"></div>
+            </div>
+            <div class="form-row">
+                <div class="form-group"><label>Valor Mensal (R$)</label><input type="number" id="plano-valor" step="0.01" placeholder="29.90" required></div>
+                <div class="form-group"><label>Créditos por Mês</label><input type="number" id="plano-creditos" placeholder="5" required></div>
+            </div>
+            <div class="form-row">
+                <div class="form-group"><label>Limite de Solicitações</label><input type="number" id="plano-limite" placeholder="3" required></div>
+                <div class="form-group"><label>Categorias Permitidas</label><input type="number" id="plano-categorias" placeholder="1" required></div>
+            </div>
+            <div class="form-row">
+                <div class="form-group"><label>Prioridade (%)</label><input type="number" id="plano-prioridade" placeholder="75" min="0" max="100" required></div>
+                <div class="form-group"><label>Selo Especial</label><input type="text" id="plano-selo" placeholder="Ex: 🏢 Empresa Verificada"></div>
+            </div>
+            <div class="form-row">
+                <div class="form-group"><label>Cor do Badge</label><select id="plano-cor"><option value="start">Verde (Start)</option><option value="pro">Azul (Pro)</option><option value="premium">Roxo (Premium)</option><option value="empresa">Laranja (Empresa)</option><option value="gratis">Cinza (Grátis)</option></select></div>
+                <div class="form-group"><label>Destaque</label><select id="plano-destaque"><option value="false">Normal</option><option value="true">⭐ Mais Popular</option></select></div>
+            </div>
+            <div style="display:flex;gap:12px;margin-top:20px;">
+                <button type="submit" class="btn btn-success" style="flex:1"><i class="fas fa-save"></i> Salvar Plano</button>
+                <button type="button" class="btn btn-danger" onclick="fecharModalPlano()" style="flex:1">Cancelar</button>
+            </div>
+        </form>
     </div>
 </div>
 
@@ -234,69 +359,98 @@ function saveData() {
 function abrirModalPix(revendaId, planoId) {
     const plano = planos.find(p => p.id === planoId);
     if(!plano) return;
-    
     pixData = { revendaId, planoId, valor: plano.valor, status: 'pendente' };
-    
     document.getElementById('pix-plano-nome').innerText = `Plano ${plano.nome}`;
     document.getElementById('pix-valor').innerText = `R$ ${plano.valor.toFixed(2).replace('.', ',')}`;
-    document.getElementById('pix-status').innerHTML = '<i class="fas fa-spinner"></i> Aguardando pagamento...';
+    document.getElementById('pix-status').innerHTML = '<i class="fas fa-spinner fa-spin"></i> Aguardando pagamento...';
     document.getElementById('modal-pix').classList.add('active');
-    
-    // Gerar PIX copia e cola simulado
     const pixCode = `00020126360014BR.GOV.BCB.PIX0114+5584${Date.now().toString().slice(-11)}5204000053039865405${plano.valor.toFixed(2).replace('.','')}5802BR5908AloNatal6014Natal62070503***6304${Math.random().toString(36).substring(2,6).toUpperCase()}`;
     document.getElementById('pix-copia-cola').innerText = pixCode;
 }
 
-function fecharModalPix() {
-    document.getElementById('modal-pix').classList.remove('active');
-    pixData = { revendaId: null, planoId: null, valor: 0, status: 'pendente' };
-}
+function fecharModalPix() { document.getElementById('modal-pix').classList.remove('active'); }
 
 function copiarPix() {
     const texto = document.getElementById('pix-copia-cola').innerText;
-    navigator.clipboard.writeText(texto).then(() => {
-        alert('✅ PIX Copia e Cola copiado!');
-    }).catch(() => {
-        prompt('Copie o PIX:', texto);
-    });
+    navigator.clipboard.writeText(texto).then(() => alert('✅ PIX copiado!')).catch(() => prompt('Copie o PIX:', texto));
 }
 
 function simularPagamento() {
     if(pixData.status === 'pago') return;
-    
     document.getElementById('pix-status').innerHTML = '<span style="color:var(--success);"><i class="fas fa-check-circle"></i> Pagamento confirmado!</span>';
     pixData.status = 'pago';
-    
     const r = revendas.find(x => x.id === pixData.revendaId);
     const plano = planos.find(p => p.id === pixData.planoId);
-    
     if(r && plano) {
         r.planoId = plano.id;
-        r.assinatura = {
-            dataInicio: new Date().toISOString(),
-            dataRenovacao: new Date(Date.now() + 30*24*60*60*1000).toISOString(),
-            status: 'ativo',
-            solicitacoesUsadas: 0
-        };
+        r.assinatura = { dataInicio: new Date().toISOString(), dataRenovacao: new Date(Date.now() + 30*24*60*60*1000).toISOString(), status: 'ativo', solicitacoesUsadas: 0 };
         r.saldo = plano.creditos;
-        
-        historico.unshift({
-            data: new Date().toLocaleString('pt-BR'),
-            tipo: 'Assinatura PIX',
-            destino: r.nome,
-            qtd: plano.nome,
-            saldo: r.saldo
-        });
-        
+        historico.unshift({ data: new Date().toLocaleString('pt-BR'), tipo: 'Assinatura PIX', destino: r.nome, qtd: plano.nome, saldo: r.saldo });
         saveData();
-        
-        setTimeout(() => {
-            fecharModalPix();
-            renderDash();
-            renderAssinaturas();
-            alert(`✅ Pagamento confirmado!\nPlano ${plano.nome} ativado para ${r.nome}\nCréditos: ${plano.creditos}`);
-        }, 1500);
+        setTimeout(() => { fecharModalPix(); renderDash(); renderAssinaturas(); alert(`✅ Plano ${plano.nome} ativado para ${r.nome}!`); }, 1500);
     }
+}
+
+// ==================== MODAL PLANO ====================
+function abrirModalPlano(planoId = null) {
+    const modal = document.getElementById('modal-plano');
+    modal.classList.add('active');
+    if(planoId) {
+        const plano = planos.find(p => p.id === planoId);
+        if(plano) {
+            document.getElementById('modal-plano-titulo').innerHTML = '<i class="fas fa-edit"></i> Editar Plano';
+            document.getElementById('plano-id').value = plano.id;
+            document.getElementById('plano-nome').value = plano.nome;
+            document.getElementById('plano-icone').value = plano.icone || '';
+            document.getElementById('plano-valor').value = plano.valor;
+            document.getElementById('plano-creditos').value = plano.creditos;
+            document.getElementById('plano-limite').value = plano.limiteSolicitacoes;
+            document.getElementById('plano-categorias').value = plano.categorias;
+            document.getElementById('plano-prioridade').value = plano.prioridade;
+            document.getElementById('plano-selo').value = plano.selo || '';
+            document.getElementById('plano-cor').value = plano.cor;
+            document.getElementById('plano-destaque').value = plano.destaque ? 'true' : 'false';
+        }
+    } else {
+        document.getElementById('modal-plano-titulo').innerHTML = '<i class="fas fa-plus-circle"></i> Novo Plano';
+        document.getElementById('plano-id').value = '';
+        ['plano-nome','plano-icone','plano-valor','plano-creditos','plano-limite','plano-categorias','plano-prioridade','plano-selo'].forEach(id => { const el = document.getElementById(id); if(el) el.value = ''; });
+        document.getElementById('plano-icone').value = 'fas fa-star';
+        document.getElementById('plano-cor').value = 'start';
+        document.getElementById('plano-destaque').value = 'false';
+    }
+}
+
+function fecharModalPlano() { document.getElementById('modal-plano').classList.remove('active'); }
+
+function salvarPlano() {
+    const id = document.getElementById('plano-id').value || 'plano' + Date.now();
+    const nome = document.getElementById('plano-nome').value.trim();
+    const icone = document.getElementById('plano-icone').value.trim();
+    const valor = parseFloat(document.getElementById('plano-valor').value);
+    const creditos = parseInt(document.getElementById('plano-creditos').value);
+    const limiteSolicitacoes = parseInt(document.getElementById('plano-limite').value);
+    const categorias = parseInt(document.getElementById('plano-categorias').value);
+    const prioridade = parseInt(document.getElementById('plano-prioridade').value);
+    const selo = document.getElementById('plano-selo').value.trim();
+    const cor = document.getElementById('plano-cor').value;
+    const destaque = document.getElementById('plano-destaque').value === 'true';
+    if(!nome || !valor || !creditos) return alert('⚠️ Preencha campos obrigatórios!');
+    const index = planos.findIndex(p => p.id === id);
+    const planoData = { id, nome, icone, valor, creditos, limiteSolicitacoes, categorias, prioridade, selo, cor, destaque };
+    if(index >= 0) planos[index] = planoData;
+    else planos.push(planoData);
+    saveData(); fecharModalPlano(); renderPlanos();
+    alert('✅ Plano salvo!');
+}
+
+function editarPlano(id) { abrirModalPlano(id); }
+
+function excluirPlano(id) {
+    if(!confirm('Excluir este plano?')) return;
+    planos = planos.filter(p => p.id !== id);
+    revendas.forEach(r => { if(r.planoId === id) { r.planoId = null; r.assinatura = null; } });
+    saveData(); renderPlanos();
 }
 
 // ==================== NAVEGAÇÃO ====================
@@ -319,10 +473,8 @@ function navegarPara(tela) {
 function renderDash() {
     document.getElementById('total-revendas').innerText = revendas.length;
     document.getElementById('total-profissionais').innerText = profissionais.length;
-    const totalCreditos = revendas.reduce((a, r) => a + (parseInt(r.saldo) || 0), 0);
-    document.getElementById('total-creditos').innerText = totalCreditos;
+    document.getElementById('total-creditos').innerText = revendas.reduce((a, r) => a + (parseInt(r.saldo) || 0), 0);
     document.getElementById('preco-base-dash').innerText = `R$ ${baseCredito.toFixed(2).replace('.', ',')}`;
-    
     const tbody = document.getElementById('tabela-revendas');
     tbody.innerHTML = '';
     revendas.forEach(r => {
@@ -332,8 +484,7 @@ function renderDash() {
         const corPlano = plano ? plano.cor : 'gratis';
         const link = `https://wa.me/55${r.whats.replace(/\D/g, '')}?text=Olá!`;
         tbody.innerHTML += `<tr>
-            <td><span class="nome-revenda">${r.nome}</span></td>
-            <td>${r.regiao}</td>
+            <td><span class="nome-revenda">${r.nome}</span></td><td>${r.regiao}</td>
             <td>${r.whats} <a href="${link}" class="btn-whatsapp" target="_blank"><i class="fab fa-whatsapp"></i> WhatsApp</a></td>
             <td><span class="badge-plan badge-${corPlano}">${nomePlano}</span></td>
             <td><span class="saldo-badge">${r.saldo} Créditos</span></td>
@@ -346,7 +497,7 @@ function renderDash() {
                 </div>
             </td>
             <td>
-                <button class="btn btn-gold btn-xs" onclick="abrirModalPix('${r.id}', r.planoId || 'plano2')" title="Contratar Plano via PIX"><i class="fas fa-qrcode"></i> PIX</button>
+                <button class="btn btn-gold btn-xs" onclick="abrirModalPix('${r.id}', r.planoId || 'plano2')" title="Contratar via PIX"><i class="fas fa-qrcode"></i></button>
                 <button class="btn btn-danger btn-xs" onclick="delRevenda('${r.id}')"><i class="fas fa-trash-alt"></i></button>
             </td>
         </tr>`;
@@ -354,308 +505,139 @@ function renderDash() {
     saveData();
 }
 
-function ajustarCredito(id, direction) {
-    const input = document.getElementById(`credit-value-${id}`);
-    let valor = parseInt(input.value) || 1;
-    valor += direction;
-    if(valor < 1) valor = 1;
-    input.value = valor;
-}
+function ajustarCredito(id, d) { const i = document.getElementById('credit-value-'+id); let v = parseInt(i.value)||1; v+=d; if(v<1)v=1; i.value=v; }
 
 function salvarAjusteCredito(id) {
-    const input = document.getElementById(`credit-value-${id}`);
-    const qtd = parseInt(input.value);
-    if(!qtd || qtd === 0) return alert('⚠️ Digite uma quantidade válida!');
-    const r = revendas.find(x => x.id === id);
-    if(!r) return;
-    r.saldo = parseInt(r.saldo) || 0;
-    const tipo = qtd > 0 ? 'Adição' : 'Remoção';
-    if(qtd < 0 && r.saldo < Math.abs(qtd)) return alert('⚠️ Saldo insuficiente!');
-    r.saldo += qtd;
-    if(r.saldo < 0) r.saldo = 0;
-    historico.unshift({ data: new Date().toLocaleString('pt-BR'), tipo, destino: r.nome, qtd: qtd > 0 ? `+${qtd}` : `${qtd}`, saldo: r.saldo });
-    if(historico.length > 100) historico = historico.slice(0, 100);
-    saveData(); renderDash(); input.value = 1;
-    alert(`✅ ${tipo} de ${Math.abs(qtd)} créditos!\nNovo saldo: ${r.saldo} créditos`);
+    const qtd = parseInt(document.getElementById('credit-value-'+id).value);
+    if(!qtd||qtd===0) return alert('⚠️ Quantidade inválida!');
+    const r = revendas.find(x=>x.id===id); if(!r) return;
+    r.saldo = parseInt(r.saldo)||0;
+    if(qtd<0 && r.saldo<Math.abs(qtd)) return alert('⚠️ Saldo insuficiente!');
+    const tipo = qtd>0?'Adição':'Remoção'; r.saldo+=qtd; if(r.saldo<0)r.saldo=0;
+    historico.unshift({data:new Date().toLocaleString('pt-BR'),tipo,destino:r.nome,qtd:qtd>0?`+${qtd}`:`${qtd}`,saldo:r.saldo});
+    if(historico.length>100)historico=historico.slice(0,100);
+    saveData(); renderDash(); document.getElementById('credit-value-'+id).value=1;
+    alert(`✅ ${tipo} de ${Math.abs(qtd)} créditos!`);
 }
 
-function delRevenda(id) {
-    if(confirm('Remover esta revenda?')) { revendas = revendas.filter(x => x.id !== id); saveData(); renderDash(); }
-}
+function delRevenda(id) { if(confirm('Remover?')){revendas=revendas.filter(x=>x.id!==id);saveData();renderDash();} }
 
 function criarRevenda() {
-    const nome = document.getElementById('add-nome')?.value?.trim();
-    const whats = document.getElementById('add-whats')?.value?.trim();
-    const regiao = document.getElementById('add-regiao')?.value;
-    if(!nome || !whats) return alert('⚠️ Preencha todos os campos!');
-    revendas.push({ id: 'r' + Date.now(), nome, whats, regiao, saldo: 0, planoId: null, assinatura: null });
-    saveData();
-    if(document.getElementById('add-nome')) document.getElementById('add-nome').value = '';
-    if(document.getElementById('add-whats')) document.getElementById('add-whats').value = '';
-    alert('✅ Revenda cadastrada!');
-    navegarPara('dashboard');
+    const nome=document.getElementById('add-nome')?.value?.trim();
+    const whats=document.getElementById('add-whats')?.value?.trim();
+    const regiao=document.getElementById('add-regiao')?.value;
+    if(!nome||!whats)return alert('⚠️ Preencha todos!');
+    revendas.push({id:'r'+Date.now(),nome,whats,regiao,saldo:0,planoId:null,assinatura:null});
+    saveData(); document.getElementById('add-nome').value=''; document.getElementById('add-whats').value='';
+    alert('✅ Revenda cadastrada!'); navegarPara('dashboard');
 }
 
 function renderPlanos() {
-    const container = document.getElementById('planos-cards');
-    if(!container) return;
-    container.innerHTML = '';
-    planos.forEach(plano => {
-        const valorReal = (plano.creditos * baseCredito).toFixed(2).replace('.', ',');
-        const economia = ((plano.creditos * baseCredito - plano.valor) / (plano.creditos * baseCredito) * 100).toFixed(0);
-        container.innerHTML += `<div class="plan-card ${plano.destaque ? 'popular' : ''}">
-            <div class="plan-header">
-                <div class="plan-icon"><i class="${plano.icone || 'fas fa-box'}"></i></div>
-                <div class="plan-name">${plano.nome}</div>
-                <div class="plan-price">R$ ${plano.valor.toFixed(2).replace('.', ',')}<small>/mês</small></div>
-                <div class="plan-credits">${plano.creditos} créditos (R$ ${valorReal})</div>
-                <span class="badge-plan badge-${plano.cor}" style="margin-top:8px;">${economia}% economia</span>
-            </div>
-            <div class="plan-features">
-                <div class="plan-feature"><i class="fas fa-check-circle"></i> ${plano.creditos} créditos/mês</div>
-                <div class="plan-feature"><i class="fas fa-check-circle"></i> ${plano.limiteSolicitacoes >= 999 ? 'Sem limite' : 'Até ' + plano.limiteSolicitacoes + ' solicitações'}</div>
-                <div class="plan-feature"><i class="fas fa-check-circle"></i> ${plano.categorias >= 999 ? 'Todas categorias' : plano.categorias + ' categoria(s)'}</div>
-                <div class="plan-feature"><i class="fas fa-check-circle"></i> Prioridade ${plano.prioridade}%</div>
-                ${plano.selo ? `<div class="plan-feature"><i class="fas fa-check-circle"></i> Selo: ${plano.selo}</div>` : ''}
-            </div>
-            <button class="btn btn-primary btn-sm" onclick="editarPlano('${plano.id}')"><i class="fas fa-edit"></i> Editar</button>
-            <button class="btn btn-danger btn-sm" onclick="excluirPlano('${plano.id}')" style="margin-top:4px;"><i class="fas fa-trash"></i> Excluir</button>
+    const c=document.getElementById('planos-cards'); if(!c)return;
+    c.innerHTML='';
+    planos.forEach(p=>{
+        const vr=(p.creditos*baseCredito).toFixed(2).replace('.',',');
+        const eco=((p.creditos*baseCredito-p.valor)/(p.creditos*baseCredito)*100).toFixed(0);
+        c.innerHTML+=`<div class="plan-card ${p.destaque?'popular':''}">
+            <div class="plan-header"><div class="plan-icon"><i class="${p.icone||'fas fa-box'}"></i></div><div class="plan-name">${p.nome}</div><div class="plan-price">R$ ${p.valor.toFixed(2).replace('.',',')}<small>/mês</small></div><div class="plan-credits">${p.creditos} créditos (R$ ${vr})</div><span class="badge-plan badge-${p.cor}" style="margin-top:8px;">${eco}% economia</span></div>
+            <div class="plan-features"><div class="plan-feature"><i class="fas fa-check-circle"></i> ${p.creditos} créditos/mês</div><div class="plan-feature"><i class="fas fa-check-circle"></i> ${p.limiteSolicitacoes>=999?'Sem limite':'Até '+p.limiteSolicitacoes+' solicitações'}</div><div class="plan-feature"><i class="fas fa-check-circle"></i> ${p.categorias>=999?'Todas categorias':p.categorias+' categoria(s)'}</div><div class="plan-feature"><i class="fas fa-check-circle"></i> Prioridade ${p.prioridade}%</div>${p.selo?`<div class="plan-feature"><i class="fas fa-check-circle"></i> ${p.selo}</div>`:''}</div>
+            <button class="btn btn-primary btn-sm" onclick="editarPlano('${p.id}')"><i class="fas fa-edit"></i> Editar</button>
+            <button class="btn btn-danger btn-sm" onclick="excluirPlano('${p.id}')" style="margin-top:4px;"><i class="fas fa-trash"></i> Excluir</button>
         </div>`;
     });
 }
 
-function abrirModalPlano(planoId = null) {
-    const modal = document.getElementById('modal-plano');
-    if(!modal) return;
-    modal.classList.add('active');
-    if(planoId) {
-        const plano = planos.find(p => p.id === planoId);
-        if(plano) {
-            document.getElementById('modal-plano-titulo').innerHTML = '<i class="fas fa-edit"></i> Editar Plano';
-            document.getElementById('plano-id').value = plano.id;
-            document.getElementById('plano-nome').value = plano.nome;
-            document.getElementById('plano-icone').value = plano.icone || '';
-            document.getElementById('plano-valor').value = plano.valor;
-            document.getElementById('plano-creditos').value = plano.creditos;
-            document.getElementById('plano-limite').value = plano.limiteSolicitacoes;
-            document.getElementById('plano-categorias').value = plano.categorias;
-            document.getElementById('plano-prioridade').value = plano.prioridade;
-            document.getElementById('plano-selo').value = plano.selo || '';
-            document.getElementById('plano-cor').value = plano.cor;
-            document.getElementById('plano-destaque').value = plano.destaque ? 'true' : 'false';
-        }
-    } else {
-        document.getElementById('modal-plano-titulo').innerHTML = '<i class="fas fa-plus-circle"></i> Novo Plano';
-        document.getElementById('plano-id').value = '';
-        ['plano-nome','plano-icone','plano-valor','plano-creditos','plano-limite','plano-categorias','plano-prioridade','plano-selo'].forEach(id => {
-            const el = document.getElementById(id);
-            if(el) el.value = '';
-        });
-        document.getElementById('plano-icone').value = 'fas fa-star';
-        document.getElementById('plano-cor').value = 'start';
-        document.getElementById('plano-destaque').value = 'false';
-    }
-}
-
-function fecharModalPlano() { document.getElementById('modal-plano')?.classList.remove('active'); }
-
-function salvarPlano() {
-    const id = document.getElementById('plano-id')?.value || 'plano' + Date.now();
-    const nome = document.getElementById('plano-nome')?.value?.trim();
-    const icone = document.getElementById('plano-icone')?.value?.trim();
-    const valor = parseFloat(document.getElementById('plano-valor')?.value);
-    const creditos = parseInt(document.getElementById('plano-creditos')?.value);
-    const limiteSolicitacoes = parseInt(document.getElementById('plano-limite')?.value);
-    const categorias = parseInt(document.getElementById('plano-categorias')?.value);
-    const prioridade = parseInt(document.getElementById('plano-prioridade')?.value);
-    const selo = document.getElementById('plano-selo')?.value?.trim();
-    const cor = document.getElementById('plano-cor')?.value;
-    const destaque = document.getElementById('plano-destaque')?.value === 'true';
-    if(!nome || !valor || !creditos) return alert('⚠️ Preencha campos obrigatórios!');
-    const index = planos.findIndex(p => p.id === id);
-    const planoData = { id, nome, icone, valor, creditos, limiteSolicitacoes, categorias, prioridade, selo, cor, destaque };
-    if(index >= 0) planos[index] = planoData;
-    else planos.push(planoData);
-    saveData();
-    fecharModalPlano();
-    renderPlanos();
-    alert('✅ Plano salvo!');
-}
-
-function editarPlano(id) { abrirModalPlano(id); }
-
-function excluirPlano(id) {
-    if(!confirm('Excluir este plano?')) return;
-    planos = planos.filter(p => p.id !== id);
-    revendas.forEach(r => { if(r.planoId === id) { r.planoId = null; r.assinatura = null; } });
-    saveData();
-    renderPlanos();
-    alert('✅ Plano excluído!');
-}
-
 function renderAssinaturas() {
-    const tbody = document.getElementById('tabela-assinaturas');
-    if(!tbody) return;
-    tbody.innerHTML = '';
-    const comPlano = revendas.filter(r => r.planoId && r.assinatura);
-    if(comPlano.length === 0) {
-        tbody.innerHTML = '<tr><td colspan="7" style="text-align:center;padding:40px;">Nenhuma assinatura ativa</td></tr>';
-        return;
-    }
-    comPlano.forEach(r => {
-        const plano = planos.find(p => p.id === r.planoId);
-        if(!plano) return;
-        const dataRenovacao = r.assinatura ? new Date(r.assinatura.dataRenovacao).toLocaleDateString('pt-BR') : '-';
-        const status = r.assinatura ? r.assinatura.status : 'ativo';
-        const statusClass = status === 'ativo' ? 'status-ativo' : status === 'pausado' ? 'status-pausado' : 'status-cancelado';
-        tbody.innerHTML += `<tr>
-            <td><span class="nome-revenda">${r.nome}</span></td>
-            <td><span class="badge-plan badge-${plano.cor}">${plano.nome}</span></td>
-            <td><span class="saldo-badge">${r.saldo} / ${plano.creditos}</span></td>
-            <td>${r.assinatura ? r.assinatura.solicitacoesUsadas || 0 : 0} / ${plano.limiteSolicitacoes >= 999 ? '∞' : plano.limiteSolicitacoes}</td>
-            <td><span class="status-badge ${statusClass}">${status === 'ativo' ? '✅ Ativo' : status === 'pausado' ? '⏸️ Pausado' : '❌ Cancelado'}</span></td>
-            <td>${dataRenovacao}</td>
-            <td>
-                ${status === 'ativo' ? `<button class="btn btn-warning btn-xs" onclick="pausarAssinatura('${r.id}')"><i class="fas fa-pause"></i></button>` : ''}
-                ${status === 'pausado' ? `<button class="btn btn-success btn-xs" onclick="reativarAssinatura('${r.id}')"><i class="fas fa-play"></i></button>` : ''}
-                <button class="btn btn-danger btn-xs" onclick="cancelarAssinatura('${r.id}')"><i class="fas fa-times"></i></button>
-            </td>
-        </tr>`;
+    const tbody=document.getElementById('tabela-assinaturas'); if(!tbody)return;
+    tbody.innerHTML='';
+    const cp=revendas.filter(r=>r.planoId&&r.assinatura);
+    if(cp.length===0){tbody.innerHTML='<tr><td colspan="7" style="text-align:center;padding:40px;">Nenhuma assinatura</td></tr>';return;}
+    cp.forEach(r=>{
+        const plano=planos.find(p=>p.id===r.planoId); if(!plano)return;
+        const dr=r.assinatura?new Date(r.assinatura.dataRenovacao).toLocaleDateString('pt-BR'):'-';
+        const st=r.assinatura?r.assinatura.status:'ativo';
+        const sc=st==='ativo'?'status-ativo':st==='pausado'?'status-pausado':'status-cancelado';
+        tbody.innerHTML+=`<tr><td><span class="nome-revenda">${r.nome}</span></td><td><span class="badge-plan badge-${plano.cor}">${plano.nome}</span></td><td><span class="saldo-badge">${r.saldo}/${plano.creditos}</span></td><td>${r.assinatura?r.assinatura.solicitacoesUsadas||0:0}/${plano.limiteSolicitacoes>=999?'∞':plano.limiteSolicitacoes}</td><td><span class="status-badge ${sc}">${st==='ativo'?'✅ Ativo':st==='pausado'?'⏸️ Pausado':'❌ Cancelado'}</span></td><td>${dr}</td><td>${st==='ativo'?`<button class="btn btn-warning btn-xs" onclick="pausarAss('${r.id}')"><i class="fas fa-pause"></i></button>`:''}${st==='pausado'?`<button class="btn btn-success btn-xs" onclick="reativarAss('${r.id}')"><i class="fas fa-play"></i></button>`:''}<button class="btn btn-danger btn-xs" onclick="cancelarAss('${r.id}')"><i class="fas fa-times"></i></button></td></tr>`;
     });
 }
 
-function pausarAssinatura(id) {
-    const r = revendas.find(x => x.id === id);
-    if(!r || !r.assinatura) return;
-    r.assinatura.status = 'pausado';
-    historico.unshift({ data: new Date().toLocaleString('pt-BR'), tipo: 'Pausa', destino: r.nome, qtd: 'Plano pausado', saldo: r.saldo });
-    saveData(); renderAssinaturas();
-    alert('⏸️ Plano pausado!');
-}
-
-function reativarAssinatura(id) {
-    const r = revendas.find(x => x.id === id);
-    if(!r || !r.assinatura) return;
-    r.assinatura.status = 'ativo';
-    r.assinatura.dataRenovacao = new Date(Date.now() + 30*24*60*60*1000).toISOString();
-    historico.unshift({ data: new Date().toLocaleString('pt-BR'), tipo: 'Reativação', destino: r.nome, qtd: 'Plano reativado', saldo: r.saldo });
-    saveData(); renderAssinaturas();
-    alert('✅ Plano reativado!');
-}
-
-function cancelarAssinatura(id) {
-    if(!confirm('Cancelar esta assinatura?')) return;
-    const r = revendas.find(x => x.id === id);
-    if(!r) return;
-    r.assinatura.status = 'cancelado';
-    historico.unshift({ data: new Date().toLocaleString('pt-BR'), tipo: 'Cancelamento', destino: r.nome, qtd: 'Plano cancelado', saldo: r.saldo });
-    saveData(); renderAssinaturas();
-    alert('❌ Plano cancelado!');
-}
+function pausarAss(id){const r=revendas.find(x=>x.id===id);if(!r||!r.assinatura)return;r.assinatura.status='pausado';historico.unshift({data:new Date().toLocaleString('pt-BR'),tipo:'Pausa',destino:r.nome,qtd:'Plano pausado',saldo:r.saldo});saveData();renderAssinaturas();}
+function reativarAss(id){const r=revendas.find(x=>x.id===id);if(!r||!r.assinatura)return;r.assinatura.status='ativo';r.assinatura.dataRenovacao=new Date(Date.now()+30*24*60*60*1000).toISOString();historico.unshift({data:new Date().toLocaleString('pt-BR'),tipo:'Reativação',destino:r.nome,qtd:'Plano reativado',saldo:r.saldo});saveData();renderAssinaturas();}
+function cancelarAss(id){if(!confirm('Cancelar?'))return;const r=revendas.find(x=>x.id===id);if(!r)return;r.assinatura.status='cancelado';historico.unshift({data:new Date().toLocaleString('pt-BR'),tipo:'Cancelamento',destino:r.nome,qtd:'Plano cancelado',saldo:r.saldo});saveData();renderAssinaturas();}
 
 function renderTabelaPrecos() {
-    const tbody = document.getElementById('tabela-precos');
-    if(!tbody) return;
-    tbody.innerHTML = '';
-    Object.entries(categoriasPrecos).forEach(([id, cat]) => {
-        const creditos = (cat.valor / baseCredito).toFixed(2).replace('.', ',');
-        tbody.innerHTML += `<tr>
-            <td><strong>${cat.nome}</strong></td>
-            <td><div class="price-input-wrapper"><span>R$</span><input type="number" id="p-${id}" class="price-input" value="${cat.valor}" step="0.5" onchange="atualizarCredito('${id}')"></div></td>
-            <td><strong id="c-${id}">${creditos}</strong> créditos</td>
-            <td><button class="btn btn-primary" onclick="savePrice('${id}')"><i class="fas fa-save"></i> Salvar</button></td>
-        </tr>`;
+    const tbody=document.getElementById('tabela-precos'); if(!tbody)return;
+    tbody.innerHTML='';
+    Object.entries(categoriasPrecos).forEach(([id,cat])=>{
+        const cr=(cat.valor/baseCredito).toFixed(2).replace('.',',');
+        tbody.innerHTML+=`<tr><td><strong>${cat.nome}</strong></td><td><div class="price-input-wrapper"><span>R$</span><input type="number" id="p-${id}" class="price-input" value="${cat.valor}" step="0.5" onchange="atualizarCredito('${id}')"></div></td><td><strong id="c-${id}">${cr}</strong> créditos</td><td><button class="btn btn-primary" onclick="savePrice('${id}')"><i class="fas fa-save"></i> Salvar</button></td></tr>`;
     });
 }
 
-function atualizarCredito(id) {
-    const valor = parseFloat(document.getElementById('p-' + id).value) || 0;
-    const creditos = (valor / baseCredito).toFixed(2).replace('.', ',');
-    document.getElementById('c-' + id).innerText = creditos;
-}
-
-function savePrice(id) {
-    const valor = parseFloat(document.getElementById('p-' + id).value);
-    if(valor <= 0) return alert('⚠️ Valor inválido!');
-    categoriasPrecos[id].valor = valor;
-    const creditos = (valor / baseCredito).toFixed(2).replace('.', ',');
-    document.getElementById('c-' + id).innerText = creditos;
-    alert('✅ Preço atualizado!');
-}
+function atualizarCredito(id){const v=parseFloat(document.getElementById('p-'+id).value)||0;document.getElementById('c-'+id).innerText=(v/baseCredito).toFixed(2).replace('.',',');}
+function savePrice(id){const v=parseFloat(document.getElementById('p-'+id).value);if(v<=0)return alert('⚠️ Inválido!');categoriasPrecos[id].valor=v;atualizarCredito(id);alert('✅ Salvo!');}
 
 function renderPro() {
-    const selRev = document.getElementById('select-revenda-pro');
-    if(!selRev) return;
-    selRev.innerHTML = '<option value="">Selecione uma revenda</option>';
-    revendas.forEach(r => selRev.innerHTML += `<option value="${r.id}">${r.nome}</option>`);
-    const selCat = document.getElementById('cat-pro');
-    if(!selCat) return;
-    selCat.innerHTML = '<option value="">Selecione uma categoria</option>';
-    Object.values(categoriasPrecos).forEach(cat => selCat.innerHTML += `<option>${cat.nome}</option>`);
-    const tbody = document.getElementById('tabela-pro');
-    if(!tbody) return;
-    tbody.innerHTML = '';
-    if(profissionais.length === 0) { tbody.innerHTML = '<tr><td colspan="6" style="text-align:center;padding:40px;">Nenhum profissional</td></tr>'; return; }
-    profissionais.forEach((p, idx) => {
-        const rev = revendas.find(r => r.id === p.revendaId);
-        tbody.innerHTML += `<tr><td>${rev ? rev.nome : 'Removida'}</td><td><strong>${p.nome}</strong></td><td>${p.categoria}</td><td><span class="status-badge status-ativo">✅ Ativo</span></td><td><span class="saldo-badge">${p.saldo || 0} Crs</span></td><td><button class="btn btn-danger" onclick="delPro(${idx})"><i class="fas fa-trash-alt"></i></button></td></tr>`;
+    const selRev=document.getElementById('select-revenda-pro'); if(!selRev)return;
+    selRev.innerHTML='<option value="">Selecione</option>';
+    revendas.forEach(r=>selRev.innerHTML+=`<option value="${r.id}">${r.nome}</option>`);
+    const selCat=document.getElementById('cat-pro'); if(!selCat)return;
+    selCat.innerHTML='<option value="">Selecione</option>';
+    Object.values(categoriasPrecos).forEach(c=>selCat.innerHTML+=`<option>${c.nome}</option>`);
+    const tbody=document.getElementById('tabela-pro'); if(!tbody)return;
+    tbody.innerHTML='';
+    if(profissionais.length===0){tbody.innerHTML='<tr><td colspan="6" style="text-align:center;padding:40px;">Nenhum profissional</td></tr>';return;}
+    profissionais.forEach((p,i)=>{
+        const rev=revendas.find(r=>r.id===p.revendaId);
+        tbody.innerHTML+=`<tr><td>${rev?rev.nome:'Removida'}</td><td><strong>${p.nome}</strong></td><td>${p.categoria}</td><td><span class="status-badge status-ativo">✅ Ativo</span></td><td><span class="saldo-badge">${p.saldo||0} Crs</span></td><td><button class="btn btn-danger" onclick="delPro(${i})"><i class="fas fa-trash-alt"></i></button></td></tr>`;
     });
 }
 
-function addPro() {
-    const revId = document.getElementById('select-revenda-pro')?.value;
-    const nome = document.getElementById('nome-pro')?.value?.trim();
-    const cat = document.getElementById('cat-pro')?.value;
-    if(!nome) return alert('⚠️ Digite o nome!');
-    if(!revId) return alert('⚠️ Selecione uma revenda!');
-    if(!cat) return alert('⚠️ Selecione uma categoria!');
-    const qtd = profissionais.filter(p => p.revendaId === revId && p.categoria === cat).length;
-    if(qtd >= 3) return alert(`⚠️ Limite de 3 atingido para ${cat}!`);
-    profissionais.push({ revendaId: revId, nome, categoria: cat, saldo: 0 });
-    saveData();
-    if(document.getElementById('nome-pro')) document.getElementById('nome-pro').value = '';
-    renderPro();
-    alert('✅ Profissional adicionado!');
+function addPro(){
+    const revId=document.getElementById('select-revenda-pro')?.value;
+    const nome=document.getElementById('nome-pro')?.value?.trim();
+    const cat=document.getElementById('cat-pro')?.value;
+    if(!nome)return alert('⚠️ Nome!'); if(!revId)return alert('⚠️ Revenda!'); if(!cat)return alert('⚠️ Categoria!');
+    if(profissionais.filter(p=>p.revendaId===revId&&p.categoria===cat).length>=3)return alert('⚠️ Limite 3!');
+    profissionais.push({revendaId,nome,categoria:cat,saldo:0});
+    saveData(); document.getElementById('nome-pro').value=''; renderPro();
 }
 
-function delPro(idx) { if(confirm('Remover?')) { profissionais.splice(idx, 1); saveData(); renderPro(); } }
+function delPro(i){if(confirm('Remover?')){profissionais.splice(i,1);saveData();renderPro();}}
 
-function atualizarPreview() {
-    const valor = parseFloat(document.getElementById('config-base-credito')?.value) || 12;
-    if(document.getElementById('preview-valor')) document.getElementById('preview-valor').innerText = valor.toFixed(2).replace('.', ',');
-    if(document.getElementById('preview-servente')) document.getElementById('preview-servente').innerText = (valor * 1).toFixed(2).replace('.', ',');
-    if(document.getElementById('preview-chaveiro')) document.getElementById('preview-chaveiro').innerText = (valor * 1.25).toFixed(2).replace('.', ',');
-    if(document.getElementById('preview-pedreiro')) document.getElementById('preview-pedreiro').innerText = (valor * 1.5).toFixed(2).replace('.', ',');
-    if(document.getElementById('preview-marceneiro')) document.getElementById('preview-marceneiro').innerText = (valor * 2).toFixed(2).replace('.', ',');
+function filtrarPro(){
+    const t=document.querySelector('.search-bar')?.value?.toLowerCase()||'';
+    document.querySelectorAll('#tabela-pro tr').forEach(r=>{r.style.display=r.innerText.toLowerCase().includes(t)?'':'none';});
 }
 
-function salvarConfiguracao() {
-    const novoValor = parseFloat(document.getElementById('config-base-credito')?.value);
-    if(novoValor <= 0) return alert('⚠️ Valor inválido!');
-    baseCredito = novoValor;
-    saveData();
-    alert('✅ Configuração salva!');
-    atualizarPreview();
-    renderDash();
-    renderTabelaPrecos();
+function atualizarPreview(){
+    const v=parseFloat(document.getElementById('config-base-credito')?.value)||12;
+    document.getElementById('preview-valor').innerText=v.toFixed(2).replace('.',',');
+    document.getElementById('preview-servente').innerText=(v*1).toFixed(2).replace('.',',');
+    document.getElementById('preview-chaveiro').innerText=(v*1.25).toFixed(2).replace('.',',');
+    document.getElementById('preview-pedreiro').innerText=(v*1.5).toFixed(2).replace('.',',');
+    document.getElementById('preview-marceneiro').innerText=(v*2).toFixed(2).replace('.',',');
 }
 
-function renderHist() {
-    const tbody = document.getElementById('tabela-hist');
-    if(!tbody) return;
-    tbody.innerHTML = '';
-    if(historico.length === 0) { tbody.innerHTML = '<tr><td colspan="5" style="text-align:center;padding:40px;">Nenhum histórico</td></tr>'; return; }
-    historico.forEach(h => {
-        const corTipo = ['Adição','Assinatura','Reativação','Pagamento'].includes(h.tipo) ? 'var(--success)' : 'var(--danger)';
-        tbody.innerHTML += `<tr><td>${h.data}</td><td><span style="color:${corTipo};font-weight:700;">${h.tipo}</span></td><td>${h.destino}</td><td>${h.qtd}</td><td><span class="saldo-badge">${h.saldo} Crs</span></td></tr>`;
+function salvarConfiguracao(){
+    const v=parseFloat(document.getElementById('config-base-credito')?.value);
+    if(v<=0)return alert('⚠️ Inválido!');
+    baseCredito=v; saveData(); atualizarPreview(); renderDash(); renderTabelaPrecos();
+}
+
+function renderHist(){
+    const tbody=document.getElementById('tabela-hist'); if(!tbody)return;
+    tbody.innerHTML='';
+    if(historico.length===0){tbody.innerHTML='<tr><td colspan="5" style="text-align:center;padding:40px;">Nenhum histórico</td></tr>';return;}
+    historico.forEach(h=>{
+        const ct=['Adição','Assinatura','Reativação','Pagamento'].includes(h.tipo)?'var(--success)':'var(--danger)';
+        tbody.innerHTML+=`<tr><td>${h.data}</td><td><span style="color:${ct};font-weight:700;">${h.tipo}</span></td><td>${h.destino}</td><td>${h.qtd}</td><td><span class="saldo-badge">${h.saldo} Crs</span></td></tr>`;
     });
 }
 
 // ==================== INICIALIZAR ====================
-document.getElementById('config-base-credito').value = baseCredito.toFixed(2);
-atualizarPreview();
-renderDash();
-renderPlanos();
+document.getElementById('config-base-credito').value=baseCredito.toFixed(2);
+atualizarPreview(); renderDash(); renderPlanos();
 </script>
 </body>
 </html>
