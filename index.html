@@ -23,7 +23,7 @@
         .admin-badge h3 span { color: var(--gold); font-weight: 700; }
         .menu-section { margin-top: 8px; margin-bottom: 4px; }
         .menu-section-title { font-size: 10px; color: #64748b; text-transform: uppercase; letter-spacing: 2px; padding: 8px 16px; font-weight: 700; }
-        .menu-item { padding: 13px 18px; cursor: pointer; color: #94a3b8; border-radius: 12px; display: flex; align-items: center; gap: 14px; font-size: 14px; transition: all 0.3s; font-weight: 500; }
+        .menu-item { padding: 13px 18px; cursor: pointer; color: #94a3b8; border-radius: 12px; display: flex; align-items: center; gap: 14px; font-size: 14px; transition: all 0.3s; font-weight: 500; position: relative; }
         .menu-item i { font-size: 16px; width: 20px; text-align: center; }
         .menu-item .badge-notify { position: absolute; top: 8px; right: 8px; background: var(--danger); color: white; font-size: 10px; font-weight: 800; width: 20px; height: 20px; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
         .menu-item:hover { color: white; background: rgba(255,255,255,0.08); transform: translateX(4px); }
@@ -36,7 +36,7 @@
         .panel-view.active { display: block; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
         .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 24px; margin-bottom: 36px; }
-        .stat-card { background: var(--card); padding: 28px; border-radius: 20px; box-shadow: 0 8px 25px rgba(0,0,0,0.06); border: 1px solid var(--border); }
+        .stat-card { background: var(--card); padding: 28px; border-radius: 20px; box-shadow: 0 8px 25px rgba(0,0,0,0.06); border: 1px solid var(--border); position: relative; overflow: hidden; }
         .stat-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px; background: linear-gradient(90deg, var(--primary), #4a90e2); }
         .stat-card p { font-size: 12px; color: var(--text-muted); font-weight: 600; text-transform: uppercase; margin-bottom: 12px; }
         .stat-card h2 { font-size: 36px; font-weight: 800; }
@@ -65,7 +65,7 @@
         .status-badge { padding: 6px 14px; border-radius: 20px; font-size: 11px; font-weight: 700; }
         .status-ativo { background: #dcfce7; color: #166534; } .status-pendente { background: #fff3e0; color: #e65100; }
         .plan-cards-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; }
-        .plan-card { background: var(--card); border-radius: 18px; padding: 24px; border: 2px solid var(--border); transition: all 0.3s; }
+        .plan-card { background: var(--card); border-radius: 18px; padding: 24px; border: 2px solid var(--border); transition: all 0.3s; position: relative; overflow: hidden; }
         .plan-card:hover { transform: translateY(-4px); box-shadow: 0 12px 30px rgba(0,0,0,0.1); }
         .plan-card.popular { border-color: var(--gold); }
         .plan-card.popular::before { content: '⭐ MAIS POPULAR'; position: absolute; top: 10px; right: -32px; background: var(--gold); color: #1a1a1a; padding: 3px 38px; font-size: 9px; font-weight: 800; transform: rotate(45deg); }
@@ -109,10 +109,10 @@
         <!-- DASHBOARD -->
         <div id="view-dashboard" class="panel-view active">
             <div class="stats-grid">
-                <div class="stat-card" style="position:relative;overflow:hidden;"><p><i class="fas fa-store"></i> Revendas</p><h2 id="total-revendas">0</h2></div>
-                <div class="stat-card" style="position:relative;overflow:hidden;"><p><i class="fas fa-users"></i> Profissionais</p><h2 id="total-profissionais">0</h2></div>
-                <div class="stat-card" style="position:relative;overflow:hidden;"><p><i class="fas fa-crown"></i> Assinaturas Ativas</p><h2 id="total-assinaturas-ativas">0</h2></div>
-                <div class="stat-card" style="position:relative;overflow:hidden;"><p><i class="fas fa-hand-holding-usd"></i> Resgates Pendentes</p><h2 id="total-resgates-pendentes">0</h2></div>
+                <div class="stat-card"><p><i class="fas fa-store"></i> Revendas</p><h2 id="total-revendas">0</h2></div>
+                <div class="stat-card"><p><i class="fas fa-users"></i> Profissionais</p><h2 id="total-profissionais">0</h2></div>
+                <div class="stat-card"><p><i class="fas fa-crown"></i> Assinaturas Ativas</p><h2 id="total-assinaturas-ativas">0</h2></div>
+                <div class="stat-card"><p><i class="fas fa-hand-holding-usd"></i> Resgates Pendentes</p><h2 id="total-resgates-pendentes">0</h2></div>
             </div>
             <div class="action-box">
                 <div class="section-title"><i class="fas fa-store-alt"></i> Revendas Cadastradas</div>
@@ -133,6 +133,7 @@
                     <div class="form-row">
                         <div class="form-group"><label>Revenda</label><select id="select-revenda-pro"><option value="">Selecione uma revenda</option></select></div>
                         <div class="form-group"><label>Nome do Profissional</label><input type="text" id="nome-pro" placeholder="Ex: Carlos Silva"></div>
+                        <div class="form-group"><label>WhatsApp</label><input type="text" id="whats-pro" placeholder="(84) 99999-9999"></div>
                         <div class="form-group"><label>Categoria</label><select id="cat-pro"><option value="">Selecione uma categoria</option></select></div>
                         <div class="form-group" style="justify-content:flex-end"><button class="btn btn-primary" onclick="addPro()" style="margin-top:28px;white-space:nowrap;"><i class="fas fa-plus-circle"></i> Adicionar</button></div>
                     </div>
@@ -147,9 +148,9 @@
         <!-- ASSINATURAS -->
         <div id="view-assinaturas" class="panel-view">
             <div class="stats-grid">
-                <div class="stat-card" style="position:relative;overflow:hidden;border-left:4px solid #10b981;"><p>Ativas</p><h2 id="count-ass-ativas">0</h2></div>
-                <div class="stat-card" style="position:relative;overflow:hidden;border-left:4px solid #f59e0b;"><p>Pausadas</p><h2 id="count-ass-pausadas">0</h2></div>
-                <div class="stat-card" style="position:relative;overflow:hidden;border-left:4px solid #ef4444;"><p>Canceladas</p><h2 id="count-ass-canceladas">0</h2></div>
+                <div class="stat-card" style="border-left:4px solid #10b981;"><p>Ativas</p><h2 id="count-ass-ativas">0</h2></div>
+                <div class="stat-card" style="border-left:4px solid #f59e0b;"><p>Pausadas</p><h2 id="count-ass-pausadas">0</h2></div>
+                <div class="stat-card" style="border-left:4px solid #ef4444;"><p>Canceladas</p><h2 id="count-ass-canceladas">0</h2></div>
             </div>
             <div class="action-box"><div class="section-title"><i class="fas fa-credit-card"></i> Assinaturas dos Profissionais</div><div class="table-container"><table class="data-table"><thead><tr><th>Profissional</th><th>Plano</th><th>Revenda</th><th>Valor</th><th>Status</th><th>Início</th><th>Renovação</th><th>Ações</th></tr></thead><tbody id="tabela-assinaturas"></tbody></table></div></div>
         </div>
@@ -157,9 +158,9 @@
         <!-- RESGATES -->
         <div id="view-resgates" class="panel-view">
             <div class="stats-grid">
-                <div class="stat-card" style="position:relative;overflow:hidden;border-left:4px solid #f59e0b;"><p>Pendentes</p><h2 id="count-pendentes">0</h2></div>
-                <div class="stat-card" style="position:relative;overflow:hidden;border-left:4px solid #10b981;"><p>Aprovados</p><h2 id="count-aprovados">0</h2></div>
-                <div class="stat-card" style="position:relative;overflow:hidden;border-left:4px solid #ef4444;"><p>Negados</p><h2 id="count-negados">0</h2></div>
+                <div class="stat-card" style="border-left:4px solid #f59e0b;"><p>Pendentes</p><h2 id="count-pendentes">0</h2></div>
+                <div class="stat-card" style="border-left:4px solid #10b981;"><p>Aprovados</p><h2 id="count-aprovados">0</h2></div>
+                <div class="stat-card" style="border-left:4px solid #ef4444;"><p>Negados</p><h2 id="count-negados">0</h2></div>
             </div>
             <div class="action-box"><div class="section-title"><i class="fas fa-hand-holding-usd"></i> Solicitações de Resgate</div><div id="resgates-container"></div></div>
         </div>
@@ -175,17 +176,21 @@
         <h3 id="modal-plano-titulo"><i class="fas fa-plus-circle"></i> Novo Plano</h3>
         <form onsubmit="event.preventDefault(); salvarPlano();">
             <input type="hidden" id="plano-id">
-            <div class="form-row"><div class="form-group"><label>Nome</label><input type="text" id="plano-nome" placeholder="Ex: Start" required></div><div class="form-group"><label>Ícone (Font Awesome)</label><input type="text" id="plano-icone" placeholder="fas fa-star" value="fas fa-star"></div></div>
+            <div class="form-row"><div class="form-group"><label>Nome</label><input type="text" id="plano-nome" placeholder="Ex: Start" required></div><div class="form-group"><label>Ícone</label><input type="text" id="plano-icone" placeholder="fas fa-star" value="fas fa-star"></div></div>
             <div class="form-row"><div class="form-group"><label>Valor Mensal (R$)</label><input type="number" id="plano-valor" step="0.01" placeholder="39.90" required></div><div class="form-group"><label>Limite Solicitações</label><input type="number" id="plano-limite" placeholder="3" required></div></div>
             <div class="form-row"><div class="form-group"><label>Categorias</label><input type="number" id="plano-categorias" placeholder="1" required></div><div class="form-group"><label>Prioridade (%)</label><input type="number" id="plano-prioridade" placeholder="75" min="0" max="100" required></div></div>
-            <div class="form-row"><div class="form-group"><label>Comissão Revenda (créditos)</label><input type="number" id="plano-comissao" placeholder="2" required></div><div class="form-group"><label>Selo</label><input type="text" id="plano-selo" placeholder="Ex: 🏢 Verificado"></div></div>
-            <div class="form-row"><div class="form-group"><label>Cor</label><select id="plano-cor"><option value="start">Verde (Start)</option><option value="pro">Azul (Pro)</option><option value="premium">Roxo (Premium)</option><option value="empresa">Laranja (Empresa)</option></select></div><div class="form-group"><label>Destaque</label><select id="plano-destaque"><option value="false">Normal</option><option value="true">⭐ Mais Popular</option></select></div></div>
-            <div style="display:flex;gap:12px;margin-top:20px;"><button type="submit" class="btn btn-success" style="flex:1">Salvar Plano</button><button type="button" class="btn btn-danger" onclick="fecharModalPlano()" style="flex:1">Cancelar</button></div>
+            <div class="form-row"><div class="form-group"><label>Comissão (créditos)</label><input type="number" id="plano-comissao" placeholder="2" required></div><div class="form-group"><label>Selo</label><input type="text" id="plano-selo" placeholder="Ex: 🏢 Verificado"></div></div>
+            <div class="form-row"><div class="form-group"><label>Cor</label><select id="plano-cor"><option value="start">Verde</option><option value="pro">Azul</option><option value="premium">Roxo</option><option value="empresa">Laranja</option></select></div><div class="form-group"><label>Destaque</label><select id="plano-destaque"><option value="false">Normal</option><option value="true">⭐ Popular</option></select></div></div>
+            <div style="display:flex;gap:12px;margin-top:20px;"><button type="submit" class="btn btn-success" style="flex:1">Salvar</button><button type="button" class="btn btn-danger" onclick="fecharModalPlano()" style="flex:1">Cancelar</button></div>
         </form>
     </div>
 </div>
 
 <script>
+// ==================== CONFIGURAÇÃO ====================
+// 🔑 COLOQUE SUA CHAVE API DO MERCADO PAGO AQUI
+const MERCADO_PAGO_ACCESS_TOKEN = 'APP_USR-SUA-CHAVE-AQUI';
+
 // ==================== PLANOS UNIFICADOS ====================
 const PLANOS_PADRAO = [
     { id: 'plano1', nome: 'Start', icone: 'fas fa-seedling', valor: 39.90, limiteSolicitacoes: 3, categorias: 1, prioridade: 75, selo: '', cor: 'start', destaque: false, comissao: 2 },
@@ -203,15 +208,12 @@ let resgates = JSON.parse(localStorage.getItem('resgates')) || [];
 let planos = JSON.parse(localStorage.getItem('planos')) || PLANOS_PADRAO;
 let assinaturas = JSON.parse(localStorage.getItem('assinaturas')) || [];
 
-const categoriasPrecos = {
-    'Eletricista': '⚡ Eletricista', 'Pedreiro': '🧱 Pedreiro', 'Diarista': '🧹 Diarista',
-    'Encanador': '🔧 Encanador', 'Chaveiro': '🔑 Chaveiro', 'Pintor': '🎨 Pintor',
-    'Montador': '🪑 Montador', 'Marceneiro': '🪚 Marceneiro', 'Servente': '🪵 Servente',
-    'Gesseiro': '🏗️ Gesseiro', 'Serralheiro': '⛓️ Serralheiro', 'Vidraceiro': '🪟 Vidraceiro',
-    'Dedetizador': '🪳 Dedetizador', 'Jardineiro': '🌿 Jardineiro', 'Personal': '💪 Personal',
-    'Informática': '💻 Informática', 'Beleza': '💇 Beleza', 'Tosa Pet': '🐕 Tosa Pet',
-    'Viagens': '🚗 Viagens', 'Eventos': '🎉 Eventos', 'Ar-Condicionado': '❄️ Ar-Condicionado'
-};
+const categoriasPrecos = [
+    '⚡ Eletricista', '🧱 Pedreiro', '🧹 Diarista', '🔧 Encanador', '🔑 Chaveiro', 
+    '🎨 Pintor', '🪑 Montador', '🪚 Marceneiro', '🪵 Servente', '🏗️ Gesseiro',
+    '⛓️ Serralheiro', '🪟 Vidraceiro', '🪳 Dedetizador', '🌿 Jardineiro', '💪 Personal',
+    '💻 Informática', '💇 Beleza', '🐕 Tosa Pet', '🚗 Viagens', '🎉 Eventos', '❄️ Ar-Condicionado'
+];
 
 function saveData() {
     localStorage.setItem('revendas', JSON.stringify(revendas));
@@ -248,7 +250,6 @@ function renderDash() {
         const link = `https://wa.me/55${r.whats.replace(/\D/g,'')}?text=Olá!`;
         tbody.innerHTML += `<tr><td><span class="nome-revenda">${r.nome}</span></td><td>${r.regiao}</td><td>${r.whats}</td><td><a href="${link}" class="btn-whatsapp" target="_blank"><i class="fab fa-whatsapp"></i> WhatsApp</a></td><td><button class="btn btn-danger btn-xs" onclick="delRevenda('${r.id}')"><i class="fas fa-trash-alt"></i></button></td></tr>`;
     });
-    saveData();
 }
 
 function delRevenda(id){if(confirm('Remover?')){revendas=revendas.filter(x=>x.id!==id);saveData();renderDash();}}
@@ -261,7 +262,7 @@ function criarRevenda(){
     saveData();alert('✅ Revenda cadastrada!');navegarPara('dashboard');
 }
 
-// ==================== PROFISSIONAIS (CORRIGIDO) ====================
+// ==================== PROFISSIONAIS (COM WHATSAPP) ====================
 function renderPro(){
     const selRev=document.getElementById('select-revenda-pro');
     if(!selRev)return;
@@ -271,11 +272,11 @@ function renderPro(){
     const selCat=document.getElementById('cat-pro');
     if(!selCat)return;
     selCat.innerHTML='<option value="">Selecione uma categoria</option>';
-    Object.values(categoriasPrecos).forEach(c=>selCat.innerHTML+=`<option value="${c}">${c}</option>`);
+    categoriasPrecos.forEach(c=>selCat.innerHTML+=`<option value="${c}">${c}</option>`);
     
     const tbody=document.getElementById('tabela-pro');
     if(!tbody)return;
-    tbody.innerHTML=profissionais.length===0?'<tr><td colspan="6" style="text-align:center;padding:40px;">Nenhum profissional cadastrado</td></tr>':'';
+    tbody.innerHTML=profissionais.length===0?'<tr><td colspan="6" style="text-align:center;padding:40px;">Nenhum profissional</td></tr>':'';
     profissionais.forEach((p,i)=>{
         const rev=revendas.find(r=>r.id===p.revendaId);
         tbody.innerHTML+=`<tr><td>${rev?rev.nome:'<span style="color:var(--danger);">Removida</span>'}</td><td><strong>${p.nome}</strong></td><td>${p.categoria}</td><td>${p.whats||'-'}</td><td><span class="status-badge status-ativo">Ativo</span></td><td><button class="btn btn-danger btn-xs" onclick="delPro(${i})"><i class="fas fa-trash-alt"></i></button></td></tr>`;
@@ -285,33 +286,31 @@ function renderPro(){
 function addPro(){
     const revId = document.getElementById('select-revenda-pro')?.value;
     const nome = document.getElementById('nome-pro')?.value?.trim();
+    const whats = document.getElementById('whats-pro')?.value?.trim();
     const cat = document.getElementById('cat-pro')?.value;
     
-    console.log('Tentando adicionar:', { revId, nome, cat });
-    
-    if(!nome) return alert('⚠️ Digite o nome do profissional!');
-    if(!revId || revId === '') return alert('⚠️ Selecione uma revenda!');
-    if(!cat || cat === '') return alert('⚠️ Selecione uma categoria!');
+    if(!nome) return alert('⚠️ Digite o nome!');
+    if(!revId) return alert('⚠️ Selecione uma revenda!');
+    if(!cat) return alert('⚠️ Selecione uma categoria!');
     
     profissionais.push({
         revendaId: revId,
         nome: nome,
         categoria: cat,
-        whats: '',
+        whats: whats || '',
         saldo: 0
     });
     
     saveData();
-    
     document.getElementById('nome-pro').value = '';
+    document.getElementById('whats-pro').value = '';
     document.getElementById('cat-pro').selectedIndex = 0;
-    
     renderPro();
     renderDash();
-    alert('✅ Profissional adicionado com sucesso!');
+    alert('✅ Profissional adicionado!');
 }
 
-function delPro(i){if(confirm('Remover profissional?')){profissionais.splice(i,1);saveData();renderPro();renderDash();}}
+function delPro(i){if(confirm('Remover?')){profissionais.splice(i,1);saveData();renderPro();renderDash();}}
 function filtrarPro(){const t=document.querySelector('.search-bar')?.value?.toLowerCase()||'';document.querySelectorAll('#tabela-pro tr').forEach(r=>{r.style.display=r.innerText.toLowerCase().includes(t)?'':'none';});}
 
 // ==================== PLANOS ====================
