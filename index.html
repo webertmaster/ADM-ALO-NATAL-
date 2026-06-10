@@ -38,7 +38,7 @@
         .panel-view { display: none; animation: fadeInUp 0.5s cubic-bezier(0.4, 0, 0.2, 1); }
         .panel-view.active { display: block; }
         @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 24px; margin-bottom: 36px; }
+        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 24px; margin-bottom: 36px; }
         .stat-card { background: var(--card); padding: 28px; border-radius: 20px; box-shadow: 0 8px 25px rgba(0,0,0,0.06); border: 1px solid var(--border); transition: all 0.3s ease; position: relative; overflow: hidden; }
         .stat-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px; background: linear-gradient(90deg, var(--primary), #4a90e2); }
         .stat-card:hover { transform: translateY(-4px); box-shadow: 0 12px 30px rgba(0,0,0,0.1); }
@@ -52,11 +52,10 @@
         .form-group input, .form-group select { padding: 12px 16px; border: 2px solid var(--border); border-radius: 10px; font-size: 14px; background: #f8fafc; }
         .btn { padding: 12px 24px; border: none; border-radius: 12px; font-weight: 700; cursor: pointer; font-size: 14px; transition: all 0.3s; text-transform: uppercase; letter-spacing: 0.5px; }
         .btn:hover { transform: translateY(-2px); }
-        .btn-success { background: linear-gradient(135deg, #10b981, #059669); color: white; box-shadow: 0 4px 15px rgba(16,185,129,0.3); }
-        .btn-primary { background: linear-gradient(135deg, #005b96, #003f6b); color: white; box-shadow: 0 4px 15px rgba(0,91,150,0.3); }
+        .btn-success { background: linear-gradient(135deg, #10b981, #059669); color: white; }
+        .btn-primary { background: linear-gradient(135deg, #005b96, #003f6b); color: white; }
         .btn-danger { background: linear-gradient(135deg, #ef4444, #dc2626); color: white; padding: 10px 16px; font-size: 13px; }
         .btn-warning { background: linear-gradient(135deg, #f59e0b, #d97706); color: white; }
-        .btn-gold { background: linear-gradient(135deg, #ffc107, #ff9800); color: #1a1a1a; font-weight: 800; }
         .btn-sm { padding: 8px 14px; font-size: 11px; }
         .btn-xs { padding: 4px 10px; font-size: 10px; border-radius: 8px; }
         .table-container { overflow-x: auto; border: 2px solid var(--border); border-radius: 16px; max-height: 600px; overflow-y: auto; background: white; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
@@ -66,12 +65,9 @@
         .badge-plan { padding: 6px 12px; border-radius: 20px; font-size: 11px; font-weight: 700; text-transform: uppercase; }
         .badge-start { background: #dcfce7; color: #166534; } .badge-pro { background: #dbeafe; color: #1e40af; }
         .badge-premium { background: #ede9fe; color: #6d28d9; } .badge-empresa { background: #fff7ed; color: #9a3412; }
-        .badge-gratis { background: #f1f5f9; color: #64748b; }
-        .saldo-badge { background: linear-gradient(135deg, #dbeafe, #bfdbfe); color: #1e40af; padding: 8px 16px; border-radius: 20px; font-weight: 700; font-size: 14px; display: inline-block; }
         .status-badge { padding: 6px 14px; border-radius: 20px; font-size: 11px; font-weight: 700; text-transform: uppercase; }
         .status-ativo { background: #dcfce7; color: #166534; } .status-pausado { background: #fef3c7; color: #92400e; }
         .status-cancelado { background: #fee2e2; color: #991b1b; } .status-pendente { background: #fff3e0; color: #e65100; }
-        .status-aprovado { background: #dcfce7; color: #166534; } .status-negado { background: #fee2e2; color: #991b1b; }
         .plan-cards-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; }
         .plan-card { background: var(--card); border-radius: 18px; padding: 24px; border: 2px solid var(--border); transition: all 0.3s; position: relative; overflow: hidden; }
         .plan-card:hover { transform: translateY(-4px); box-shadow: 0 12px 30px rgba(0,0,0,0.1); }
@@ -80,7 +76,6 @@
         .plan-header { text-align: center; margin-bottom: 20px; padding-bottom: 20px; border-bottom: 2px solid var(--border); }
         .plan-icon { font-size: 36px; margin-bottom: 10px; } .plan-name { font-size: 18px; font-weight: 800; }
         .plan-price { font-size: 32px; font-weight: 800; color: var(--primary); } .plan-price small { font-size: 13px; color: var(--text-muted); }
-        .plan-credits { font-size: 13px; color: var(--text-muted); font-weight: 600; }
         .plan-features { margin-bottom: 20px; } .plan-feature { display: flex; align-items: center; gap: 8px; padding: 6px 0; font-size: 12px; color: var(--text-muted); }
         .plan-feature i { color: var(--success); font-size: 13px; } .plan-card .btn { width: 100%; margin-top: 6px; }
         .resgate-card { background: var(--card); border-radius: 16px; padding: 24px; border: 2px solid var(--border); margin-bottom: 16px; }
@@ -90,18 +85,8 @@
         .resgate-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
         .resgate-info { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; }
         .resgate-info p { font-size: 13px; color: var(--text-muted); } .resgate-info strong { color: var(--text); }
-        .credit-adjust-group { display: flex; align-items: center; gap: 8px; background: #f8fafc; padding: 8px; border-radius: 14px; border: 2px solid var(--border); }
-        .credit-input-small { width: 70px; padding: 10px; border: 2px solid var(--border); border-radius: 10px; font-size: 15px; font-weight: 700; text-align: center; background: white; }
-        .btn-add-credit, .btn-remove-credit { color: white; border: none; padding: 10px 14px; border-radius: 10px; font-weight: 700; font-size: 18px; cursor: pointer; min-width: 40px; }
-        .btn-add-credit { background: linear-gradient(135deg, #10b981, #059669); } .btn-remove-credit { background: linear-gradient(135deg, #ef4444, #dc2626); }
-        .btn-save-credit { background: linear-gradient(135deg, #005b96, #003f6b); color: white; border: none; padding: 10px 16px; border-radius: 10px; font-weight: 700; font-size: 13px; cursor: pointer; }
         .nome-revenda { font-weight: 700; color: var(--primary-dark); font-size: 14px; }
         .btn-whatsapp { display: inline-flex; align-items: center; gap: 6px; background: linear-gradient(135deg, #25D366, #128C7E); color: white; padding: 8px 14px; border-radius: 10px; font-size: 12px; font-weight: 700; text-decoration: none; }
-        .config-card { background: #f8fafc; padding: 24px; border-radius: 16px; border: 2px solid var(--border); margin-bottom: 24px; }
-        .config-card h3 { color: var(--primary-dark); margin-bottom: 16px; font-size: 17px; font-weight: 700; }
-        .price-input-wrapper { display: flex; align-items: center; background: #f8fafc; border: 2px solid var(--border); border-radius: 10px; overflow: hidden; width: 130px; }
-        .price-input-wrapper span { background: #e2e8f0; padding: 10px 12px; font-weight: 700; }
-        .price-input { border: none; padding: 10px; width: 100%; font-size: 14px; font-weight: 700; background: white; }
         .modal-overlay { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.7); z-index: 100; justify-content: center; align-items: center; }
         .modal-overlay.active { display: flex; }
         .modal { background: white; border-radius: 20px; padding: 32px; width: 90%; max-width: 600px; max-height: 80vh; overflow-y: auto; box-shadow: 0 20px 60px rgba(0,0,0,0.3); }
@@ -124,8 +109,6 @@
             <div class="menu-item" id="menu-planos" onclick="navegarPara('planos')"><i class="fas fa-crown"></i> Planos</div>
             <div class="menu-item" id="menu-assinaturas" onclick="navegarPara('assinaturas')"><i class="fas fa-credit-card"></i> Assinaturas</div>
             <div class="menu-item" id="menu-resgates" onclick="navegarPara('resgates')"><i class="fas fa-hand-holding-usd"></i> Resgates <span class="badge-notify" id="badge-resgates" style="display:none;">0</span></div>
-            <div class="menu-item" id="menu-precos" onclick="navegarPara('precos')"><i class="fas fa-tags"></i> Tabela de Preços</div>
-            <div class="menu-item" id="menu-config" onclick="navegarPara('config')"><i class="fas fa-cog"></i> Configuração</div>
             <div class="menu-item" id="menu-historico" onclick="navegarPara('historico')"><i class="fas fa-history"></i> Histórico</div>
         </div>
     </div>
@@ -133,19 +116,21 @@
     <div class="main-content">
         <div class="main-header"><h1 id="page-title">Painel Master</h1><span class="badge-role">👑 Administrador</span></div>
 
+        <!-- DASHBOARD -->
         <div id="view-dashboard" class="panel-view active">
             <div class="stats-grid">
-                <div class="stat-card"><p><i class="fas fa-store"></i> Total de Revendas</p><h2 id="total-revendas">0</h2></div>
-                <div class="stat-card"><p><i class="fas fa-users"></i> Profissionais Ativos</p><h2 id="total-profissionais">0</h2></div>
-                <div class="stat-card"><p><i class="fas fa-coins"></i> Créditos em Circulação</p><h2 id="total-creditos">0</h2></div>
+                <div class="stat-card"><p><i class="fas fa-store"></i> Revendas</p><h2 id="total-revendas">0</h2></div>
+                <div class="stat-card"><p><i class="fas fa-users"></i> Profissionais</p><h2 id="total-profissionais">0</h2></div>
+                <div class="stat-card"><p><i class="fas fa-crown"></i> Assinaturas Ativas</p><h2 id="total-assinaturas-ativas">0</h2></div>
                 <div class="stat-card"><p><i class="fas fa-hand-holding-usd"></i> Resgates Pendentes</p><h2 id="total-resgates-pendentes">0</h2></div>
             </div>
             <div class="action-box">
-                <div class="section-title"><i class="fas fa-store-alt"></i> Gerenciar Revendas</div>
-                <div class="table-container"><table class="data-table"><thead><tr><th>Revenda</th><th>Região</th><th>Contato</th><th>Plano</th><th>Saldo</th><th>Comissão</th><th>Ajustar</th><th>Ações</th></tr></thead><tbody id="tabela-revendas"></tbody></table></div>
+                <div class="section-title"><i class="fas fa-store-alt"></i> Revendas Cadastradas</div>
+                <div class="table-container"><table class="data-table"><thead><tr><th>Revenda</th><th>Região</th><th>Contato</th><th>WhatsApp</th><th>Ações</th></tr></thead><tbody id="tabela-revendas"></tbody></table></div>
             </div>
         </div>
 
+        <!-- RESGATES -->
         <div id="view-resgates" class="panel-view">
             <div class="stats-grid">
                 <div class="stat-card" style="border-left-color:#f59e0b;"><p>Pendentes</p><h2 id="count-pendentes">0</h2></div>
@@ -158,19 +143,30 @@
             </div>
         </div>
 
+        <!-- CADASTRO -->
         <div id="view-cadastro" class="panel-view"><div class="action-box"><div class="section-title"><i class="fas fa-user-plus"></i> Cadastrar Nova Revenda</div><form onsubmit="event.preventDefault(); criarRevenda();"><div class="form-row"><div class="form-group"><label>Nome</label><input type="text" id="add-nome" placeholder="Ex: Revenda Centro" required></div><div class="form-group"><label>WhatsApp</label><input type="text" id="add-whats" placeholder="(84) 99999-9999" required></div><div class="form-group"><label>Região</label><select id="add-regiao"><option>Alecrim / Leste</option><option>Zona Norte</option><option>Zona Sul</option><option>Geral</option></select></div></div><button type="submit" class="btn btn-success" style="width:100%;padding:16px;"><i class="fas fa-check-circle"></i> Cadastrar</button></form></div></div>
 
-        <div id="view-profissionais" class="panel-view"><div class="action-box"><div class="section-title"><i class="fas fa-hard-hat"></i> Profissionais</div><input type="text" class="search-bar" placeholder="🔍 Buscar..." oninput="filtrarPro()"><div style="background:#f8fafc;padding:24px;border-radius:16px;border:2px solid var(--border);"><div class="form-row"><div class="form-group"><label>Revenda</label><select id="select-revenda-pro"></select></div><div class="form-group"><label>Nome</label><input type="text" id="nome-pro" placeholder="Ex: Carlos"></div><div class="form-group"><label>Categoria</label><select id="cat-pro"></select></div><div class="form-group" style="justify-content:flex-end"><button class="btn btn-primary" onclick="addPro()" style="margin-top:28px">+ Adicionar</button></div></div></div><div class="table-container" style="margin-top:24px"><table class="data-table"><thead><tr><th>Revenda</th><th>Nome</th><th>Categoria</th><th>Status</th><th>Saldo</th><th>Ações</th></tr></thead><tbody id="tabela-pro"></tbody></table></div></div></div>
+        <!-- PROFISSIONAIS -->
+        <div id="view-profissionais" class="panel-view"><div class="action-box"><div class="section-title"><i class="fas fa-hard-hat"></i> Profissionais</div><input type="text" class="search-bar" placeholder="🔍 Buscar..." oninput="filtrarPro()"><div style="background:#f8fafc;padding:24px;border-radius:16px;border:2px solid var(--border);"><div class="form-row"><div class="form-group"><label>Revenda</label><select id="select-revenda-pro"></select></div><div class="form-group"><label>Nome</label><input type="text" id="nome-pro" placeholder="Ex: Carlos"></div><div class="form-group"><label>Categoria</label><select id="cat-pro"></select></div><div class="form-group" style="justify-content:flex-end"><button class="btn btn-primary" onclick="addPro()" style="margin-top:28px">+ Adicionar</button></div></div></div><div class="table-container" style="margin-top:24px"><table class="data-table"><thead><tr><th>Revenda</th><th>Nome</th><th>Categoria</th><th>WhatsApp</th><th>Status</th><th>Ações</th></tr></thead><tbody id="tabela-pro"></tbody></table></div></div></div>
 
+        <!-- PLANOS -->
         <div id="view-planos" class="panel-view"><div class="action-box"><div class="section-title"><i class="fas fa-crown"></i> Planos</div><div class="plan-cards-grid" id="planos-cards"></div><div style="text-align:center;margin-top:24px;"><button class="btn btn-primary" onclick="abrirModalPlano()">+ Criar Plano</button></div></div></div>
 
-        <div id="view-assinaturas" class="panel-view"><div class="action-box"><div class="section-title"><i class="fas fa-credit-card"></i> Assinaturas</div><div class="table-container"><table class="data-table"><thead><tr><th>Revenda</th><th>Plano</th><th>Créditos</th><th>Solicitações</th><th>Status</th><th>Renovação</th><th>Ações</th></tr></thead><tbody id="tabela-assinaturas"></tbody></table></div></div></div>
+        <!-- ASSINATURAS -->
+        <div id="view-assinaturas" class="panel-view">
+            <div class="stats-grid">
+                <div class="stat-card" style="border-left-color:#10b981;"><p>Ativas</p><h2 id="count-ass-ativas">0</h2></div>
+                <div class="stat-card" style="border-left-color:#f59e0b;"><p>Pausadas</p><h2 id="count-ass-pausadas">0</h2></div>
+                <div class="stat-card" style="border-left-color:#ef4444;"><p>Canceladas</p><h2 id="count-ass-canceladas">0</h2></div>
+            </div>
+            <div class="action-box">
+                <div class="section-title"><i class="fas fa-credit-card"></i> Assinaturas dos Profissionais</div>
+                <div class="table-container"><table class="data-table"><thead><tr><th>Profissional</th><th>Plano</th><th>Revenda</th><th>Valor</th><th>Status</th><th>Início</th><th>Renovação</th><th>Ações</th></tr></thead><tbody id="tabela-assinaturas"></tbody></table></div>
+            </div>
+        </div>
 
-        <div id="view-precos" class="panel-view"><div class="action-box"><div class="section-title"><i class="fas fa-tags"></i> Tabela de Preços</div><div class="table-container"><table class="data-table"><thead><tr><th>Categoria</th><th>Valor</th><th>Créditos</th><th>Ações</th></tr></thead><tbody id="tabela-precos"></tbody></table></div></div></div>
-
-        <div id="view-config" class="panel-view"><div class="action-box"><div class="section-title"><i class="fas fa-cog"></i> Configuração</div><div class="config-card"><h3>Valor Base do Crédito</h3><div class="form-row"><div class="form-group"><label>Valor (R$)</label><div style="display:flex;align-items:center;gap:16px;"><div class="price-input-wrapper" style="width:160px;"><span>R$</span><input type="number" id="config-base-credito" class="price-input" value="12.00" step="0.50" onchange="atualizarPreview()"></div><button class="btn btn-success" onclick="salvarConfiguracao()">Salvar</button></div></div></div></div></div></div>
-
-        <div id="view-historico" class="panel-view"><div class="action-box"><div class="section-title"><i class="fas fa-history"></i> Histórico</div><div class="table-container"><table class="data-table"><thead><tr><th>Data</th><th>Tipo</th><th>Destino</th><th>Qtd</th><th>Saldo</th></tr></thead><tbody id="tabela-hist"></tbody></table></div></div></div>
+        <!-- HISTÓRICO -->
+        <div id="view-historico" class="panel-view"><div class="action-box"><div class="section-title"><i class="fas fa-history"></i> Histórico</div><div class="table-container"><table class="data-table"><thead><tr><th>Data</th><th>Tipo</th><th>Destino</th><th>Detalhes</th></tr></thead><tbody id="tabela-hist"></tbody></table></div></div></div>
     </div>
 </div>
 
@@ -180,9 +176,9 @@
         <form onsubmit="event.preventDefault(); salvarPlano();">
             <input type="hidden" id="plano-id">
             <div class="form-row"><div class="form-group"><label>Nome</label><input type="text" id="plano-nome" placeholder="Ex: Start" required></div><div class="form-group"><label>Ícone</label><input type="text" id="plano-icone" placeholder="fas fa-star" value="fas fa-star"></div></div>
-            <div class="form-row"><div class="form-group"><label>Valor Mensal (R$)</label><input type="number" id="plano-valor" step="0.01" placeholder="29.90" required></div><div class="form-group"><label>Limite Solicitações</label><input type="number" id="plano-limite" placeholder="3" required></div></div>
+            <div class="form-row"><div class="form-group"><label>Valor Mensal (R$)</label><input type="number" id="plano-valor" step="0.01" placeholder="39.90" required></div><div class="form-group"><label>Limite Solicitações</label><input type="number" id="plano-limite" placeholder="3" required></div></div>
             <div class="form-row"><div class="form-group"><label>Categorias</label><input type="number" id="plano-categorias" placeholder="1" required></div><div class="form-group"><label>Prioridade (%)</label><input type="number" id="plano-prioridade" placeholder="75" min="0" max="100" required></div></div>
-            <div class="form-row"><div class="form-group"><label>Comissão (créditos)</label><input type="number" id="plano-comissao" placeholder="2" required></div><div class="form-group"><label>Selo</label><input type="text" id="plano-selo" placeholder="Ex: 🏢 Verificado"></div></div>
+            <div class="form-row"><div class="form-group"><label>Comissão Revenda (créditos)</label><input type="number" id="plano-comissao" placeholder="2" required></div><div class="form-group"><label>Selo</label><input type="text" id="plano-selo" placeholder="Ex: 🏢 Verificado"></div></div>
             <div class="form-row"><div class="form-group"><label>Cor</label><select id="plano-cor"><option value="start">Verde</option><option value="pro">Azul</option><option value="premium">Roxo</option><option value="empresa">Laranja</option></select></div><div class="form-group"><label>Destaque</label><select id="plano-destaque"><option value="false">Normal</option><option value="true">⭐ Popular</option></select></div></div>
             <div style="display:flex;gap:12px;margin-top:20px;"><button type="submit" class="btn btn-success" style="flex:1">Salvar</button><button type="button" class="btn btn-danger" onclick="fecharModalPlano()" style="flex:1">Cancelar</button></div>
         </form>
@@ -198,31 +194,26 @@ const PLANOS_PADRAO = [
     { id: 'plano4', nome: 'Empresa', icone: 'fas fa-building', valor: 89.90, limiteSolicitacoes: 999, categorias: 999, prioridade: 100, selo: '🏢 Verificado', cor: 'empresa', destaque: false, comissao: 6 }
 ];
 
-// Salvar planos padrão se não existir
 if (!localStorage.getItem('planos')) {
     localStorage.setItem('planos', JSON.stringify(PLANOS_PADRAO));
 }
 
-let revendas = JSON.parse(localStorage.getItem('revendas')) || [{id:'r1', nome:'Revenda Alecrim', regiao:'Leste', whats:'(84) 98888-7777', saldo: 150, comissao: 0, saldoResgate: 0, planoId: null, assinatura: null}];
-revendas = revendas.map(r => ({...r, saldo: parseInt(r.saldo)||0, comissao: parseInt(r.comissao)||0, saldoResgate: parseFloat(r.saldoResgate)||0}));
+let revendas = JSON.parse(localStorage.getItem('revendas')) || [{id:'r1', nome:'Revenda Alecrim', regiao:'Leste', whats:'(84) 98888-7777'}];
 let profissionais = JSON.parse(localStorage.getItem('profissionais')) || [];
 let historico = JSON.parse(localStorage.getItem('historico')) || [];
 let resgates = JSON.parse(localStorage.getItem('resgates')) || [];
-let baseCredito = parseFloat(localStorage.getItem('baseCredito')) || 12.00;
 let planos = JSON.parse(localStorage.getItem('planos')) || PLANOS_PADRAO;
+let assinaturas = JSON.parse(localStorage.getItem('assinaturas')) || [];
 
 const categoriasPrecos = {
-    'servente': {nome: '🪵 Servente', valor: 12}, 'diarista': {nome: '🧹 Diarista', valor: 12},
-    'marido': {nome: '🛠️ Assistência', valor: 12}, 'montador': {nome: '🪑 Montador', valor: 12},
-    'chaveiro': {nome: '🔑 Chaveiro', valor: 15}, 'eletricista': {nome: '⚡ Eletricista', valor: 15},
-    'encanador': {nome: '🚰 Encanador', valor: 15}, 'ar': {nome: '❄️ Ar-Condicionado', valor: 15},
-    'jardineiro': {nome: '🌱 Jardineiro', valor: 15}, 'eventos': {nome: '🎉 Eventos', valor: 18},
-    'pedreiro': {nome: '🧱 Pedreiro', valor: 18}, 'gesseiro': {nome: '🏗️ Gesseiro', valor: 18},
-    'pintor': {nome: '🖌️ Pintor', valor: 18}, 'dedetizador': {nome: '🪳 Dedetizador', valor: 18},
-    'marceneiro': {nome: '🪚 Marceneiro', valor: 24}, 'serralheiro': {nome: '⛓️ Serralheiro', valor: 24},
-    'viagens': {nome: '🚗 Viagens', valor: 24}, 'tosa': {nome: '🐕 Tosa Pet', valor: 12},
-    'beleza': {nome: '💇 Beleza', valor: 12}, 'vidraceiro': {nome: '🪟 Vidraceiro', valor: 18},
-    'info': {nome: '🖥️ Informática', valor: 18}, 'personal': {nome: '💪 Personal', valor: 18}
+    'servente': '🪵 Servente', 'diarista': '🧹 Diarista', 'marido': '🛠️ Assistência',
+    'montador': '🪑 Montador', 'chaveiro': '🔑 Chaveiro', 'eletricista': '⚡ Eletricista',
+    'encanador': '🚰 Encanador', 'ar': '❄️ Ar-Condicionado', 'jardineiro': '🌱 Jardineiro',
+    'eventos': '🎉 Eventos', 'pedreiro': '🧱 Pedreiro', 'gesseiro': '🏗️ Gesseiro',
+    'pintor': '🖌️ Pintor', 'dedetizador': '🪳 Dedetizador', 'marceneiro': '🪚 Marceneiro',
+    'serralheiro': '⛓️ Serralheiro', 'viagens': '🚗 Viagens', 'tosa': '🐕 Tosa Pet',
+    'beleza': '💇 Beleza', 'vidraceiro': '🪟 Vidraceiro', 'info': '🖥️ Informática',
+    'personal': '💪 Personal'
 };
 
 function saveData() {
@@ -230,10 +221,11 @@ function saveData() {
     localStorage.setItem('profissionais', JSON.stringify(profissionais));
     localStorage.setItem('historico', JSON.stringify(historico));
     localStorage.setItem('resgates', JSON.stringify(resgates));
-    localStorage.setItem('baseCredito', baseCredito.toString());
     localStorage.setItem('planos', JSON.stringify(planos));
+    localStorage.setItem('assinaturas', JSON.stringify(assinaturas));
 }
 
+// ==================== RESGATES ====================
 function renderResgates() {
     const container = document.getElementById('resgates-container');
     const pendentes = resgates.filter(r => r.status === 'pendente');
@@ -255,6 +247,7 @@ function aprovarResgate(id) {
     const sol = resgates.find(r => r.id === id);
     if(!sol || !confirm(`Aprovar resgate de R$ ${sol.valor.toFixed(2)}?`)) return;
     sol.status = 'aprovado';
+    historico.unshift({data: new Date().toLocaleString('pt-BR'), tipo: 'Resgate Aprovado', destino: revendas.find(r=>r.id===sol.revendaId)?.nome||'Revenda', detalhes: `R$ ${sol.valor.toFixed(2)}`});
     saveData(); renderResgates(); renderDash();
 }
 
@@ -267,6 +260,7 @@ function negarResgate(id) {
     saveData(); renderResgates();
 }
 
+// ==================== NAVEGAÇÃO ====================
 function navegarPara(tela) {
     document.querySelectorAll('.panel-view').forEach(v => v.classList.remove('active'));
     document.querySelectorAll('.menu-item').forEach(m => m.classList.remove('active'));
@@ -278,7 +272,6 @@ function navegarPara(tela) {
     if(tela === 'planos') renderPlanos();
     if(tela === 'resgates') renderResgates();
     if(tela === 'assinaturas') renderAssinaturas();
-    if(tela === 'precos') renderTabelaPrecos();
     if(tela === 'profissionais') renderPro();
     if(tela === 'historico') renderHist();
 }
@@ -286,28 +279,31 @@ function navegarPara(tela) {
 function renderDash() {
     document.getElementById('total-revendas').innerText = revendas.length;
     document.getElementById('total-profissionais').innerText = profissionais.length;
-    document.getElementById('total-creditos').innerText = revendas.reduce((a,r) => a + (r.saldo||0), 0);
+    document.getElementById('total-assinaturas-ativas').innerText = assinaturas.filter(a => a.status === 'ativo').length;
     document.getElementById('total-resgates-pendentes').innerText = resgates.filter(r => r.status === 'pendente').length;
+    
     const tbody = document.getElementById('tabela-revendas');
     tbody.innerHTML = '';
     revendas.forEach(r => {
-        const plano = planos.find(p => p.id === r.planoId);
-        const nomePlano = plano ? plano.nome : 'Sem plano';
-        const corPlano = plano ? plano.cor : 'gratis';
         const link = `https://wa.me/55${r.whats.replace(/\D/g,'')}?text=Olá!`;
-        tbody.innerHTML += `<tr><td><span class="nome-revenda">${r.nome}</span></td><td>${r.regiao}</td><td>${r.whats} <a href="${link}" class="btn-whatsapp" target="_blank"><i class="fab fa-whatsapp"></i></a></td><td><span class="badge-plan badge-${corPlano}">${nomePlano}</span></td><td><span class="saldo-badge">${r.saldo} Crs</span></td><td><span class="saldo-badge" style="background:#fef3c7;color:#92400e;">${r.comissao||0} Crs</span></td><td><div class="credit-adjust-group"><button class="btn-remove-credit" onclick="ajustarCredito('${r.id}',-1)">-</button><input type="number" id="credit-value-${r.id}" class="credit-input-small" value="1"><button class="btn-add-credit" onclick="ajustarCredito('${r.id}',1)">+</button><button class="btn-save-credit" onclick="salvarAjusteCredito('${r.id}')">Aplicar</button></div></td><td><button class="btn btn-danger btn-xs" onclick="delRevenda('${r.id}')"><i class="fas fa-trash-alt"></i></button></td></tr>`;
+        tbody.innerHTML += `<tr><td><span class="nome-revenda">${r.nome}</span></td><td>${r.regiao}</td><td>${r.whats}</td><td><a href="${link}" class="btn-whatsapp" target="_blank"><i class="fab fa-whatsapp"></i> WhatsApp</a></td><td><button class="btn btn-danger btn-xs" onclick="delRevenda('${r.id}')"><i class="fas fa-trash-alt"></i></button></td></tr>`;
     });
     saveData();
 }
 
-function ajustarCredito(id,d){const i=document.getElementById('credit-value-'+id);let v=parseInt(i.value)||1;v+=d;if(v<1)v=1;i.value=v;}
-function salvarAjusteCredito(id){const q=parseInt(document.getElementById('credit-value-'+id).value);if(!q)return;const r=revendas.find(x=>x.id===id);if(!r)return;r.saldo=(r.saldo||0)+q;if(r.saldo<0)r.saldo=0;saveData();renderDash();}
 function delRevenda(id){if(confirm('Remover?')){revendas=revendas.filter(x=>x.id!==id);saveData();renderDash();}}
-function criarRevenda(){const n=document.getElementById('add-nome')?.value?.trim();const w=document.getElementById('add-whats')?.value?.trim();const reg=document.getElementById('add-regiao')?.value;if(!n||!w)return alert('Preencha!');revendas.push({id:'r'+Date.now(),nome:n,whats:w,regiao:reg,saldo:0,comissao:0,saldoResgate:0});saveData();alert('Criado!');navegarPara('dashboard');}
+function criarRevenda(){
+    const n=document.getElementById('add-nome')?.value?.trim();
+    const w=document.getElementById('add-whats')?.value?.trim();
+    const reg=document.getElementById('add-regiao')?.value;
+    if(!n||!w)return alert('Preencha!');
+    revendas.push({id:'r'+Date.now(),nome:n,whats:w,regiao:reg});
+    saveData();alert('Criado!');navegarPara('dashboard');
+}
 
+// ==================== PLANOS ====================
 function renderPlanos(){
-    const c=document.getElementById('planos-cards');if(!c)return;
-    c.innerHTML='';
+    const c=document.getElementById('planos-cards');if(!c)return;c.innerHTML='';
     planos.forEach(p=>{
         c.innerHTML+=`<div class="plan-card ${p.destaque?'popular':''}"><div class="plan-header"><div class="plan-icon"><i class="${p.icone||'fas fa-box'}"></i></div><div class="plan-name">${p.nome}</div><div class="plan-price">R$ ${p.valor.toFixed(2).replace('.',',')}<small>/mês</small></div></div><div class="plan-features"><div class="plan-feature"><i class="fas fa-check-circle"></i> ${p.limiteSolicitacoes>=999?'Sem limite':'Até '+p.limiteSolicitacoes+' solicitações/mês'}</div><div class="plan-feature"><i class="fas fa-check-circle"></i> ${p.categorias>=999?'Todas categorias':p.categorias+' categoria(s)'}</div><div class="plan-feature"><i class="fas fa-check-circle"></i> Prioridade ${p.prioridade}%</div>${p.selo?`<div class="plan-feature"><i class="fas fa-check-circle"></i> ${p.selo}</div>`:''}<div class="plan-feature"><i class="fas fa-star" style="color:#f59e0b;"></i> <strong>Comissão: ${p.comissao||0} créditos</strong></div></div><button class="btn btn-primary btn-sm" onclick="editarPlano('${p.id}')">Editar</button><button class="btn btn-danger btn-sm" onclick="excluirPlano('${p.id}')" style="margin-top:4px;">Excluir</button></div>`;
     });
@@ -340,46 +336,55 @@ function salvarPlano(){
 function editarPlano(id){abrirModalPlano(id);}
 function excluirPlano(id){if(!confirm('Excluir?'))return;planos=planos.filter(p=>p.id!==id);saveData();renderPlanos();}
 
+// ==================== ASSINATURAS ====================
 function renderAssinaturas(){
     const tbody=document.getElementById('tabela-assinaturas');if(!tbody)return;
     tbody.innerHTML='';
-    const cp=revendas.filter(r=>r.planoId&&r.assinatura);
-    if(cp.length===0){tbody.innerHTML='<tr><td colspan="7" style="text-align:center;padding:40px;">Nenhuma</td></tr>';return;}
-    cp.forEach(r=>{const p=planos.find(x=>x.id===r.planoId);if(!p)return;const dr=r.assinatura?new Date(r.assinatura.dataRenovacao).toLocaleDateString('pt-BR'):'-';const st=r.assinatura?r.assinatura.status:'ativo';tbody.innerHTML+=`<tr><td>${r.nome}</td><td><span class="badge-plan badge-${p.cor}">${p.nome}</span></td><td>${r.saldo}/${p.limiteSolicitacoes>=999?'∞':p.limiteSolicitacoes}</td><td>${r.assinatura?r.assinatura.solicitacoesUsadas||0:0}/${p.limiteSolicitacoes>=999?'∞':p.limiteSolicitacoes}</td><td><span class="status-badge status-${st==='ativo'?'ativo':st==='pausado'?'pausado':'cancelado'}">${st==='ativo'?'Ativo':st==='pausado'?'Pausado':'Cancelado'}</span></td><td>${dr}</td><td>${st==='ativo'?`<button class="btn btn-warning btn-xs" onclick="pausarAss('${r.id}')">Pausar</button>`:''}${st==='pausado'?`<button class="btn btn-success btn-xs" onclick="reativarAss('${r.id}')">Reativar</button>`:''}<button class="btn btn-danger btn-xs" onclick="cancelarAss('${r.id}')">Cancelar</button></td></tr>`;});
+    document.getElementById('count-ass-ativas').innerText = assinaturas.filter(a => a.status === 'ativo').length;
+    document.getElementById('count-ass-pausadas').innerText = assinaturas.filter(a => a.status === 'pausado').length;
+    document.getElementById('count-ass-canceladas').innerText = assinaturas.filter(a => a.status === 'cancelado').length;
+    
+    if(assinaturas.length===0){tbody.innerHTML='<tr><td colspan="8" style="text-align:center;padding:40px;">Nenhuma assinatura</td></tr>';return;}
+    assinaturas.sort((a,b)=>new Date(b.dataInicio)-new Date(a.dataInicio)).forEach(a=>{
+        const plano=planos.find(p=>p.id===a.planoId);
+        const rev=revendas.find(r=>r.id===a.revendaId);
+        const st=a.status;
+        tbody.innerHTML+=`<tr>
+            <td><strong>${a.profissionalNome||'Profissional'}</strong></td>
+            <td><span class="badge-plan badge-${plano?plano.cor:'start'}">${plano?plano.nome:'Sem plano'}</span></td>
+            <td>${rev?rev.nome:'-'}</td>
+            <td>R$ ${plano?plano.valor.toFixed(2).replace('.',','):'0,00'}/mês</td>
+            <td><span class="status-badge status-${st}">${st==='ativo'?'✅ Ativo':st==='pausado'?'⏸️ Pausado':'❌ Cancelado'}</span></td>
+            <td>${new Date(a.dataInicio).toLocaleDateString('pt-BR')}</td>
+            <td>${new Date(a.dataRenovacao).toLocaleDateString('pt-BR')}</td>
+            <td>${st==='ativo'?`<button class="btn btn-warning btn-xs" onclick="pausarAss('${a.id}')">Pausar</button>`:''}${st==='pausado'?`<button class="btn btn-success btn-xs" onclick="reativarAss('${a.id}')">Reativar</button>`:''}<button class="btn btn-danger btn-xs" onclick="cancelarAss('${a.id}')">Cancelar</button></td>
+        </tr>`;
+    });
 }
-function pausarAss(id){const r=revendas.find(x=>x.id===id);if(!r)return;r.assinatura.status='pausado';saveData();renderAssinaturas();}
-function reativarAss(id){const r=revendas.find(x=>x.id===id);if(!r)return;r.assinatura.status='ativo';r.assinatura.dataRenovacao=new Date(Date.now()+30*24*60*60*1000).toISOString();saveData();renderAssinaturas();}
-function cancelarAss(id){if(!confirm('Cancelar?'))return;const r=revendas.find(x=>x.id===id);if(!r)return;r.assinatura.status='cancelado';saveData();renderAssinaturas();}
 
-function renderTabelaPrecos(){
-    const tbody=document.getElementById('tabela-precos');if(!tbody)return;tbody.innerHTML='';
-    Object.entries(categoriasPrecos).forEach(([id,cat])=>{tbody.innerHTML+=`<tr><td><strong>${cat.nome}</strong></td><td><div class="price-input-wrapper"><span>R$</span><input type="number" id="p-${id}" class="price-input" value="${cat.valor}" step="0.5" onchange="atualizarCredito('${id}')"></div></td><td><strong id="c-${id}">${(cat.valor/baseCredito).toFixed(2).replace('.',',')}</strong></td><td><button class="btn btn-primary" onclick="savePrice('${id}')">Salvar</button></td></tr>`;});
-}
-function atualizarCredito(id){document.getElementById('c-'+id).innerText=(parseFloat(document.getElementById('p-'+id).value)/baseCredito).toFixed(2).replace('.',',');}
-function savePrice(id){const v=parseFloat(document.getElementById('p-'+id).value);if(v<=0)return;categoriasPrecos[id].valor=v;atualizarCredito(id);}
+function pausarAss(id){const a=assinaturas.find(x=>x.id===id);if(!a)return;a.status='pausado';saveData();renderAssinaturas();}
+function reativarAss(id){const a=assinaturas.find(x=>x.id===id);if(!a)return;a.status='ativo';a.dataRenovacao=new Date(Date.now()+30*24*60*60*1000).toISOString();saveData();renderAssinaturas();}
+function cancelarAss(id){if(!confirm('Cancelar?'))return;const a=assinaturas.find(x=>x.id===id);if(!a)return;a.status='cancelado';saveData();renderAssinaturas();}
 
+// ==================== PROFISSIONAIS ====================
 function renderPro(){
     const selRev=document.getElementById('select-revenda-pro');if(!selRev)return;selRev.innerHTML='<option value="">Selecione</option>';revendas.forEach(r=>selRev.innerHTML+=`<option value="${r.id}">${r.nome}</option>`);
-    const selCat=document.getElementById('cat-pro');if(!selCat)return;selCat.innerHTML='<option value="">Selecione</option>';Object.values(categoriasPrecos).forEach(c=>selCat.innerHTML+=`<option>${c.nome}</option>`);
+    const selCat=document.getElementById('cat-pro');if(!selCat)return;selCat.innerHTML='<option value="">Selecione</option>';Object.values(categoriasPrecos).forEach(c=>selCat.innerHTML+=`<option>${c}</option>`);
     const tbody=document.getElementById('tabela-pro');if(!tbody)return;tbody.innerHTML=profissionais.length===0?'<tr><td colspan="6" style="text-align:center;padding:40px;">Nenhum</td></tr>':'';
-    profissionais.forEach((p,i)=>{const rev=revendas.find(r=>r.id===p.revendaId);tbody.innerHTML+=`<tr><td>${rev?rev.nome:'Removida'}</td><td><strong>${p.nome}</strong></td><td>${p.categoria}</td><td><span class="status-badge status-ativo">Ativo</span></td><td>${p.saldo||0} Crs</td><td><button class="btn btn-danger" onclick="delPro(${i})">X</button></td></tr>`;});
+    profissionais.forEach((p,i)=>{const rev=revendas.find(r=>r.id===p.revendaId);tbody.innerHTML+=`<tr><td>${rev?rev.nome:'Removida'}</td><td><strong>${p.nome}</strong></td><td>${p.categoria}</td><td>${p.whats||'-'}</td><td><span class="status-badge status-ativo">Ativo</span></td><td><button class="btn btn-danger btn-xs" onclick="delPro(${i})">X</button></td></tr>`;});
 }
-function addPro(){const revId=document.getElementById('select-revenda-pro')?.value;const nome=document.getElementById('nome-pro')?.value?.trim();const cat=document.getElementById('cat-pro')?.value;if(!nome||!revId||!cat)return alert('Preencha!');profissionais.push({revendaId,nome,categoria:cat,saldo:0});saveData();renderPro();}
+function addPro(){const revId=document.getElementById('select-revenda-pro')?.value;const nome=document.getElementById('nome-pro')?.value?.trim();const cat=document.getElementById('cat-pro')?.value;if(!nome||!revId||!cat)return alert('Preencha!');profissionais.push({revendaId,nome,categoria:cat,whats:''});saveData();renderPro();}
 function delPro(i){if(confirm('Remover?')){profissionais.splice(i,1);saveData();renderPro();}}
 function filtrarPro(){const t=document.querySelector('.search-bar')?.value?.toLowerCase()||'';document.querySelectorAll('#tabela-pro tr').forEach(r=>{r.style.display=r.innerText.toLowerCase().includes(t)?'':'none';});}
 
-function atualizarPreview(){const v=parseFloat(document.getElementById('config-base-credito')?.value)||12;document.getElementById('preview-valor').innerText=v.toFixed(2).replace('.',',');}
-function salvarConfiguracao(){const v=parseFloat(document.getElementById('config-base-credito')?.value);if(v<=0)return;baseCredito=v;saveData();renderDash();renderTabelaPrecos();}
-
 function renderHist(){
     const tbody=document.getElementById('tabela-hist');if(!tbody)return;
-    tbody.innerHTML=historico.length===0?'<tr><td colspan="5" style="text-align:center;padding:40px;">Nenhum</td></tr>':'';
-    historico.forEach(h=>{const ct=['Adição','Assinatura','Reativação','Resgate Aprovado'].includes(h.tipo)?'var(--success)':'var(--danger)';tbody.innerHTML+=`<tr><td>${h.data}</td><td><span style="color:${ct};font-weight:700;">${h.tipo}</span></td><td>${h.destino}</td><td>${h.qtd}</td><td>${h.saldo} Crs</td></tr>`;});
+    tbody.innerHTML=historico.length===0?'<tr><td colspan="4" style="text-align:center;padding:40px;">Nenhum</td></tr>':'';
+    historico.forEach(h=>{tbody.innerHTML+=`<tr><td>${h.data}</td><td>${h.tipo}</td><td>${h.destino}</td><td>${h.detalhes||h.qtd||''}</td></tr>`;});
 }
 
 // INICIALIZAR
-document.getElementById('config-base-credito').value=baseCredito.toFixed(2);
-atualizarPreview();renderDash();renderPlanos();
+renderDash();renderPlanos();
 </script>
 </body>
 </html>
