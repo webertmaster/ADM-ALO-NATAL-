@@ -7,50 +7,47 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        :root { --primary: #005b96; --primary-dark: #003f6b; --accent: #ffc107; --success: #10b981; --danger: #ef4444; --whatsapp: #25D366; --bg: #f1f5f9; --card: #ffffff; --text: #0f172a; --text-muted: #64748b; --border: #e2e8f0; --gold: #ffd700; }
+        :root { --primary: #005b96; --primary-dark: #003f6b; --accent: #ffc107; --success: #10b981; --danger: #ef4444; --bg: #f1f5f9; --card: #ffffff; --text: #0f172a; --text-muted: #64748b; --border: #e2e8f0; --gold: #ffd700; }
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', system-ui, sans-serif; }
         body { background-color: var(--bg); color: var(--text); display: flex; min-height: 100vh; }
         .wrapper { display: flex; flex: 1; width: 100%; }
         @media(max-width: 900px) { .wrapper { flex-direction: column; } .sidebar { width: 100% !important; } }
         .sidebar { width: 280px; background: linear-gradient(180deg, #0a1929 0%, #0d2137 50%, #0a1929 100%); color: white; padding: 28px 20px; display: flex; flex-direction: column; gap: 6px; box-shadow: 4px 0 20px rgba(0,0,0,0.3); position: relative; overflow: hidden; }
         .sidebar::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, transparent, var(--gold), transparent); }
-        .sidebar-logo { text-align: center; margin-bottom: 30px; position: relative; }
-        .sidebar-logo h2 { color: var(--gold); font-size: 26px; font-weight: 800; letter-spacing: -1px; text-shadow: 0 2px 10px rgba(255,215,0,0.3); }
+        .sidebar-logo { text-align: center; margin-bottom: 30px; }
+        .sidebar-logo h2 { color: var(--gold); font-size: 26px; font-weight: 800; }
         .sidebar-logo .subtitle { font-size: 11px; color: #94a3b8; text-transform: uppercase; letter-spacing: 2px; margin-top: 4px; }
-        .admin-badge { background: linear-gradient(135deg, rgba(255,215,0,0.1), rgba(255,215,0,0.05)); backdrop-filter: blur(10px); padding: 18px; border-radius: 16px; text-align: center; margin-bottom: 24px; border: 1px solid rgba(255,215,0,0.2); position: relative; overflow: hidden; }
-        .admin-badge::before { content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: radial-gradient(circle, rgba(255,215,0,0.1) 0%, transparent 70%); animation: rotate 4s linear infinite; }
-        @keyframes rotate { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
-        .admin-badge p { font-size: 10px; color: #94a3b8; text-transform: uppercase; letter-spacing: 2px; position: relative; z-index: 1; }
-        .admin-badge h3 { font-size: 15px; color: #e2e8f0; margin-top: 6px; position: relative; z-index: 1; }
+        .admin-badge { background: linear-gradient(135deg, rgba(255,215,0,0.1), rgba(255,215,0,0.05)); padding: 18px; border-radius: 16px; text-align: center; margin-bottom: 24px; border: 1px solid rgba(255,215,0,0.2); }
+        .admin-badge p { font-size: 10px; color: #94a3b8; text-transform: uppercase; letter-spacing: 2px; }
+        .admin-badge h3 { font-size: 15px; color: #e2e8f0; margin-top: 6px; }
         .admin-badge h3 span { color: var(--gold); font-weight: 700; }
         .menu-section { margin-top: 8px; margin-bottom: 4px; }
         .menu-section-title { font-size: 10px; color: #64748b; text-transform: uppercase; letter-spacing: 2px; padding: 8px 16px; font-weight: 700; }
-        .menu-item { padding: 13px 18px; cursor: pointer; color: #94a3b8; border-radius: 12px; display: flex; align-items: center; gap: 14px; font-size: 14px; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); position: relative; overflow: hidden; font-weight: 500; }
+        .menu-item { padding: 13px 18px; cursor: pointer; color: #94a3b8; border-radius: 12px; display: flex; align-items: center; gap: 14px; font-size: 14px; transition: all 0.3s; font-weight: 500; }
         .menu-item i { font-size: 16px; width: 20px; text-align: center; }
         .menu-item .badge-notify { position: absolute; top: 8px; right: 8px; background: var(--danger); color: white; font-size: 10px; font-weight: 800; width: 20px; height: 20px; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
-        .menu-item:hover { color: white; background: linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05)); transform: translateX(4px); box-shadow: 0 4px 12px rgba(0,0,0,0.2); }
-        .menu-item.active { background: linear-gradient(135deg, rgba(255,215,0,0.2), rgba(255,215,0,0.1)); color: var(--gold); font-weight: 700; box-shadow: 0 4px 15px rgba(255,215,0,0.2); border: 1px solid rgba(255,215,0,0.3); }
-        .menu-item.active i { color: var(--gold); }
+        .menu-item:hover { color: white; background: rgba(255,255,255,0.08); transform: translateX(4px); }
+        .menu-item.active { background: rgba(255,215,0,0.2); color: var(--gold); font-weight: 700; border: 1px solid rgba(255,215,0,0.3); }
         .main-content { flex: 1; padding: 36px; overflow-y: auto; background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%); }
         .main-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 36px; padding-bottom: 24px; border-bottom: 2px solid var(--border); }
-        .main-header h1 { color: var(--primary-dark); font-size: 32px; font-weight: 800; letter-spacing: -1px; }
-        .badge-role { font-size: 13px; color: #1a1a1a; font-weight: 700; background: linear-gradient(135deg, var(--gold), #ffd700); padding: 10px 20px; border-radius: 25px; box-shadow: 0 4px 15px rgba(255,215,0,0.4); letter-spacing: 0.5px; }
-        .panel-view { display: none; animation: fadeInUp 0.5s cubic-bezier(0.4, 0, 0.2, 1); }
+        .main-header h1 { color: var(--primary-dark); font-size: 32px; font-weight: 800; }
+        .badge-role { font-size: 13px; color: #1a1a1a; font-weight: 700; background: linear-gradient(135deg, var(--gold), #ffd700); padding: 10px 20px; border-radius: 25px; }
+        .panel-view { display: none; animation: fadeIn 0.4s ease; }
         .panel-view.active { display: block; }
-        @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
         .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 24px; margin-bottom: 36px; }
-        .stat-card { background: var(--card); padding: 28px; border-radius: 20px; box-shadow: 0 8px 25px rgba(0,0,0,0.06); border: 1px solid var(--border); transition: all 0.3s ease; position: relative; overflow: hidden; }
+        .stat-card { background: var(--card); padding: 28px; border-radius: 20px; box-shadow: 0 8px 25px rgba(0,0,0,0.06); border: 1px solid var(--border); }
         .stat-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px; background: linear-gradient(90deg, var(--primary), #4a90e2); }
-        .stat-card:hover { transform: translateY(-4px); box-shadow: 0 12px 30px rgba(0,0,0,0.1); }
-        .stat-card p { font-size: 12px; color: var(--text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px; }
-        .stat-card h2 { font-size: 36px; font-weight: 800; color: var(--text); }
+        .stat-card p { font-size: 12px; color: var(--text-muted); font-weight: 600; text-transform: uppercase; margin-bottom: 12px; }
+        .stat-card h2 { font-size: 36px; font-weight: 800; }
         .action-box { background: var(--card); padding: 32px; border-radius: 20px; box-shadow: 0 8px 25px rgba(0,0,0,0.06); margin-bottom: 28px; border: 1px solid var(--border); }
         .section-title { font-size: 22px; color: var(--primary-dark); margin-bottom: 28px; font-weight: 800; display: flex; align-items: center; gap: 12px; }
         .form-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin-bottom: 20px; }
         .form-group { display: flex; flex-direction: column; gap: 8px; }
-        .form-group label { font-size: 12px; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; }
+        .form-group label { font-size: 12px; font-weight: 700; color: var(--text-muted); text-transform: uppercase; }
         .form-group input, .form-group select { padding: 12px 16px; border: 2px solid var(--border); border-radius: 10px; font-size: 14px; background: #f8fafc; }
-        .btn { padding: 12px 24px; border: none; border-radius: 12px; font-weight: 700; cursor: pointer; font-size: 14px; transition: all 0.3s; text-transform: uppercase; letter-spacing: 0.5px; }
+        .form-group input:focus, .form-group select:focus { outline: none; border-color: var(--primary); background: white; }
+        .btn { padding: 12px 24px; border: none; border-radius: 12px; font-weight: 700; cursor: pointer; font-size: 14px; transition: all 0.3s; text-transform: uppercase; }
         .btn:hover { transform: translateY(-2px); }
         .btn-success { background: linear-gradient(135deg, #10b981, #059669); color: white; }
         .btn-primary { background: linear-gradient(135deg, #005b96, #003f6b); color: white; }
@@ -58,18 +55,17 @@
         .btn-warning { background: linear-gradient(135deg, #f59e0b, #d97706); color: white; }
         .btn-sm { padding: 8px 14px; font-size: 11px; }
         .btn-xs { padding: 4px 10px; font-size: 10px; border-radius: 8px; }
-        .table-container { overflow-x: auto; border: 2px solid var(--border); border-radius: 16px; max-height: 600px; overflow-y: auto; background: white; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
+        .table-container { overflow-x: auto; border: 2px solid var(--border); border-radius: 16px; max-height: 600px; overflow-y: auto; background: white; }
         .data-table { width: 100%; border-collapse: collapse; text-align: left; font-size: 13px; }
         .data-table th, .data-table td { padding: 16px; border-bottom: 1px solid var(--border); vertical-align: middle; }
         .data-table th { background: linear-gradient(180deg, #f8fafc, #e2e8f0); color: var(--text-muted); font-size: 11px; text-transform: uppercase; font-weight: 700; position: sticky; top: 0; z-index: 10; }
         .badge-plan { padding: 6px 12px; border-radius: 20px; font-size: 11px; font-weight: 700; text-transform: uppercase; }
         .badge-start { background: #dcfce7; color: #166534; } .badge-pro { background: #dbeafe; color: #1e40af; }
         .badge-premium { background: #ede9fe; color: #6d28d9; } .badge-empresa { background: #fff7ed; color: #9a3412; }
-        .status-badge { padding: 6px 14px; border-radius: 20px; font-size: 11px; font-weight: 700; text-transform: uppercase; }
-        .status-ativo { background: #dcfce7; color: #166534; } .status-pausado { background: #fef3c7; color: #92400e; }
-        .status-cancelado { background: #fee2e2; color: #991b1b; } .status-pendente { background: #fff3e0; color: #e65100; }
+        .status-badge { padding: 6px 14px; border-radius: 20px; font-size: 11px; font-weight: 700; }
+        .status-ativo { background: #dcfce7; color: #166534; } .status-pendente { background: #fff3e0; color: #e65100; }
         .plan-cards-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; }
-        .plan-card { background: var(--card); border-radius: 18px; padding: 24px; border: 2px solid var(--border); transition: all 0.3s; position: relative; overflow: hidden; }
+        .plan-card { background: var(--card); border-radius: 18px; padding: 24px; border: 2px solid var(--border); transition: all 0.3s; }
         .plan-card:hover { transform: translateY(-4px); box-shadow: 0 12px 30px rgba(0,0,0,0.1); }
         .plan-card.popular { border-color: var(--gold); }
         .plan-card.popular::before { content: '⭐ MAIS POPULAR'; position: absolute; top: 10px; right: -32px; background: var(--gold); color: #1a1a1a; padding: 3px 38px; font-size: 9px; font-weight: 800; transform: rotate(45deg); }
@@ -80,17 +76,13 @@
         .plan-feature i { color: var(--success); font-size: 13px; } .plan-card .btn { width: 100%; margin-top: 6px; }
         .resgate-card { background: var(--card); border-radius: 16px; padding: 24px; border: 2px solid var(--border); margin-bottom: 16px; }
         .resgate-card.pendente { border-left: 4px solid #f59e0b; }
-        .resgate-card.aprovado { border-left: 4px solid #10b981; }
-        .resgate-card.negado { border-left: 4px solid #ef4444; }
-        .resgate-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
-        .resgate-info { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; }
-        .resgate-info p { font-size: 13px; color: var(--text-muted); } .resgate-info strong { color: var(--text); }
         .nome-revenda { font-weight: 700; color: var(--primary-dark); font-size: 14px; }
         .btn-whatsapp { display: inline-flex; align-items: center; gap: 6px; background: linear-gradient(135deg, #25D366, #128C7E); color: white; padding: 8px 14px; border-radius: 10px; font-size: 12px; font-weight: 700; text-decoration: none; }
         .modal-overlay { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.7); z-index: 100; justify-content: center; align-items: center; }
         .modal-overlay.active { display: flex; }
-        .modal { background: white; border-radius: 20px; padding: 32px; width: 90%; max-width: 600px; max-height: 80vh; overflow-y: auto; box-shadow: 0 20px 60px rgba(0,0,0,0.3); }
+        .modal { background: white; border-radius: 20px; padding: 32px; width: 90%; max-width: 600px; max-height: 80vh; overflow-y: auto; }
         .modal h3 { font-size: 22px; color: var(--primary-dark); margin-bottom: 24px; font-weight: 800; }
+        .search-bar { width: 100%; padding: 14px 18px; border: 2px solid var(--border); border-radius: 12px; font-size: 14px; background: #f8fafc; margin-bottom: 20px; }
     </style>
 </head>
 <body>
@@ -98,14 +90,12 @@
     <div class="sidebar">
         <div class="sidebar-logo"><h2>☀️ Alô Natal</h2><div class="subtitle">Painel Administrativo</div></div>
         <div class="admin-badge"><p>👑 Nível de Acesso</p><h3>Administrador <span>Master</span></h3></div>
-        <div class="menu-section">
-            <div class="menu-section-title">Principal</div>
+        <div class="menu-section"><div class="menu-section-title">Principal</div>
             <div class="menu-item active" id="menu-dash" onclick="navegarPara('dashboard')"><i class="fas fa-chart-pie"></i> Dashboard</div>
             <div class="menu-item" id="menu-cadastro" onclick="navegarPara('cadastro')"><i class="fas fa-user-plus"></i> Cadastrar Revenda</div>
             <div class="menu-item" id="menu-profissionais" onclick="navegarPara('profissionais')"><i class="fas fa-hard-hat"></i> Profissionais</div>
         </div>
-        <div class="menu-section">
-            <div class="menu-section-title">Gestão</div>
+        <div class="menu-section"><div class="menu-section-title">Gestão</div>
             <div class="menu-item" id="menu-planos" onclick="navegarPara('planos')"><i class="fas fa-crown"></i> Planos</div>
             <div class="menu-item" id="menu-assinaturas" onclick="navegarPara('assinaturas')"><i class="fas fa-credit-card"></i> Assinaturas</div>
             <div class="menu-item" id="menu-resgates" onclick="navegarPara('resgates')"><i class="fas fa-hand-holding-usd"></i> Resgates <span class="badge-notify" id="badge-resgates" style="display:none;">0</span></div>
@@ -119,10 +109,10 @@
         <!-- DASHBOARD -->
         <div id="view-dashboard" class="panel-view active">
             <div class="stats-grid">
-                <div class="stat-card"><p><i class="fas fa-store"></i> Revendas</p><h2 id="total-revendas">0</h2></div>
-                <div class="stat-card"><p><i class="fas fa-users"></i> Profissionais</p><h2 id="total-profissionais">0</h2></div>
-                <div class="stat-card"><p><i class="fas fa-crown"></i> Assinaturas Ativas</p><h2 id="total-assinaturas-ativas">0</h2></div>
-                <div class="stat-card"><p><i class="fas fa-hand-holding-usd"></i> Resgates Pendentes</p><h2 id="total-resgates-pendentes">0</h2></div>
+                <div class="stat-card" style="position:relative;overflow:hidden;"><p><i class="fas fa-store"></i> Revendas</p><h2 id="total-revendas">0</h2></div>
+                <div class="stat-card" style="position:relative;overflow:hidden;"><p><i class="fas fa-users"></i> Profissionais</p><h2 id="total-profissionais">0</h2></div>
+                <div class="stat-card" style="position:relative;overflow:hidden;"><p><i class="fas fa-crown"></i> Assinaturas Ativas</p><h2 id="total-assinaturas-ativas">0</h2></div>
+                <div class="stat-card" style="position:relative;overflow:hidden;"><p><i class="fas fa-hand-holding-usd"></i> Resgates Pendentes</p><h2 id="total-resgates-pendentes">0</h2></div>
             </div>
             <div class="action-box">
                 <div class="section-title"><i class="fas fa-store-alt"></i> Revendas Cadastradas</div>
@@ -130,24 +120,26 @@
             </div>
         </div>
 
-        <!-- RESGATES -->
-        <div id="view-resgates" class="panel-view">
-            <div class="stats-grid">
-                <div class="stat-card" style="border-left-color:#f59e0b;"><p>Pendentes</p><h2 id="count-pendentes">0</h2></div>
-                <div class="stat-card" style="border-left-color:#10b981;"><p>Aprovados</p><h2 id="count-aprovados">0</h2></div>
-                <div class="stat-card" style="border-left-color:#ef4444;"><p>Negados</p><h2 id="count-negados">0</h2></div>
-            </div>
-            <div class="action-box">
-                <div class="section-title"><i class="fas fa-hand-holding-usd"></i> Solicitações de Resgate</div>
-                <div id="resgates-container"></div>
-            </div>
-        </div>
-
         <!-- CADASTRO -->
         <div id="view-cadastro" class="panel-view"><div class="action-box"><div class="section-title"><i class="fas fa-user-plus"></i> Cadastrar Nova Revenda</div><form onsubmit="event.preventDefault(); criarRevenda();"><div class="form-row"><div class="form-group"><label>Nome</label><input type="text" id="add-nome" placeholder="Ex: Revenda Centro" required></div><div class="form-group"><label>WhatsApp</label><input type="text" id="add-whats" placeholder="(84) 99999-9999" required></div><div class="form-group"><label>Região</label><select id="add-regiao"><option>Alecrim / Leste</option><option>Zona Norte</option><option>Zona Sul</option><option>Geral</option></select></div></div><button type="submit" class="btn btn-success" style="width:100%;padding:16px;"><i class="fas fa-check-circle"></i> Cadastrar</button></form></div></div>
 
         <!-- PROFISSIONAIS -->
-        <div id="view-profissionais" class="panel-view"><div class="action-box"><div class="section-title"><i class="fas fa-hard-hat"></i> Profissionais</div><input type="text" class="search-bar" placeholder="🔍 Buscar..." oninput="filtrarPro()"><div style="background:#f8fafc;padding:24px;border-radius:16px;border:2px solid var(--border);"><div class="form-row"><div class="form-group"><label>Revenda</label><select id="select-revenda-pro"></select></div><div class="form-group"><label>Nome</label><input type="text" id="nome-pro" placeholder="Ex: Carlos"></div><div class="form-group"><label>Categoria</label><select id="cat-pro"></select></div><div class="form-group" style="justify-content:flex-end"><button class="btn btn-primary" onclick="addPro()" style="margin-top:28px">+ Adicionar</button></div></div></div><div class="table-container" style="margin-top:24px"><table class="data-table"><thead><tr><th>Revenda</th><th>Nome</th><th>Categoria</th><th>WhatsApp</th><th>Status</th><th>Ações</th></tr></thead><tbody id="tabela-pro"></tbody></table></div></div></div>
+        <div id="view-profissionais" class="panel-view">
+            <div class="action-box">
+                <div class="section-title"><i class="fas fa-hard-hat"></i> Gerenciar Profissionais</div>
+                <input type="text" class="search-bar" placeholder="🔍 Buscar por nome, categoria ou revenda..." oninput="filtrarPro()">
+                <div style="background:#f8fafc;padding:24px;border-radius:16px;border:2px solid var(--border);margin-bottom:24px;">
+                    <h3 style="font-size:14px;font-weight:700;margin-bottom:16px;color:var(--primary-dark);">➕ Adicionar Profissional</h3>
+                    <div class="form-row">
+                        <div class="form-group"><label>Revenda</label><select id="select-revenda-pro"><option value="">Selecione uma revenda</option></select></div>
+                        <div class="form-group"><label>Nome do Profissional</label><input type="text" id="nome-pro" placeholder="Ex: Carlos Silva"></div>
+                        <div class="form-group"><label>Categoria</label><select id="cat-pro"><option value="">Selecione uma categoria</option></select></div>
+                        <div class="form-group" style="justify-content:flex-end"><button class="btn btn-primary" onclick="addPro()" style="margin-top:28px;white-space:nowrap;"><i class="fas fa-plus-circle"></i> Adicionar</button></div>
+                    </div>
+                </div>
+                <div class="table-container"><table class="data-table"><thead><tr><th>Revenda</th><th>Nome</th><th>Categoria</th><th>WhatsApp</th><th>Status</th><th>Ações</th></tr></thead><tbody id="tabela-pro"></tbody></table></div>
+            </div>
+        </div>
 
         <!-- PLANOS -->
         <div id="view-planos" class="panel-view"><div class="action-box"><div class="section-title"><i class="fas fa-crown"></i> Planos</div><div class="plan-cards-grid" id="planos-cards"></div><div style="text-align:center;margin-top:24px;"><button class="btn btn-primary" onclick="abrirModalPlano()">+ Criar Plano</button></div></div></div>
@@ -155,14 +147,21 @@
         <!-- ASSINATURAS -->
         <div id="view-assinaturas" class="panel-view">
             <div class="stats-grid">
-                <div class="stat-card" style="border-left-color:#10b981;"><p>Ativas</p><h2 id="count-ass-ativas">0</h2></div>
-                <div class="stat-card" style="border-left-color:#f59e0b;"><p>Pausadas</p><h2 id="count-ass-pausadas">0</h2></div>
-                <div class="stat-card" style="border-left-color:#ef4444;"><p>Canceladas</p><h2 id="count-ass-canceladas">0</h2></div>
+                <div class="stat-card" style="position:relative;overflow:hidden;border-left:4px solid #10b981;"><p>Ativas</p><h2 id="count-ass-ativas">0</h2></div>
+                <div class="stat-card" style="position:relative;overflow:hidden;border-left:4px solid #f59e0b;"><p>Pausadas</p><h2 id="count-ass-pausadas">0</h2></div>
+                <div class="stat-card" style="position:relative;overflow:hidden;border-left:4px solid #ef4444;"><p>Canceladas</p><h2 id="count-ass-canceladas">0</h2></div>
             </div>
-            <div class="action-box">
-                <div class="section-title"><i class="fas fa-credit-card"></i> Assinaturas dos Profissionais</div>
-                <div class="table-container"><table class="data-table"><thead><tr><th>Profissional</th><th>Plano</th><th>Revenda</th><th>Valor</th><th>Status</th><th>Início</th><th>Renovação</th><th>Ações</th></tr></thead><tbody id="tabela-assinaturas"></tbody></table></div>
+            <div class="action-box"><div class="section-title"><i class="fas fa-credit-card"></i> Assinaturas dos Profissionais</div><div class="table-container"><table class="data-table"><thead><tr><th>Profissional</th><th>Plano</th><th>Revenda</th><th>Valor</th><th>Status</th><th>Início</th><th>Renovação</th><th>Ações</th></tr></thead><tbody id="tabela-assinaturas"></tbody></table></div></div>
+        </div>
+
+        <!-- RESGATES -->
+        <div id="view-resgates" class="panel-view">
+            <div class="stats-grid">
+                <div class="stat-card" style="position:relative;overflow:hidden;border-left:4px solid #f59e0b;"><p>Pendentes</p><h2 id="count-pendentes">0</h2></div>
+                <div class="stat-card" style="position:relative;overflow:hidden;border-left:4px solid #10b981;"><p>Aprovados</p><h2 id="count-aprovados">0</h2></div>
+                <div class="stat-card" style="position:relative;overflow:hidden;border-left:4px solid #ef4444;"><p>Negados</p><h2 id="count-negados">0</h2></div>
             </div>
+            <div class="action-box"><div class="section-title"><i class="fas fa-hand-holding-usd"></i> Solicitações de Resgate</div><div id="resgates-container"></div></div>
         </div>
 
         <!-- HISTÓRICO -->
@@ -170,17 +169,18 @@
     </div>
 </div>
 
+<!-- MODAL PLANO -->
 <div class="modal-overlay" id="modal-plano">
     <div class="modal">
         <h3 id="modal-plano-titulo"><i class="fas fa-plus-circle"></i> Novo Plano</h3>
         <form onsubmit="event.preventDefault(); salvarPlano();">
             <input type="hidden" id="plano-id">
-            <div class="form-row"><div class="form-group"><label>Nome</label><input type="text" id="plano-nome" placeholder="Ex: Start" required></div><div class="form-group"><label>Ícone</label><input type="text" id="plano-icone" placeholder="fas fa-star" value="fas fa-star"></div></div>
+            <div class="form-row"><div class="form-group"><label>Nome</label><input type="text" id="plano-nome" placeholder="Ex: Start" required></div><div class="form-group"><label>Ícone (Font Awesome)</label><input type="text" id="plano-icone" placeholder="fas fa-star" value="fas fa-star"></div></div>
             <div class="form-row"><div class="form-group"><label>Valor Mensal (R$)</label><input type="number" id="plano-valor" step="0.01" placeholder="39.90" required></div><div class="form-group"><label>Limite Solicitações</label><input type="number" id="plano-limite" placeholder="3" required></div></div>
             <div class="form-row"><div class="form-group"><label>Categorias</label><input type="number" id="plano-categorias" placeholder="1" required></div><div class="form-group"><label>Prioridade (%)</label><input type="number" id="plano-prioridade" placeholder="75" min="0" max="100" required></div></div>
             <div class="form-row"><div class="form-group"><label>Comissão Revenda (créditos)</label><input type="number" id="plano-comissao" placeholder="2" required></div><div class="form-group"><label>Selo</label><input type="text" id="plano-selo" placeholder="Ex: 🏢 Verificado"></div></div>
-            <div class="form-row"><div class="form-group"><label>Cor</label><select id="plano-cor"><option value="start">Verde</option><option value="pro">Azul</option><option value="premium">Roxo</option><option value="empresa">Laranja</option></select></div><div class="form-group"><label>Destaque</label><select id="plano-destaque"><option value="false">Normal</option><option value="true">⭐ Popular</option></select></div></div>
-            <div style="display:flex;gap:12px;margin-top:20px;"><button type="submit" class="btn btn-success" style="flex:1">Salvar</button><button type="button" class="btn btn-danger" onclick="fecharModalPlano()" style="flex:1">Cancelar</button></div>
+            <div class="form-row"><div class="form-group"><label>Cor</label><select id="plano-cor"><option value="start">Verde (Start)</option><option value="pro">Azul (Pro)</option><option value="premium">Roxo (Premium)</option><option value="empresa">Laranja (Empresa)</option></select></div><div class="form-group"><label>Destaque</label><select id="plano-destaque"><option value="false">Normal</option><option value="true">⭐ Mais Popular</option></select></div></div>
+            <div style="display:flex;gap:12px;margin-top:20px;"><button type="submit" class="btn btn-success" style="flex:1">Salvar Plano</button><button type="button" class="btn btn-danger" onclick="fecharModalPlano()" style="flex:1">Cancelar</button></div>
         </form>
     </div>
 </div>
@@ -194,9 +194,7 @@ const PLANOS_PADRAO = [
     { id: 'plano4', nome: 'Empresa', icone: 'fas fa-building', valor: 89.90, limiteSolicitacoes: 999, categorias: 999, prioridade: 100, selo: '🏢 Verificado', cor: 'empresa', destaque: false, comissao: 6 }
 ];
 
-if (!localStorage.getItem('planos')) {
-    localStorage.setItem('planos', JSON.stringify(PLANOS_PADRAO));
-}
+if (!localStorage.getItem('planos')) localStorage.setItem('planos', JSON.stringify(PLANOS_PADRAO));
 
 let revendas = JSON.parse(localStorage.getItem('revendas')) || [{id:'r1', nome:'Revenda Alecrim', regiao:'Leste', whats:'(84) 98888-7777'}];
 let profissionais = JSON.parse(localStorage.getItem('profissionais')) || [];
@@ -206,14 +204,13 @@ let planos = JSON.parse(localStorage.getItem('planos')) || PLANOS_PADRAO;
 let assinaturas = JSON.parse(localStorage.getItem('assinaturas')) || [];
 
 const categoriasPrecos = {
-    'servente': '🪵 Servente', 'diarista': '🧹 Diarista', 'marido': '🛠️ Assistência',
-    'montador': '🪑 Montador', 'chaveiro': '🔑 Chaveiro', 'eletricista': '⚡ Eletricista',
-    'encanador': '🚰 Encanador', 'ar': '❄️ Ar-Condicionado', 'jardineiro': '🌱 Jardineiro',
-    'eventos': '🎉 Eventos', 'pedreiro': '🧱 Pedreiro', 'gesseiro': '🏗️ Gesseiro',
-    'pintor': '🖌️ Pintor', 'dedetizador': '🪳 Dedetizador', 'marceneiro': '🪚 Marceneiro',
-    'serralheiro': '⛓️ Serralheiro', 'viagens': '🚗 Viagens', 'tosa': '🐕 Tosa Pet',
-    'beleza': '💇 Beleza', 'vidraceiro': '🪟 Vidraceiro', 'info': '🖥️ Informática',
-    'personal': '💪 Personal'
+    'Eletricista': '⚡ Eletricista', 'Pedreiro': '🧱 Pedreiro', 'Diarista': '🧹 Diarista',
+    'Encanador': '🔧 Encanador', 'Chaveiro': '🔑 Chaveiro', 'Pintor': '🎨 Pintor',
+    'Montador': '🪑 Montador', 'Marceneiro': '🪚 Marceneiro', 'Servente': '🪵 Servente',
+    'Gesseiro': '🏗️ Gesseiro', 'Serralheiro': '⛓️ Serralheiro', 'Vidraceiro': '🪟 Vidraceiro',
+    'Dedetizador': '🪳 Dedetizador', 'Jardineiro': '🌿 Jardineiro', 'Personal': '💪 Personal',
+    'Informática': '💻 Informática', 'Beleza': '💇 Beleza', 'Tosa Pet': '🐕 Tosa Pet',
+    'Viagens': '🚗 Viagens', 'Eventos': '🎉 Eventos', 'Ar-Condicionado': '❄️ Ar-Condicionado'
 };
 
 function saveData() {
@@ -223,41 +220,6 @@ function saveData() {
     localStorage.setItem('resgates', JSON.stringify(resgates));
     localStorage.setItem('planos', JSON.stringify(planos));
     localStorage.setItem('assinaturas', JSON.stringify(assinaturas));
-}
-
-// ==================== RESGATES ====================
-function renderResgates() {
-    const container = document.getElementById('resgates-container');
-    const pendentes = resgates.filter(r => r.status === 'pendente');
-    document.getElementById('count-pendentes').innerText = pendentes.length;
-    document.getElementById('count-aprovados').innerText = resgates.filter(r => r.status === 'aprovado').length;
-    document.getElementById('count-negados').innerText = resgates.filter(r => r.status === 'negado').length;
-    const badge = document.getElementById('badge-resgates');
-    badge.style.display = pendentes.length > 0 ? 'flex' : 'none';
-    if(pendentes.length > 0) badge.innerText = pendentes.length;
-    if(resgates.length === 0) { container.innerHTML = '<div style="text-align:center;padding:40px;">Nenhuma solicitação</div>'; return; }
-    container.innerHTML = '<h3 style="margin-bottom:16px;color:#f59e0b;">⏳ Pendentes</h3>';
-    pendentes.forEach(sol => {
-        const rev = revendas.find(r => r.id === sol.revendaId);
-        container.innerHTML += `<div class="resgate-card pendente"><div class="resgate-header"><strong>${rev?rev.nome:'Revenda'}</strong><span class="status-badge status-pendente">Pendente</span></div><div class="resgate-info"><p>Valor: <strong>R$ ${sol.valor.toFixed(2)}</strong></p><p>WhatsApp: <strong>${rev?rev.whats:'-'}</strong></p><p>Data: <strong>${new Date(sol.data).toLocaleString('pt-BR')}</strong></p></div><div style="margin-top:12px;display:flex;gap:8px;"><button class="btn btn-success btn-sm" onclick="aprovarResgate('${sol.id}')">✅ Aprovar</button><button class="btn btn-danger btn-sm" onclick="negarResgate('${sol.id}')">❌ Negar</button></div></div>`;
-    });
-}
-
-function aprovarResgate(id) {
-    const sol = resgates.find(r => r.id === id);
-    if(!sol || !confirm(`Aprovar resgate de R$ ${sol.valor.toFixed(2)}?`)) return;
-    sol.status = 'aprovado';
-    historico.unshift({data: new Date().toLocaleString('pt-BR'), tipo: 'Resgate Aprovado', destino: revendas.find(r=>r.id===sol.revendaId)?.nome||'Revenda', detalhes: `R$ ${sol.valor.toFixed(2)}`});
-    saveData(); renderResgates(); renderDash();
-}
-
-function negarResgate(id) {
-    const sol = resgates.find(r => r.id === id);
-    if(!sol || !confirm('Negar este resgate?')) return;
-    sol.status = 'negado';
-    const rev = revendas.find(r => r.id === sol.revendaId);
-    if(rev) rev.saldoResgate = (rev.saldoResgate || 0) + sol.valor;
-    saveData(); renderResgates();
 }
 
 // ==================== NAVEGAÇÃO ====================
@@ -281,9 +243,7 @@ function renderDash() {
     document.getElementById('total-profissionais').innerText = profissionais.length;
     document.getElementById('total-assinaturas-ativas').innerText = assinaturas.filter(a => a.status === 'ativo').length;
     document.getElementById('total-resgates-pendentes').innerText = resgates.filter(r => r.status === 'pendente').length;
-    
-    const tbody = document.getElementById('tabela-revendas');
-    tbody.innerHTML = '';
+    const tbody = document.getElementById('tabela-revendas'); tbody.innerHTML = '';
     revendas.forEach(r => {
         const link = `https://wa.me/55${r.whats.replace(/\D/g,'')}?text=Olá!`;
         tbody.innerHTML += `<tr><td><span class="nome-revenda">${r.nome}</span></td><td>${r.regiao}</td><td>${r.whats}</td><td><a href="${link}" class="btn-whatsapp" target="_blank"><i class="fab fa-whatsapp"></i> WhatsApp</a></td><td><button class="btn btn-danger btn-xs" onclick="delRevenda('${r.id}')"><i class="fas fa-trash-alt"></i></button></td></tr>`;
@@ -298,8 +258,61 @@ function criarRevenda(){
     const reg=document.getElementById('add-regiao')?.value;
     if(!n||!w)return alert('Preencha!');
     revendas.push({id:'r'+Date.now(),nome:n,whats:w,regiao:reg});
-    saveData();alert('Criado!');navegarPara('dashboard');
+    saveData();alert('✅ Revenda cadastrada!');navegarPara('dashboard');
 }
+
+// ==================== PROFISSIONAIS (CORRIGIDO) ====================
+function renderPro(){
+    const selRev=document.getElementById('select-revenda-pro');
+    if(!selRev)return;
+    selRev.innerHTML='<option value="">Selecione uma revenda</option>';
+    revendas.forEach(r=>selRev.innerHTML+=`<option value="${r.id}">${r.nome}</option>`);
+    
+    const selCat=document.getElementById('cat-pro');
+    if(!selCat)return;
+    selCat.innerHTML='<option value="">Selecione uma categoria</option>';
+    Object.values(categoriasPrecos).forEach(c=>selCat.innerHTML+=`<option value="${c}">${c}</option>`);
+    
+    const tbody=document.getElementById('tabela-pro');
+    if(!tbody)return;
+    tbody.innerHTML=profissionais.length===0?'<tr><td colspan="6" style="text-align:center;padding:40px;">Nenhum profissional cadastrado</td></tr>':'';
+    profissionais.forEach((p,i)=>{
+        const rev=revendas.find(r=>r.id===p.revendaId);
+        tbody.innerHTML+=`<tr><td>${rev?rev.nome:'<span style="color:var(--danger);">Removida</span>'}</td><td><strong>${p.nome}</strong></td><td>${p.categoria}</td><td>${p.whats||'-'}</td><td><span class="status-badge status-ativo">Ativo</span></td><td><button class="btn btn-danger btn-xs" onclick="delPro(${i})"><i class="fas fa-trash-alt"></i></button></td></tr>`;
+    });
+}
+
+function addPro(){
+    const revId = document.getElementById('select-revenda-pro')?.value;
+    const nome = document.getElementById('nome-pro')?.value?.trim();
+    const cat = document.getElementById('cat-pro')?.value;
+    
+    console.log('Tentando adicionar:', { revId, nome, cat });
+    
+    if(!nome) return alert('⚠️ Digite o nome do profissional!');
+    if(!revId || revId === '') return alert('⚠️ Selecione uma revenda!');
+    if(!cat || cat === '') return alert('⚠️ Selecione uma categoria!');
+    
+    profissionais.push({
+        revendaId: revId,
+        nome: nome,
+        categoria: cat,
+        whats: '',
+        saldo: 0
+    });
+    
+    saveData();
+    
+    document.getElementById('nome-pro').value = '';
+    document.getElementById('cat-pro').selectedIndex = 0;
+    
+    renderPro();
+    renderDash();
+    alert('✅ Profissional adicionado com sucesso!');
+}
+
+function delPro(i){if(confirm('Remover profissional?')){profissionais.splice(i,1);saveData();renderPro();renderDash();}}
+function filtrarPro(){const t=document.querySelector('.search-bar')?.value?.toLowerCase()||'';document.querySelectorAll('#tabela-pro tr').forEach(r=>{r.style.display=r.innerText.toLowerCase().includes(t)?'':'none';});}
 
 // ==================== PLANOS ====================
 function renderPlanos(){
@@ -308,7 +321,6 @@ function renderPlanos(){
         c.innerHTML+=`<div class="plan-card ${p.destaque?'popular':''}"><div class="plan-header"><div class="plan-icon"><i class="${p.icone||'fas fa-box'}"></i></div><div class="plan-name">${p.nome}</div><div class="plan-price">R$ ${p.valor.toFixed(2).replace('.',',')}<small>/mês</small></div></div><div class="plan-features"><div class="plan-feature"><i class="fas fa-check-circle"></i> ${p.limiteSolicitacoes>=999?'Sem limite':'Até '+p.limiteSolicitacoes+' solicitações/mês'}</div><div class="plan-feature"><i class="fas fa-check-circle"></i> ${p.categorias>=999?'Todas categorias':p.categorias+' categoria(s)'}</div><div class="plan-feature"><i class="fas fa-check-circle"></i> Prioridade ${p.prioridade}%</div>${p.selo?`<div class="plan-feature"><i class="fas fa-check-circle"></i> ${p.selo}</div>`:''}<div class="plan-feature"><i class="fas fa-star" style="color:#f59e0b;"></i> <strong>Comissão: ${p.comissao||0} créditos</strong></div></div><button class="btn btn-primary btn-sm" onclick="editarPlano('${p.id}')">Editar</button><button class="btn btn-danger btn-sm" onclick="excluirPlano('${p.id}')" style="margin-top:4px;">Excluir</button></div>`;
     });
 }
-
 function abrirModalPlano(pid=null){
     document.getElementById('modal-plano').classList.add('active');
     if(pid){const p=planos.find(x=>x.id===pid);if(p){document.getElementById('modal-plano-titulo').innerHTML='<i class="fas fa-edit"></i> Editar Plano';document.getElementById('plano-id').value=p.id;document.getElementById('plano-nome').value=p.nome;document.getElementById('plano-icone').value=p.icone;document.getElementById('plano-valor').value=p.valor;document.getElementById('plano-limite').value=p.limiteSolicitacoes;document.getElementById('plano-categorias').value=p.categorias;document.getElementById('plano-prioridade').value=p.prioridade;document.getElementById('plano-comissao').value=p.comissao||0;document.getElementById('plano-selo').value=p.selo||'';document.getElementById('plano-cor').value=p.cor;document.getElementById('plano-destaque').value=p.destaque?'true':'false';}}
@@ -338,49 +350,46 @@ function excluirPlano(id){if(!confirm('Excluir?'))return;planos=planos.filter(p=
 
 // ==================== ASSINATURAS ====================
 function renderAssinaturas(){
-    const tbody=document.getElementById('tabela-assinaturas');if(!tbody)return;
-    tbody.innerHTML='';
-    document.getElementById('count-ass-ativas').innerText = assinaturas.filter(a => a.status === 'ativo').length;
-    document.getElementById('count-ass-pausadas').innerText = assinaturas.filter(a => a.status === 'pausado').length;
-    document.getElementById('count-ass-canceladas').innerText = assinaturas.filter(a => a.status === 'cancelado').length;
-    
+    const tbody=document.getElementById('tabela-assinaturas');if(!tbody)return;tbody.innerHTML='';
+    document.getElementById('count-ass-ativas').innerText=assinaturas.filter(a=>a.status==='ativo').length;
+    document.getElementById('count-ass-pausadas').innerText=assinaturas.filter(a=>a.status==='pausado').length;
+    document.getElementById('count-ass-canceladas').innerText=assinaturas.filter(a=>a.status==='cancelado').length;
     if(assinaturas.length===0){tbody.innerHTML='<tr><td colspan="8" style="text-align:center;padding:40px;">Nenhuma assinatura</td></tr>';return;}
     assinaturas.sort((a,b)=>new Date(b.dataInicio)-new Date(a.dataInicio)).forEach(a=>{
         const plano=planos.find(p=>p.id===a.planoId);
         const rev=revendas.find(r=>r.id===a.revendaId);
         const st=a.status;
-        tbody.innerHTML+=`<tr>
-            <td><strong>${a.profissionalNome||'Profissional'}</strong></td>
-            <td><span class="badge-plan badge-${plano?plano.cor:'start'}">${plano?plano.nome:'Sem plano'}</span></td>
-            <td>${rev?rev.nome:'-'}</td>
-            <td>R$ ${plano?plano.valor.toFixed(2).replace('.',','):'0,00'}/mês</td>
-            <td><span class="status-badge status-${st}">${st==='ativo'?'✅ Ativo':st==='pausado'?'⏸️ Pausado':'❌ Cancelado'}</span></td>
-            <td>${new Date(a.dataInicio).toLocaleDateString('pt-BR')}</td>
-            <td>${new Date(a.dataRenovacao).toLocaleDateString('pt-BR')}</td>
-            <td>${st==='ativo'?`<button class="btn btn-warning btn-xs" onclick="pausarAss('${a.id}')">Pausar</button>`:''}${st==='pausado'?`<button class="btn btn-success btn-xs" onclick="reativarAss('${a.id}')">Reativar</button>`:''}<button class="btn btn-danger btn-xs" onclick="cancelarAss('${a.id}')">Cancelar</button></td>
-        </tr>`;
+        tbody.innerHTML+=`<tr><td><strong>${a.profissionalNome||'Profissional'}</strong></td><td><span class="badge-plan badge-${plano?plano.cor:'start'}">${plano?plano.nome:'Sem plano'}</span></td><td>${rev?rev.nome:'-'}</td><td>R$ ${plano?plano.valor.toFixed(2).replace('.',','):'0,00'}/mês</td><td><span class="status-badge status-${st}">${st==='ativo'?'✅ Ativo':st==='pausado'?'⏸️ Pausado':'❌ Cancelado'}</span></td><td>${new Date(a.dataInicio).toLocaleDateString('pt-BR')}</td><td>${new Date(a.dataRenovacao).toLocaleDateString('pt-BR')}</td><td>${st==='ativo'?`<button class="btn btn-warning btn-xs" onclick="pausarAss('${a.id}')">Pausar</button>`:''}${st==='pausado'?`<button class="btn btn-success btn-xs" onclick="reativarAss('${a.id}')">Reativar</button>`:''}<button class="btn btn-danger btn-xs" onclick="cancelarAss('${a.id}')">Cancelar</button></td></tr>`;
     });
 }
-
 function pausarAss(id){const a=assinaturas.find(x=>x.id===id);if(!a)return;a.status='pausado';saveData();renderAssinaturas();}
 function reativarAss(id){const a=assinaturas.find(x=>x.id===id);if(!a)return;a.status='ativo';a.dataRenovacao=new Date(Date.now()+30*24*60*60*1000).toISOString();saveData();renderAssinaturas();}
 function cancelarAss(id){if(!confirm('Cancelar?'))return;const a=assinaturas.find(x=>x.id===id);if(!a)return;a.status='cancelado';saveData();renderAssinaturas();}
 
-// ==================== PROFISSIONAIS ====================
-function renderPro(){
-    const selRev=document.getElementById('select-revenda-pro');if(!selRev)return;selRev.innerHTML='<option value="">Selecione</option>';revendas.forEach(r=>selRev.innerHTML+=`<option value="${r.id}">${r.nome}</option>`);
-    const selCat=document.getElementById('cat-pro');if(!selCat)return;selCat.innerHTML='<option value="">Selecione</option>';Object.values(categoriasPrecos).forEach(c=>selCat.innerHTML+=`<option>${c}</option>`);
-    const tbody=document.getElementById('tabela-pro');if(!tbody)return;tbody.innerHTML=profissionais.length===0?'<tr><td colspan="6" style="text-align:center;padding:40px;">Nenhum</td></tr>':'';
-    profissionais.forEach((p,i)=>{const rev=revendas.find(r=>r.id===p.revendaId);tbody.innerHTML+=`<tr><td>${rev?rev.nome:'Removida'}</td><td><strong>${p.nome}</strong></td><td>${p.categoria}</td><td>${p.whats||'-'}</td><td><span class="status-badge status-ativo">Ativo</span></td><td><button class="btn btn-danger btn-xs" onclick="delPro(${i})">X</button></td></tr>`;});
+// ==================== RESGATES ====================
+function renderResgates(){
+    const container=document.getElementById('resgates-container');
+    const pendentes=resgates.filter(r=>r.status==='pendente');
+    document.getElementById('count-pendentes').innerText=pendentes.length;
+    document.getElementById('count-aprovados').innerText=resgates.filter(r=>r.status==='aprovado').length;
+    document.getElementById('count-negados').innerText=resgates.filter(r=>r.status==='negado').length;
+    const badge=document.getElementById('badge-resgates');
+    badge.style.display=pendentes.length>0?'flex':'none';
+    if(pendentes.length>0)badge.innerText=pendentes.length;
+    if(resgates.length===0){container.innerHTML='<div style="text-align:center;padding:40px;">Nenhuma solicitação</div>';return;}
+    container.innerHTML='<h3 style="margin-bottom:16px;color:#f59e0b;">⏳ Pendentes</h3>';
+    pendentes.forEach(sol=>{
+        const rev=revendas.find(r=>r.id===sol.revendaId);
+        container.innerHTML+=`<div class="resgate-card pendente"><div style="display:flex;justify-content:space-between;margin-bottom:12px;"><strong>${rev?rev.nome:'Revenda'}</strong><span class="status-badge status-pendente">Pendente</span></div><p>Valor: <strong>R$ ${sol.valor.toFixed(2)}</strong></p><p>WhatsApp: <strong>${rev?rev.whats:'-'}</strong></p><p>Data: <strong>${new Date(sol.data).toLocaleString('pt-BR')}</strong></p><div style="margin-top:12px;display:flex;gap:8px;"><button class="btn btn-success btn-sm" onclick="aprovarResgate('${sol.id}')">✅ Aprovar</button><button class="btn btn-danger btn-sm" onclick="negarResgate('${sol.id}')">❌ Negar</button></div></div>`;
+    });
 }
-function addPro(){const revId=document.getElementById('select-revenda-pro')?.value;const nome=document.getElementById('nome-pro')?.value?.trim();const cat=document.getElementById('cat-pro')?.value;if(!nome||!revId||!cat)return alert('Preencha!');profissionais.push({revendaId,nome,categoria:cat,whats:''});saveData();renderPro();}
-function delPro(i){if(confirm('Remover?')){profissionais.splice(i,1);saveData();renderPro();}}
-function filtrarPro(){const t=document.querySelector('.search-bar')?.value?.toLowerCase()||'';document.querySelectorAll('#tabela-pro tr').forEach(r=>{r.style.display=r.innerText.toLowerCase().includes(t)?'':'none';});}
+function aprovarResgate(id){const sol=resgates.find(r=>r.id===id);if(!sol||!confirm(`Aprovar resgate de R$ ${sol.valor.toFixed(2)}?`))return;sol.status='aprovado';historico.unshift({data:new Date().toLocaleString('pt-BR'),tipo:'Resgate Aprovado',destino:revendas.find(r=>r.id===sol.revendaId)?.nome||'Revenda',detalhes:`R$ ${sol.valor.toFixed(2)}`});saveData();renderResgates();renderDash();}
+function negarResgate(id){const sol=resgates.find(r=>r.id===id);if(!sol||!confirm('Negar?'))return;sol.status='negado';const rev=revendas.find(r=>r.id===sol.revendaId);if(rev)rev.saldoResgate=(rev.saldoResgate||0)+sol.valor;saveData();renderResgates();}
 
 function renderHist(){
     const tbody=document.getElementById('tabela-hist');if(!tbody)return;
     tbody.innerHTML=historico.length===0?'<tr><td colspan="4" style="text-align:center;padding:40px;">Nenhum</td></tr>':'';
-    historico.forEach(h=>{tbody.innerHTML+=`<tr><td>${h.data}</td><td>${h.tipo}</td><td>${h.destino}</td><td>${h.detalhes||h.qtd||''}</td></tr>`;});
+    historico.forEach(h=>{tbody.innerHTML+=`<tr><td>${h.data}</td><td>${h.tipo}</td><td>${h.destino}</td><td>${h.detalhes||''}</td></tr>`;});
 }
 
 // INICIALIZAR
