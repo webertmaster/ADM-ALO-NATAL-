@@ -19,7 +19,6 @@
             --text-muted: #64748b; --border: #e2e8f0; --gold: #ffd700;
             --sidebar-bg: #0a1929;
         }
-        /* MODO ESCURO */
         body.dark-mode {
             --bg: #1a1a2e; --card: #16213e; --text: #e2e8f0; --text-muted: #94a3b8;
             --border: #2d3748; --sidebar-bg: #0a0e1a;
@@ -42,17 +41,14 @@
             box-shadow: 4px 0 20px rgba(0,0,0,0.3); position: relative; overflow: hidden; transition: all 0.3s;
         }
         .sidebar::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, transparent, var(--gold), transparent); }
-        
         .logo-container { text-align: center; margin-bottom: 20px; }
         .logo-img { width: 60px; height: 60px; border-radius: 16px; background: linear-gradient(135deg, var(--gold), #ff9800); display: flex; align-items: center; justify-content: center; margin: 0 auto 8px; font-size: 30px; box-shadow: 0 8px 25px rgba(255,215,0,0.3); }
         .logo-title { color: var(--gold); font-size: 24px; font-weight: 900; letter-spacing: -1px; }
         .logo-subtitle { font-size: 10px; color: #94a3b8; text-transform: uppercase; letter-spacing: 2px; }
-        
         .admin-badge { background: linear-gradient(135deg, rgba(255,215,0,0.1), rgba(255,215,0,0.05)); padding: 14px; border-radius: 14px; text-align: center; margin-bottom: 20px; border: 1px solid rgba(255,215,0,0.2); }
         .admin-badge p { font-size: 9px; color: #94a3b8; text-transform: uppercase; letter-spacing: 2px; }
         .admin-badge h3 { font-size: 13px; color: #e2e8f0; margin-top: 4px; }
         .admin-badge h3 span { color: var(--gold); font-weight: 700; }
-        
         .menu-section { margin-top: 6px; margin-bottom: 2px; }
         .menu-section-title { font-size: 9px; color: #64748b; text-transform: uppercase; letter-spacing: 2px; padding: 6px 14px; font-weight: 700; }
         .menu-item { padding: 11px 16px; cursor: pointer; color: #94a3b8; border-radius: 10px; display: flex; align-items: center; gap: 12px; font-size: 13px; transition: all 0.3s; font-weight: 500; position: relative; }
@@ -74,7 +70,6 @@
         .panel-view { display: none; animation: fadeIn 0.4s ease; }
         .panel-view.active { display: block; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-        
         .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 24px; margin-bottom: 36px; }
         .stat-card { background: var(--card); padding: 24px; border-radius: 20px; box-shadow: 0 8px 25px rgba(0,0,0,0.06); border: 1px solid var(--border); position: relative; overflow: hidden; transition: all 0.3s; }
         .stat-card:hover { transform: translateY(-3px); box-shadow: 0 12px 30px rgba(0,0,0,0.1); }
@@ -85,9 +80,6 @@
         .stat-card.resgates::before { background: linear-gradient(90deg, #f59e0b, #fbbf24); }
         .stat-card p { font-size: 11px; color: var(--text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; display: flex; align-items: center; gap: 8px; }
         .stat-card h2 { font-size: 36px; font-weight: 800; }
-        .stat-card .stat-change { font-size: 11px; margin-top: 4px; font-weight: 600; }
-        .stat-change.up { color: #10b981; } .stat-change.down { color: #ef4444; }
-        
         .action-box { background: var(--card); padding: 28px; border-radius: 20px; box-shadow: 0 8px 25px rgba(0,0,0,0.06); margin-bottom: 28px; border: 1px solid var(--border); transition: all 0.3s; }
         .section-title { font-size: 20px; color: var(--primary-dark); margin-bottom: 24px; font-weight: 800; display: flex; align-items: center; gap: 12px; }
         .form-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin-bottom: 16px; }
@@ -104,7 +96,6 @@
         .btn-gold { background: linear-gradient(135deg, #ffc107, #ff9800); color: #1a1a1a; font-weight: 800; }
         .btn-sm { padding: 6px 12px; font-size: 10px; }
         .btn-xs { padding: 3px 8px; font-size: 9px; border-radius: 6px; }
-        
         .table-container { overflow-x: auto; border: 2px solid var(--border); border-radius: 16px; max-height: 500px; overflow-y: auto; background: var(--card); transition: all 0.3s; }
         .data-table { width: 100%; border-collapse: collapse; text-align: left; font-size: 12px; }
         .data-table th, .data-table td { padding: 14px; border-bottom: 1px solid var(--border); vertical-align: middle; }
@@ -123,8 +114,6 @@
         .modal { background: var(--card); border-radius: 20px; padding: 28px; width: 90%; max-width: 600px; max-height: 80vh; overflow-y: auto; }
         .modal h3 { font-size: 20px; color: var(--primary-dark); margin-bottom: 20px; font-weight: 800; }
         .search-bar { width: 100%; padding: 12px 16px; border: 2px solid var(--border); border-radius: 10px; font-size: 13px; background: var(--card); color: var(--text); margin-bottom: 16px; transition: all 0.3s; }
-        
-        /* GRAFICO */
         .chart-container { background: var(--card); border-radius: 16px; padding: 20px; margin-bottom: 24px; border: 1px solid var(--border); }
         .chart-bars { display: flex; align-items: flex-end; gap: 12px; height: 150px; padding: 10px 0; }
         .chart-bar { flex: 1; border-radius: 8px 8px 0 0; position: relative; min-width: 30px; transition: all 0.5s ease; cursor: pointer; }
@@ -134,17 +123,60 @@
         .chart-legend { display: flex; gap: 16px; justify-content: center; margin-top: 8px; }
         .chart-legend span { font-size: 10px; color: var(--text-muted); display: flex; align-items: center; gap: 4px; }
         .chart-legend .dot { width: 8px; height: 8px; border-radius: 50%; }
-        
-        /* NOTIFICAÇÕES */
         .notif-toast { position: fixed; top: 20px; right: 20px; background: #1a1a2e; color: white; padding: 16px 20px; border-radius: 12px; z-index: 200; box-shadow: 0 10px 30px rgba(0,0,0,0.3); display: flex; align-items: center; gap: 12px; animation: slideIn 0.3s ease; max-width: 350px; }
         @keyframes slideIn { from { transform: translateX(100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
-        .notif-toast.success { border-left: 4px solid #10b981; }
-        .notif-toast.warning { border-left: 4px solid #f59e0b; }
+        .notif-toast.success { border-left: 4px solid #10b981; } .notif-toast.warning { border-left: 4px solid #f59e0b; }
         .notif-toast i { font-size: 20px; }
-        
         .api-status-card { background: var(--card); border-radius: 16px; padding: 20px; text-align: center; margin-bottom: 20px; border: 2px solid var(--border); }
         .api-status-card.conectado { border-color: #10b981; } .api-status-card.desconectado { border-color: #ef4444; }
         .api-status-icon { font-size: 48px; margin-bottom: 8px; }
+        
+        /* NOVOS CARDS DE PLANOS PREMIUM */
+        .plan-cards-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; }
+        .plan-card-premium {
+            background: var(--card); border-radius: 20px; padding: 24px;
+            border: 2px solid var(--border); transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative; overflow: hidden;
+        }
+        .plan-card-premium:hover { transform: translateY(-4px); box-shadow: 0 20px 40px rgba(0,0,0,0.12); }
+        .plan-card-premium.popular-destaque {
+            border: 3px solid #ffd700 !important;
+            transform: scale(1.03);
+            box-shadow: 0 20px 40px rgba(255,215,0,0.3);
+            background: linear-gradient(135deg, #fffbeb 0%, #ffffff 50%, #fff7e0 100%);
+            z-index: 2;
+        }
+        .plan-card-premium.popular-destaque:hover { transform: scale(1.05) translateY(-4px); }
+        .plan-faixa-destaque {
+            position: absolute; top: 0; left: 0; right: 0;
+            background: linear-gradient(90deg, #ffd700, #ffc107);
+            color: #1a1a1a; text-align: center; padding: 8px;
+            font-size: 11px; font-weight: 800; letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+        .plan-card-body { text-align: center; }
+        .plan-card-icon { font-size: 40px; margin-bottom: 8px; }
+        .plan-card-nome { font-size: 18px; font-weight: 800; color: #1a1a2e; margin-bottom: 4px; }
+        .plan-card-nome.destaque { font-size: 22px; }
+        .plan-card-preco { font-size: 30px; font-weight: 900; color: #005b96; }
+        .plan-card-preco.destaque { font-size: 36px; }
+        .plan-card-preco small { font-size: 13px; color: #64748b; font-weight: 500; }
+        .plan-card-features-box {
+            margin: 20px 0; padding: 16px;
+            background: #f8fafc; border-radius: 12px;
+        }
+        body.dark-mode .plan-card-features-box { background: #1a1a2e; }
+        .plan-feature-row {
+            display: flex; align-items: center; gap: 10px;
+            padding: 8px 0; border-bottom: 1px solid #e2e8f0;
+            font-size: 13px; color: #334155;
+        }
+        body.dark-mode .plan-feature-row { border-bottom-color: #2d3748; color: #cbd5e1; }
+        .plan-feature-row:last-child { border-bottom: none; }
+        .plan-feature-row i.fa-check-circle { color: #10b981; font-size: 14px; }
+        .plan-feature-row i.fa-star { color: #f59e0b; font-size: 14px; }
+        .plan-card-actions { display: flex; gap: 8px; }
+        .plan-card-actions button { flex: 1; }
         
         @media(max-width: 768px) {
             .main-content { padding: 20px; }
@@ -152,6 +184,7 @@
             .stat-card { padding: 16px; }
             .stat-card h2 { font-size: 28px; }
             .form-row { grid-template-columns: 1fr; }
+            .plan-cards-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
@@ -189,16 +222,13 @@
             </div>
         </div>
 
-        <!-- DASHBOARD COM GRÁFICO -->
         <div id="view-dashboard" class="panel-view active">
             <div class="stats-grid">
-                <div class="stat-card revendas"><p><i class="fas fa-store"></i> Revendas</p><h2 id="total-revendas">0</h2><span class="stat-change up" id="change-revendas">+0 este mês</span></div>
-                <div class="stat-card profissionais"><p><i class="fas fa-users"></i> Profissionais</p><h2 id="total-profissionais">0</h2><span class="stat-change up" id="change-profissionais">+0 este mês</span></div>
+                <div class="stat-card revendas"><p><i class="fas fa-store"></i> Revendas</p><h2 id="total-revendas">0</h2></div>
+                <div class="stat-card profissionais"><p><i class="fas fa-users"></i> Profissionais</p><h2 id="total-profissionais">0</h2></div>
                 <div class="stat-card assinaturas"><p><i class="fas fa-crown"></i> Assinaturas Ativas</p><h2 id="total-assinaturas-ativas">0</h2></div>
                 <div class="stat-card resgates"><p><i class="fas fa-hand-holding-usd"></i> Resgates Pendentes</p><h2 id="total-resgates-pendentes">0</h2></div>
             </div>
-            
-            <!-- GRÁFICO DE RECEITA -->
             <div class="chart-container">
                 <h4 style="font-size:13px;font-weight:700;color:var(--text-muted);margin-bottom:12px;">📊 Receita Mensal (R$)</h4>
                 <div class="chart-bars" id="chart-bars"></div>
@@ -208,16 +238,15 @@
                     <span><span class="dot" style="background:#f59e0b;"></span> Resgates</span>
                 </div>
             </div>
-            
             <div class="action-box"><div class="section-title"><i class="fas fa-store-alt"></i> Revendas Cadastradas</div><div class="table-container"><table class="data-table"><thead><tr><th>Revenda</th><th>Região</th><th>Contato</th><th>WhatsApp</th><th>Ações</th></tr></thead><tbody id="tabela-revendas"></tbody></table></div></div>
         </div>
 
-        <!-- DEMAIS VIEWS (COMPACTADAS) -->
         <div id="view-cadastro" class="panel-view"><div class="action-box"><div class="section-title"><i class="fas fa-user-plus"></i> Cadastrar Revenda</div><form onsubmit="event.preventDefault(); criarRevenda();"><div class="form-row"><div class="form-group"><label>Nome</label><input type="text" id="add-nome" required></div><div class="form-group"><label>WhatsApp</label><input type="text" id="add-whats" required></div><div class="form-group"><label>Região</label><select id="add-regiao"><option>Alecrim / Leste</option><option>Zona Norte</option><option>Zona Sul</option><option>Geral</option></select></div></div><button type="submit" class="btn btn-success" style="width:100%;">Cadastrar</button></form></div></div>
 
         <div id="view-profissionais" class="panel-view"><div class="action-box"><div class="section-title">Profissionais</div><input type="text" class="search-bar" placeholder="🔍 Buscar..." oninput="filtrarPro()"><div style="background:var(--card);padding:20px;border-radius:14px;border:2px solid var(--border);margin-bottom:20px;"><div class="form-row"><div class="form-group"><label>Revenda</label><select id="select-revenda-pro"><option value="">Selecione</option></select></div><div class="form-group"><label>Nome</label><input type="text" id="nome-pro"></div><div class="form-group"><label>WhatsApp</label><input type="text" id="whats-pro"></div><div class="form-group"><label>Categoria</label><select id="cat-pro"><option value="">Selecione</option></select></div><div class="form-group" style="justify-content:flex-end"><button class="btn btn-primary" onclick="addPro()" style="margin-top:24px;">+ Adicionar</button></div></div></div><div class="table-container"><table class="data-table"><thead><tr><th>Revenda</th><th>Nome</th><th>Categoria</th><th>WhatsApp</th><th>Ações</th></tr></thead><tbody id="tabela-pro"></tbody></table></div></div></div>
 
-        <div id="view-planos" class="panel-view"><div class="action-box"><div class="section-title">Planos</div><div class="plan-cards-grid" id="planos-cards" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;"></div><div style="text-align:center;margin-top:20px;"><button class="btn btn-primary" onclick="abrirModalPlano()">+ Criar Plano</button></div></div></div>
+        <!-- PLANOS COM NOVO LAYOUT -->
+        <div id="view-planos" class="panel-view"><div class="action-box"><div class="section-title"><i class="fas fa-crown"></i> Planos da Plataforma</div><div class="plan-cards-grid" id="planos-cards"></div><div style="text-align:center;margin-top:24px;"><button class="btn btn-primary" onclick="abrirModalPlano()"><i class="fas fa-plus-circle"></i> Criar Novo Plano</button></div></div></div>
 
         <div id="view-assinaturas" class="panel-view"><div class="stats-grid"><div class="stat-card" style="border-left:4px solid #10b981;"><p>Ativas</p><h2 id="count-ass-ativas">0</h2></div><div class="stat-card" style="border-left:4px solid #f59e0b;"><p>Pausadas</p><h2 id="count-ass-pausadas">0</h2></div><div class="stat-card" style="border-left:4px solid #ef4444;"><p>Canceladas</p><h2 id="count-ass-canceladas">0</h2></div></div><div class="action-box"><div class="section-title">Assinaturas</div><div class="table-container"><table class="data-table"><thead><tr><th>Profissional</th><th>Plano</th><th>Revenda</th><th>Valor</th><th>Status</th><th>Início</th><th>Ações</th></tr></thead><tbody id="tabela-assinaturas"></tbody></table></div></div></div>
 
@@ -229,15 +258,12 @@
     </div>
 </div>
 
-<!-- MODAL PLANO -->
 <div class="modal-overlay" id="modal-plano"><div class="modal"><h3 id="modal-plano-titulo">Plano</h3><form onsubmit="event.preventDefault(); salvarPlano();"><input type="hidden" id="plano-id"><div class="form-row"><div class="form-group"><label>Nome</label><input type="text" id="plano-nome" required></div><div class="form-group"><label>Ícone</label><input type="text" id="plano-icone" value="fas fa-star"></div></div><div class="form-row"><div class="form-group"><label>Valor (R$)</label><input type="number" id="plano-valor" step="0.01" required></div><div class="form-group"><label>Limite Solicitações</label><input type="number" id="plano-limite" required></div></div><div class="form-row"><div class="form-group"><label>Categorias</label><input type="number" id="plano-categorias" required></div><div class="form-group"><label>Prioridade (%)</label><input type="number" id="plano-prioridade" required></div></div><div class="form-row"><div class="form-group"><label>Comissão (créditos)</label><input type="number" id="plano-comissao" required></div><div class="form-group"><label>Selo</label><input type="text" id="plano-selo"></div></div><div class="form-row"><div class="form-group"><label>Cor</label><select id="plano-cor"><option value="start">Verde</option><option value="pro">Azul</option><option value="premium">Roxo</option><option value="empresa">Laranja</option></select></div><div class="form-group"><label>Destaque</label><select id="plano-destaque"><option value="false">Normal</option><option value="true">⭐ Popular</option></select></div></div><div style="display:flex;gap:8px;margin-top:16px;"><button type="submit" class="btn btn-success" style="flex:1">Salvar</button><button type="button" class="btn btn-danger" onclick="fecharModalPlano()" style="flex:1">Cancelar</button></div></form></div></div>
 
 <script>
 // ==================== SERVICE WORKER (PWA) ====================
 if ('serviceWorker' in navigator) {
-    window.addEventListener('load', () => {
-        navigator.serviceWorker.register('sw.js').catch(() => {});
-    });
+    window.addEventListener('load', () => { navigator.serviceWorker.register('sw.js').catch(() => {}); });
 }
 
 // ==================== DADOS ====================
@@ -270,16 +296,13 @@ function saveData() {
     localStorage.setItem('mp_access_token', mpAccessToken);
 }
 
-// ==================== MODO ESCURO ====================
 function toggleDarkMode() {
     document.body.classList.toggle('dark-mode');
-    const btn = document.querySelector('.btn-darkmode');
-    btn.innerText = document.body.classList.contains('dark-mode') ? '☀️' : '🌙';
+    document.querySelector('.btn-darkmode').innerText = document.body.classList.contains('dark-mode') ? '☀️' : '🌙';
     localStorage.setItem('darkMode', document.body.classList.contains('dark-mode'));
 }
 if(localStorage.getItem('darkMode') === 'true') { document.body.classList.add('dark-mode'); document.querySelector('.btn-darkmode').innerText = '☀️'; }
 
-// ==================== NOTIFICAÇÕES ====================
 function showNotification(msg, type = 'success') {
     const toast = document.createElement('div');
     toast.className = `notif-toast ${type}`;
@@ -288,26 +311,19 @@ function showNotification(msg, type = 'success') {
     setTimeout(() => { toast.style.opacity = '0'; toast.style.transition = 'opacity 0.3s'; setTimeout(() => toast.remove(), 300); }, 3000);
 }
 
-// ==================== GRÁFICO ====================
 function renderGrafico() {
     const meses = ['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'];
     const mesAtual = new Date().getMonth();
     const container = document.getElementById('chart-bars');
     container.innerHTML = '';
-    
     for(let i = 4; i >= 0; i--) {
         const mes = meses[(mesAtual - i + 12) % 12];
         const valor = Math.floor(Math.random() * 3000) + 500;
         const altura = Math.max(20, (valor / 3000) * 130);
-        container.innerHTML += `
-            <div class="chart-bar" style="height:${altura}px;background:linear-gradient(180deg,#005b96,#4a90e2);" title="R$ ${valor.toLocaleString()}">
-                <span class="bar-value">R$ ${(valor/1000).toFixed(1)}k</span>
-                <span class="bar-label">${mes}</span>
-            </div>`;
+        container.innerHTML += `<div class="chart-bar" style="height:${altura}px;background:linear-gradient(180deg,#005b96,#4a90e2);" title="R$ ${valor.toLocaleString()}"><span class="bar-value">R$ ${(valor/1000).toFixed(1)}k</span><span class="bar-label">${mes}</span></div>`;
     }
 }
 
-// ==================== API ====================
 function atualizarStatusAPI() {
     const dot = document.getElementById('api-status-dot');
     const card = document.getElementById('api-status-card');
@@ -332,7 +348,6 @@ function testarChaveAPI() {
     showNotification('✅ Conexão bem-sucedida!');
 }
 
-// ==================== NAVEGAÇÃO ====================
 function navegarPara(tela) {
     document.querySelectorAll('.panel-view').forEach(v => v.classList.remove('active'));
     document.querySelectorAll('.menu-item').forEach(m => m.classList.remove('active'));
@@ -359,8 +374,6 @@ function renderDash() {
         const link = `https://wa.me/55${r.whats.replace(/\D/g,'')}?text=Olá!`;
         tbody.innerHTML += `<tr><td><span class="nome-revenda">${r.nome}</span></td><td>${r.regiao}</td><td>${r.whats}</td><td><a href="${link}" class="btn-whatsapp" target="_blank"><i class="fab fa-whatsapp"></i></a></td><td><button class="btn btn-danger btn-xs" onclick="delRevenda('${r.id}')"><i class="fas fa-trash-alt"></i></button></td></tr>`;
     });
-    
-    // Badge de notificação no dashboard
     const pendentes = resgates.filter(r => r.status === 'pendente').length;
     const dashNotify = document.getElementById('dash-notify');
     if(pendentes > 0) { dashNotify.style.display = 'flex'; dashNotify.innerText = pendentes; }
@@ -379,7 +392,66 @@ function addPro(){const revId=document.getElementById('select-revenda-pro')?.val
 function delPro(i){if(confirm('Remover?')){profissionais.splice(i,1);saveData();renderPro();renderDash();}}
 function filtrarPro(){const t=document.querySelector('.search-bar')?.value?.toLowerCase()||'';document.querySelectorAll('#tabela-pro tr').forEach(r=>{r.style.display=r.innerText.toLowerCase().includes(t)?'':'none';});}
 
-function renderPlanos(){const c=document.getElementById('planos-cards');c.innerHTML='';planos.forEach(p=>{c.innerHTML+=`<div class="stat-card" style="${p.destaque?'border:2px solid var(--gold);':''}"><div style="text-align:center;font-size:30px;margin-bottom:8px;"><i class="${p.icone||'fas fa-box'}"></i></div><h4 style="text-align:center;font-weight:800;">${p.nome}</h4><p style="text-align:center;font-size:24px;font-weight:900;color:var(--primary);">R$ ${p.valor.toFixed(2).replace('.',',')}<small style="font-size:12px;">/mês</small></p><div style="font-size:11px;color:var(--text-muted);margin:8px 0;">✅ ${p.limiteSolicitacoes>=999?'Sem limite':p.limiteSolicitacoes+' solicitações'} | ${p.categorias>=999?'Todas':p.categorias} cat. | ${p.prioridade}%</div><p style="font-size:11px;color:#f59e0b;"><i class="fas fa-star"></i> Comissão: ${p.comissao||0} créditos</p><div style="display:flex;gap:4px;margin-top:8px;"><button class="btn btn-primary btn-sm" onclick="editarPlano('${p.id}')" style="flex:1;">Editar</button><button class="btn btn-danger btn-sm" onclick="excluirPlano('${p.id}')" style="flex:1;">Excluir</button></div></div>`;});}
+// ==================== PLANOS COM NOVO LAYOUT PREMIUM ====================
+function renderPlanos(){
+    const c = document.getElementById('planos-cards');
+    if(!c) return;
+    c.innerHTML = '';
+    
+    planos.forEach(p => {
+        const isPopular = p.destaque;
+        const marginTop = isPopular ? '28px' : '0';
+        
+        c.innerHTML += `
+            <div class="plan-card-premium ${isPopular ? 'popular-destaque' : ''}">
+                ${isPopular ? '<div class="plan-faixa-destaque">⭐ MAIS POPULAR ⭐</div>' : ''}
+                <div class="plan-card-body" style="margin-top:${marginTop};">
+                    <div class="plan-card-icon">
+                        <i class="${p.icone || 'fas fa-box'}" style="color:${isPopular ? '#ff9800' : '#64748b'};"></i>
+                    </div>
+                    <div class="plan-card-nome ${isPopular ? 'destaque' : ''}">${p.nome}</div>
+                    <div class="plan-card-preco ${isPopular ? 'destaque' : ''}">
+                        R$ ${p.valor.toFixed(2).replace('.', ',')}
+                        <small>/mês</small>
+                    </div>
+                </div>
+                
+                <div class="plan-card-features-box">
+                    <div class="plan-feature-row">
+                        <i class="fas fa-check-circle"></i>
+                        <span><strong>${p.limiteSolicitacoes >= 999 ? 'Sem limite' : 'Até ' + p.limiteSolicitacoes}</strong> solicitações/mês</span>
+                    </div>
+                    <div class="plan-feature-row">
+                        <i class="fas fa-check-circle"></i>
+                        <span><strong>${p.categorias >= 999 ? 'Todas' : p.categorias}</strong> ${p.categorias === 1 ? 'categoria' : 'categorias'}</span>
+                    </div>
+                    <div class="plan-feature-row">
+                        <i class="fas fa-check-circle"></i>
+                        <span>Prioridade de <strong>${p.prioridade}%</strong> nas buscas</span>
+                    </div>
+                    ${p.selo ? `
+                    <div class="plan-feature-row">
+                        <i class="fas fa-check-circle"></i>
+                        <span>${p.selo}</span>
+                    </div>` : ''}
+                    <div class="plan-feature-row">
+                        <i class="fas fa-star"></i>
+                        <span><strong>Comissão da Revenda:</strong> ${p.comissao || 0} créditos</span>
+                    </div>
+                </div>
+                
+                <div class="plan-card-actions">
+                    <button class="btn btn-primary btn-sm" onclick="editarPlano('${p.id}')">
+                        <i class="fas fa-edit"></i> Editar
+                    </button>
+                    <button class="btn btn-danger btn-sm" onclick="excluirPlano('${p.id}')">
+                        <i class="fas fa-trash"></i> Excluir
+                    </button>
+                </div>
+            </div>
+        `;
+    });
+}
 function abrirModalPlano(pid=null){document.getElementById('modal-plano').classList.add('active');if(pid){const p=planos.find(x=>x.id===pid);if(p){document.getElementById('modal-plano-titulo').innerHTML='Editar Plano';document.getElementById('plano-id').value=p.id;document.getElementById('plano-nome').value=p.nome;document.getElementById('plano-icone').value=p.icone;document.getElementById('plano-valor').value=p.valor;document.getElementById('plano-limite').value=p.limiteSolicitacoes;document.getElementById('plano-categorias').value=p.categorias;document.getElementById('plano-prioridade').value=p.prioridade;document.getElementById('plano-comissao').value=p.comissao||0;document.getElementById('plano-selo').value=p.selo||'';document.getElementById('plano-cor').value=p.cor;document.getElementById('plano-destaque').value=p.destaque?'true':'false';}}else{document.getElementById('modal-plano-titulo').innerHTML='Novo Plano';document.getElementById('plano-id').value='';['plano-nome','plano-icone','plano-valor','plano-limite','plano-categorias','plano-prioridade','plano-comissao','plano-selo'].forEach(id=>{const el=document.getElementById(id);if(el)el.value='';});document.getElementById('plano-icone').value='fas fa-star';document.getElementById('plano-cor').value='start';document.getElementById('plano-destaque').value='false';}}
 function fecharModalPlano(){document.getElementById('modal-plano').classList.remove('active');}
 function salvarPlano(){const id=document.getElementById('plano-id').value||'plano'+Date.now();const nome=document.getElementById('plano-nome').value.trim();const icone=document.getElementById('plano-icone').value.trim();const valor=parseFloat(document.getElementById('plano-valor').value);const limite=parseInt(document.getElementById('plano-limite').value);const categorias=parseInt(document.getElementById('plano-categorias').value);const prioridade=parseInt(document.getElementById('plano-prioridade').value);const comissao=parseInt(document.getElementById('plano-comissao').value)||0;const selo=document.getElementById('plano-selo').value.trim();const cor=document.getElementById('plano-cor').value;const destaque=document.getElementById('plano-destaque').value==='true';if(!nome||!valor)return showNotification('Preencha!','warning');const idx=planos.findIndex(p=>p.id===id);const pd={id,nome,icone,valor,limiteSolicitacoes:limite,categorias,prioridade,comissao,selo,cor,destaque};if(idx>=0)planos[idx]=pd;else planos.push(pd);saveData();fecharModalPlano();renderPlanos();showNotification('✅ Plano salvo!');}
@@ -403,7 +475,6 @@ renderDash();
 renderGrafico();
 renderPlanos();
 
-// Verificar resgates pendentes a cada 30s
 setInterval(() => {
     const pendentes = resgates.filter(r => r.status === 'pendente').length;
     if(pendentes > 0) {
